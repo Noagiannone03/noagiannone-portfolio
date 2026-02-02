@@ -33,7 +33,7 @@ const emailApp = {
     close_window(emailApp.window, emailApp.point)  // Ne pas passer emailApp.app_name
   );
   emailApp.backfull.addEventListener("click", () =>
-    handleMinimize(emailApp.window)
+    minimizeWindow(emailApp.window, emailApp.app_name)
   );
   emailApp.full.addEventListener("click", () =>
     handleFullScreen(emailApp.window)
@@ -58,6 +58,7 @@ emailApp.form.addEventListener("submit", e => {
 
 // global z-index tracker
 let zTop = 1;
+const minimizedWindows = new Set();
 /********** ELEMENTS **********/
 const elements = {
   body: document.querySelector("body"),
@@ -209,23 +210,131 @@ finderApp.close.addEventListener("click", () =>
   close_window(finderApp.window, finderApp.point, finderApp.app_name)
 );
 finderApp.backfull.addEventListener("click", () =>
-  handleMinimize(finderApp.window)
+  minimizeWindow(finderApp.window, finderApp.opening)
 );
 finderApp.full.addEventListener("click", () =>
   handleFullScreen(finderApp.window)
 );
 // Notes app function end
 
-function handleMinimize(Minimize) {
-  Minimize.style.maxWidth = "80%";
-  Minimize.style.minWidth = "70%";
-  Minimize.style.height = "430px";
+function minimizeWindow(win, dockIcon) {
+  if (win.classList.contains('is-fullscreen')) return;
+
+  const winRect = win.getBoundingClientRect();
+  const iconRect = dockIcon.getBoundingClientRect();
+
+  // Store position for restore
+  win.dataset.minLeft = win.style.left;
+  win.dataset.minTop = win.style.top;
+  win._dockIcon = dockIcon;
+
+  // Calculate target (center of dock icon)
+  const targetX = (iconRect.left + iconRect.width / 2) - (winRect.left + winRect.width / 2);
+  const targetY = (iconRect.top + iconRect.height / 2) - (winRect.top + winRect.height / 2);
+
+  win.style.transition = 'transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.35s ease';
+  win.style.transform = `translate(${targetX}px, ${targetY}px) scale(0.01)`;
+  win.style.opacity = '0';
+  win.style.pointerEvents = 'none';
+
+  setTimeout(() => {
+    win.style.display = 'none';
+    win.style.transition = '';
+    win.style.transform = '';
+    win.style.opacity = '';
+    win.style.pointerEvents = '';
+    minimizedWindows.add(win);
+  }, 420);
 }
 
-function handleFullScreen(maximize) {
-  maximize.style.maxWidth = "95%";
-  maximize.style.minWidth = "95%";
-  maximize.style.height = "90%";
+function restoreWindow(win, dockIcon) {
+  minimizedWindows.delete(win);
+
+  const iconRect = dockIcon.getBoundingClientRect();
+  const prevLeft = parseFloat(win.dataset.minLeft) || 0;
+  const prevTop = parseFloat(win.dataset.minTop) || 0;
+
+  // Show at previous position
+  win.style.display = 'block';
+  win.style.left = win.dataset.minLeft;
+  win.style.top = win.dataset.minTop;
+
+  // Get dimensions after display
+  const winWidth = win.offsetWidth;
+  const winHeight = win.offsetHeight;
+
+  // Start from dock icon (scale 0)
+  const startX = (iconRect.left + iconRect.width / 2) - (prevLeft + winWidth / 2);
+  const startY = (iconRect.top + iconRect.height / 2) - (prevTop + winHeight / 2);
+
+  win.style.transition = 'none';
+  win.style.transform = `translate(${startX}px, ${startY}px) scale(0.01)`;
+  win.style.opacity = '0';
+
+  void win.offsetWidth; // Force reflow
+
+  win.style.transition = 'transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.2s ease';
+  win.style.transform = 'translate(0, 0) scale(1)';
+  win.style.opacity = '1';
+
+  setTimeout(() => {
+    win.style.transition = '';
+    win.style.transform = '';
+    win.style.opacity = '';
+  }, 450);
+}
+
+function handleFullScreen(win) {
+  const fsTransition = 'left 0.35s ease, top 0.35s ease, min-width 0.35s ease, max-width 0.35s ease, height 0.35s ease, border-radius 0.3s ease';
+
+  if (win.classList.contains('is-fullscreen')) {
+    // Restore from fullscreen
+    win.classList.remove('is-fullscreen');
+    win.style.transition = fsTransition;
+    win.style.left = win.dataset.fsLeft;
+    win.style.top = win.dataset.fsTop;
+    win.style.minWidth = win.dataset.fsMinWidth;
+    win.style.maxWidth = win.dataset.fsMaxWidth;
+    win.style.height = win.dataset.fsHeight;
+
+    setTimeout(() => {
+      win.style.position = '';
+      win.style.transition = '';
+    }, 380);
+  } else {
+    if (minimizedWindows.has(win)) return;
+
+    const rect = win.getBoundingClientRect();
+
+    // Store current state
+    win.dataset.fsLeft = rect.left + 'px';
+    win.dataset.fsTop = rect.top + 'px';
+    win.dataset.fsMinWidth = rect.width + 'px';
+    win.dataset.fsMaxWidth = rect.width + 'px';
+    win.dataset.fsHeight = rect.height + 'px';
+
+    // Switch to fixed at current visual position (no transition)
+    win.style.transition = 'none';
+    win.style.position = 'fixed';
+    win.style.left = rect.left + 'px';
+    win.style.top = rect.top + 'px';
+    win.style.minWidth = rect.width + 'px';
+    win.style.maxWidth = rect.width + 'px';
+    win.style.height = rect.height + 'px';
+
+    void win.offsetWidth; // Force reflow
+
+    // Animate to fullscreen
+    win.style.transition = fsTransition;
+    win.style.left = '0';
+    win.style.top = '0';
+    win.style.minWidth = '100%';
+    win.style.maxWidth = '100%';
+    win.style.height = '100%';
+    win.classList.add('is-fullscreen');
+
+    setTimeout(() => { win.style.transition = ''; }, 380);
+  }
 }
 
 function close_window(close, point, appName) {
@@ -242,6 +351,10 @@ const maxOffset = 100; // Décalage maximum avant de revenir à zéro
 function open_window(open, point, appName) {
   // Amener cette fenêtre au premier plan
   open.style.zIndex = ++zTop;
+  if (minimizedWindows.has(open)) {
+    restoreWindow(open, open._dockIcon);
+    return;
+  }
   elements.navbar.style.display = "flex";
   open.style.display = "block";
   launchpad.container.style.display = "flex";
@@ -333,10 +446,10 @@ handleopen_spotlight();
 handleOpenLaunching();
 notesApp.adding.addEventListener("click", handleAdding);
 calculatorApp.backfull.addEventListener("click", () =>
-  handleMinimize(terminalApp.window)
+  minimizeWindow(calculatorApp.window, calculatorApp.opening)
 );
 notesApp.backfull.addEventListener("click", () =>
-  handleMinimize(notesApp.window)
+  minimizeWindow(notesApp.window, notesApp.opening)
 );
 terminalApp.close.addEventListener("click", () =>
   close_window(terminalApp.window, terminalApp.point, terminalApp.app_name)
@@ -348,9 +461,12 @@ mapsApp.close.addEventListener("click", () =>
   close_window(mapsApp.window, mapsApp.point, mapsApp.app_name)
 );
 finderApp.close.addEventListener("click", () =>
-  close_window(finderApp.window, finderApp.point, App.app_name)
+  close_window(finderApp.window, finderApp.point, finderApp.app_name)
 );
 notesApp.deleting.addEventListener("click", handleDeleting);
+terminalApp.backfull.addEventListener("click", () =>
+  minimizeWindow(terminalApp.window, terminalApp.opening)
+);
 terminalApp.full.addEventListener("click", () =>
   handleFullScreen(terminalApp.window)
 );
@@ -386,11 +502,11 @@ vscodeApp.close.addEventListener("click", () =>
   close_window(vscodeApp.window, vscodeApp.point, vscodeApp.app_name)
 );
 vscodeApp.backfull.addEventListener("click", () =>
-  handleMinimize(vscodeApp.window)
+  minimizeWindow(vscodeApp.window, vscodeApp.opening)
 );
 
 mapsApp.backfull.addEventListener("click", () =>
-  handleMinimize(mapsApp.window)
+  minimizeWindow(mapsApp.window, mapsApp.opening)
 );
 calculatorApp.close.addEventListener("click", () =>
   close_window(
@@ -650,7 +766,7 @@ const calculateBattery = () => {
   navigator
     .getBattery()
     .then(function (battery) {
-      number = battery.level * 100;
+      number = Math.round(battery.level * 100);
 
       batteryIsCharging = battery.charging;
       battery.addEventListener("chargingchange", function () {
@@ -672,9 +788,18 @@ const calculateBattery = () => {
     });
 };
 
-elements.batteryButton.addEventListener("click", () => {
+elements.batteryButton.addEventListener("click", (e) => {
+  e.stopPropagation();
   elements.batteryPopup.classList.toggle("opened");
   elements.batteryButton.classList.toggle("selected");
+});
+
+// Close battery popup when clicking outside
+document.addEventListener("click", (e) => {
+  if (!elements.batteryButton.contains(e.target) && !elements.batteryPopup.contains(e.target)) {
+    elements.batteryPopup.classList.remove("opened");
+    elements.batteryButton.classList.remove("selected");
+  }
 });
 /********** End Battery **********/
 
@@ -702,7 +827,7 @@ editorApp.close.addEventListener("click", () =>
   close_window(editorApp.window, editorApp.point, editorApp.app_name)
 );
 editorApp.backfull.addEventListener("click", () =>
-  handleMinimize(editorApp.window)
+  minimizeWindow(editorApp.window, editorApp.app_name)
 );
 editorApp.full.addEventListener("click", () =>
   handleFullScreen(editorApp.window)
@@ -752,7 +877,7 @@ safariApp.close.addEventListener("click", () =>
 );
 
 safariApp.backfull.addEventListener("click", () =>
-  handleMinimize(safariApp.window)
+  minimizeWindow(safariApp.window, safariApp.app_name)
 );
 
 safariApp.full.addEventListener("click", () =>
@@ -819,7 +944,7 @@ parametresApp.close.addEventListener("click", () =>
 );
 
 parametresApp.backfull.addEventListener("click", () =>
-  handleMinimize(parametresApp.window)
+  minimizeWindow(parametresApp.window, parametresApp.app_name)
 );
 
 parametresApp.full.addEventListener("click", () =>

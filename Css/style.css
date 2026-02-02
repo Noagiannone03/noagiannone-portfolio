@@ -713,6 +713,12 @@ li > .menu__container > .grid__controling .control_center--grid {
   touch-action: none;
 }
 
+.window.is-fullscreen {
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  border: none !important;
+}
+
 /* Responsive adjustments */
 @media (max-width: 768px) {
   .window {
