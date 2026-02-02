@@ -668,6 +668,56 @@ li > .menu__container > .grid__controling .control_center--grid {
   filter: brightness(0.6) drop-shadow(0 0 10px #2c2c2c);
 }
 
+/* Minimized window thumbnails in dock */
+.dock .icon.dock-minimized {
+  margin: 0 4px;
+}
+
+.dock .icon.dock-minimized::after {
+  display: none;
+}
+
+.dock-minimized__preview {
+  width: 3rem;
+  height: 2.25rem;
+  border-radius: 4px;
+  background: #1e1e2e;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transform: translateY(-2.5px);
+  transition: transform 0.2s ease;
+}
+
+.dock .icon.dock-minimized:hover .dock-minimized__preview {
+  transform: translateY(-22px) scale(1.2);
+}
+
+.dock-minimized__dots {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  padding: 2px 4px;
+  background: rgba(255, 255, 255, 0.07);
+  flex-shrink: 0;
+}
+
+.dock-minimized__dot {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+}
+
+.dock-minimized__dot--r { background: #ff5f56; }
+.dock-minimized__dot--y { background: #ffbd2e; }
+.dock-minimized__dot--g { background: #27c93f; }
+
+.dock-minimized__body {
+  flex: 1;
+  background: #16162a;
+}
+
 /* Add this media query for mobile devices */
 @media screen and (max-width: 768px) {
   .dock .icon img {
