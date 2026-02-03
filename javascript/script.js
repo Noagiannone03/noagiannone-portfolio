@@ -1105,13 +1105,15 @@ document.addEventListener('DOMContentLoaded', function () {
     point: document.getElementById("point-safari"),
     back: document.querySelector(".safari-back"),
     forward: document.querySelector(".safari-forward"),
+    home: document.querySelector(".safari-home"),
     reload: document.querySelector(".safari-reload"),
     addressBar: document.querySelector(".safari-url"),
     loadingBar: document.querySelector(".safari-loading-bar"),
     content: document.querySelector(".safari-content"),
     pinnedTabs: document.querySelectorAll(".safari-pinned-tab"),
     pages: document.querySelectorAll(".safari-page"),
-    currentPage: "home"
+    currentPage: "home",
+    history: ["home"]
   };
 
   // Ouvrir/fermer la fenêtre Safari
@@ -1132,8 +1134,13 @@ document.addEventListener('DOMContentLoaded', function () {
   );
 
   // Safari Page Switching
-  function switchSafariPage(pageName) {
+  function switchSafariPage(pageName, addToHistory = true) {
     if (pageName === safariApp.currentPage) return;
+
+    // Add to history if needed
+    if (addToHistory) {
+      safariApp.history.push(pageName);
+    }
 
     // Update tabs (if applicable)
     safariApp.pinnedTabs.forEach(tab => {
