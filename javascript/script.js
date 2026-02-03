@@ -1111,7 +1111,7 @@ document.addEventListener('DOMContentLoaded', function () {
     content: document.querySelector(".safari-content"),
     pinnedTabs: document.querySelectorAll(".safari-pinned-tab"),
     pages: document.querySelectorAll(".safari-page"),
-    currentPage: "histoire"
+    currentPage: "home"
   };
 
   // Ouvrir/fermer la fenêtre Safari
@@ -1135,9 +1135,13 @@ document.addEventListener('DOMContentLoaded', function () {
   function switchSafariPage(pageName) {
     if (pageName === safariApp.currentPage) return;
 
-    // Update tabs
+    // Update tabs (if applicable)
     safariApp.pinnedTabs.forEach(tab => {
-      tab.classList.toggle("active", tab.dataset.page === pageName);
+      if(tab.dataset.page === pageName) {
+        tab.classList.add("active");
+      } else {
+        tab.classList.remove("active");
+      }
     });
 
     // Show loading animation
@@ -1170,6 +1174,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
       const newPage = document.querySelector(`.safari-page-${pageName}`);
       if (newPage) {
+        newPage.style.display = "flex"; // Ensure flex display for height fix
+        // Force reflow
+        void newPage.offsetWidth; 
         newPage.classList.add("active");
         newPage.style.opacity = "1";
       }
@@ -1189,12 +1196,16 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   });
 
-  // Favorites grid click handlers (on start page)
-  document.querySelectorAll(".favorite-item").forEach(item => {
-    item.addEventListener("click", (e) => {
+  // Unified Safari Content Click Handler (Favorites, Suggestions, Articles)
+  const safariContent = document.querySelector(".safari-content");
+  if (safariContent) {
+    safariContent.addEventListener("click", (e) => {
+      const clickable = e.target.closest("[data-goto], [data-external]");
+      if (!clickable) return;
+      
       e.preventDefault();
-      const gotoPage = item.dataset.goto;
-      const externalLink = item.dataset.external;
+      const gotoPage = clickable.dataset.goto;
+      const externalLink = clickable.dataset.external;
       
       if (gotoPage) {
         switchSafariPage(gotoPage);
@@ -1202,7 +1213,7 @@ document.addEventListener('DOMContentLoaded', function () {
         window.open(externalLink, "_blank");
       }
     });
-  });
+  }
 
   // Navigation buttons
   safariApp.back.addEventListener("click", () => {
