@@ -3369,7 +3369,7 @@ li > .menu__container > .grid__controling .control_center--grid {
 }
 
 .safari-bg-overlay {
-  position: fixed; /* Keep background fixed while scrolling */
+  position: absolute;
   top: 0;
   left: 0;
   right: 0;
@@ -3377,7 +3377,7 @@ li > .menu__container > .grid__controling .control_center--grid {
   background: url('../images/safari-bg.png') no-repeat center center;
   background-size: cover;
   filter: brightness(0.6) saturate(1.2);
-  z-index: 1;
+  z-index: 0;
 }
 
 .startpage-content-wrapper {
