@@ -107,9 +107,9 @@ document.addEventListener('DOMContentLoaded', function () {
   const calculatorApp = {
     app_name: document.querySelector("#calculator"),
     window: document.querySelector(".calculator"),
-    full: document.querySelector(".full"),
+    full: document.querySelector(".min-cal"),
     close: document.querySelector(".close-cal"),
-    backfull: document.querySelector(".min-cal"),
+    backfull: document.querySelector(".max-cal"),
     point: document.querySelector("#point-cal"),
     opening: document.querySelector('.open-cal'),
     opening_l: document.querySelector(".open-cal-lunching")
@@ -536,6 +536,9 @@ document.addEventListener('DOMContentLoaded', function () {
   calculatorApp.backfull.addEventListener("click", () =>
     minimizeWindow(calculatorApp.window, calculatorApp.opening)
   );
+  calculatorApp.full.addEventListener("click", () =>
+    handleFullScreen(calculatorApp.window)
+  );
   notesApp.backfull.addEventListener("click", () =>
     minimizeWindow(notesApp.window, notesApp.opening)
   );
@@ -778,6 +781,115 @@ document.addEventListener('DOMContentLoaded', function () {
       b.addEventListener('touchstart', e => e.stopPropagation(), { passive: false });
       b.addEventListener('click', e => { e.stopPropagation(); /* closeWin(win.id); */ });
       b.addEventListener('touchend', e => { e.stopPropagation(); /* closeWin(win.id); */ });
+    });
+  });
+
+  // Window resize functionality
+  function addResizeHandles(win) {
+    const directions = ['n', 's', 'e', 'w', 'ne', 'nw', 'se', 'sw'];
+    directions.forEach(dir => {
+      const handle = document.createElement('div');
+      handle.className = `resize-handle resize-handle-${dir}`;
+      win.appendChild(handle);
+    });
+  }
+
+  wins.forEach(win => addResizeHandles(win));
+
+  wins.forEach(win => {
+    const handles = win.querySelectorAll('.resize-handle');
+    const minWidth = 250;
+    const minHeight = 200;
+
+    handles.forEach(handle => {
+      let resizing = false;
+      let startX, startY, startWidth, startHeight, startLeft, startTop;
+      let direction = '';
+
+      const getDirection = (el) => {
+        const classes = el.className.split(' ');
+        for (const cls of classes) {
+          if (cls.startsWith('resize-handle-') && cls !== 'resize-handle') {
+            return cls.replace('resize-handle-', '');
+          }
+        }
+        return '';
+      };
+
+      const startResize = (e) => {
+        if (win.classList.contains('is-fullscreen')) return;
+        e.preventDefault();
+        e.stopPropagation();
+        resizing = true;
+        direction = getDirection(handle);
+        win.style.zIndex = ++zTop;
+
+        const ev = e.touches ? e.touches[0] : e;
+        startX = ev.clientX;
+        startY = ev.clientY;
+        startWidth = win.offsetWidth;
+        startHeight = win.offsetHeight;
+        startLeft = win.offsetLeft;
+        startTop = win.offsetTop;
+
+        document.body.style.cursor = getComputedStyle(handle).cursor;
+        document.body.style.userSelect = 'none';
+      };
+
+      const doResize = (e) => {
+        if (!resizing) return;
+        e.preventDefault();
+
+        const ev = e.touches ? e.touches[0] : e;
+        const dx = ev.clientX - startX;
+        const dy = ev.clientY - startY;
+
+        let newWidth = startWidth;
+        let newHeight = startHeight;
+        let newLeft = startLeft;
+        let newTop = startTop;
+
+        if (direction.includes('e')) {
+          newWidth = Math.max(minWidth, startWidth + dx);
+        }
+        if (direction.includes('w')) {
+          const potentialWidth = startWidth - dx;
+          if (potentialWidth >= minWidth) {
+            newWidth = potentialWidth;
+            newLeft = startLeft + dx;
+          }
+        }
+        if (direction.includes('s')) {
+          newHeight = Math.max(minHeight, startHeight + dy);
+        }
+        if (direction.includes('n')) {
+          const potentialHeight = startHeight - dy;
+          if (potentialHeight >= minHeight) {
+            newHeight = potentialHeight;
+            newTop = startTop + dy;
+          }
+        }
+
+        win.style.minWidth = newWidth + 'px';
+        win.style.maxWidth = newWidth + 'px';
+        win.style.height = newHeight + 'px';
+        win.style.left = newLeft + 'px';
+        win.style.top = newTop + 'px';
+      };
+
+      const endResize = () => {
+        resizing = false;
+        document.body.style.cursor = '';
+        document.body.style.userSelect = '';
+      };
+
+      handle.addEventListener('mousedown', startResize);
+      document.addEventListener('mousemove', doResize);
+      document.addEventListener('mouseup', endResize);
+
+      handle.addEventListener('touchstart', startResize, { passive: false });
+      document.addEventListener('touchmove', doResize, { passive: false });
+      document.addEventListener('touchend', endResize);
     });
   });
 

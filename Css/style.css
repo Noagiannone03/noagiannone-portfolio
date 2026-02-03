@@ -63,16 +63,15 @@ body {
   position: fixed;
   top: 0;
   left: 0;
-  background: rgba(255, 255, 255, 0.25); /* Plus opaque pour la lisibilité */
-  backdrop-filter: blur(25px) saturate(200%); /* Blur et saturation augmentés pour le relief */
-  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
-  display: flex;
+  color: var(--color-white-900);
+  box-shadow: 0 2px 10px var(--color-black-100);
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(12px);  display: flex;
   align-items: center;
   justify-content: space-between;
   color:#fff;
-  z-index: 200;
+  z-index: 20;
   animation: top-to-bottom 0.3s;
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1); /* Légère ombre pour détacher de l'arrière-plan */
 }
 
 .navbar > ul {
@@ -93,45 +92,6 @@ body {
 
 .navbar .leftLi.logo img {
   transform: translateY(1px);
-  cursor: pointer;
-}
-
-.navbar .leftLi.logo ul {
-  display: none;
-  position: absolute;
-  top: 100%;
-  left: 0;
-  width: 250px;
-  background: rgba(255, 255, 255, 0.15);
-  backdrop-filter: blur(30px) saturate(180%);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 12px;
-  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
-  padding: 8px 0;
-  z-index: 1000;
-}
-
-.navbar .leftLi.logo:hover ul,
-.navbar .leftLi.logo.active ul {
-  display: block;
-}
-
-.navbar .leftLi.logo ul li {
-  padding: 6px 16px;
-  width: 100%;
-  box-sizing: border-box;
-}
-
-.navbar .leftLi.logo ul li:hover {
-  background: var(--color-blue-800);
-}
-
-.navbar .leftLi.logo ul li button {
-  color: #fff;
-  font-size: 14px;
-  width: 100%;
-  text-align: left;
-  cursor: pointer;
 }
 
 .navbar svg {
@@ -170,20 +130,9 @@ li.app_name {
   transform: translateY(1px) scale(0.8) !important;
 }
 
-.navbar__right .clock {
-  display: flex !important;
-  align-items: center;
-  cursor: pointer;
-}
-
 .navbar__right .clock #clock {
-  margin-left: 5px;
+  margin-left: 15px;
   margin-right: 15px;
-  font-weight: 500;
-}
-
-.navbar__right .clock #date {
-  font-weight: 500;
 }
 
 .navbar__right li .control-center {
@@ -262,17 +211,18 @@ li.app_name {
 
 .navbar__right .battery__popup {
   position: absolute;
-  top: calc(100% + 10px);
+  top: calc(100% + 6px);
   right: 0;
   opacity: 0;
-  width: 240px;
+  width: 220px;
   transition: all ease-out 0.2s;
-  padding: 8px;
-  background: rgba(255, 255, 255, 0.15);
+  padding: 4px;
+  background: rgba(0, 0, 0, 0.1);
   border: 1px solid rgba(255, 255, 255, 0.2);
-  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
-  backdrop-filter: blur(30px) saturate(180%);
-  border-radius: 12px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+  -webkit-backdrop-filter: blur(60px);
+  backdrop-filter: blur(60px);
+  border-radius: 8px;
 }
 
 .navbar__right .battery__popup.opened {
@@ -332,19 +282,18 @@ li.app_name {
 li > ul {
   display: none;
   position: absolute;
-  align-items: stretch;
+  align-items: center;
   flex-direction: column;
   left: 0;
-  top: calc(100% + 5px);
-  font-weight: 500;
-  padding: 5px;
-  min-width: 220px;
-  background: rgba(255, 255, 255, 0.15);
-  backdrop-filter: blur(30px) saturate(180%);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 12px;
-  box-shadow: 0 15px 35px rgba(0,0,0,0.3);
-  z-index: 1000;
+  top: 100%;
+  margin-top: 1px;
+  font-weight: 600;
+  padding: 4px;
+  min-width: 200px;
+  background: var(--color-white-400);
+  backdrop-filter: blur(11px);
+  border-radius: 5px;
+  box-shadow: 0 2px 7px rgba(0, 0, 0, 0.363);
 }
 
 li:hover > ul {
@@ -393,18 +342,17 @@ li > .menu__container {
   display: none;
   position: absolute;
   width: 380px;
-  border-radius: 18px;
-  top: calc(100% + 10px);
-  right: 10px;
-  height: auto; /* Permettre au contenu de dicter la hauteur si besoin */
-  max-height: 85vh;
-  background-color: rgba(255, 255, 255, 0.15);
-  backdrop-filter: blur(30px) saturate(180%);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+  border-radius: 20px;
+  top: 100%;
+  right: 50%;
+  height: 24rem;
+  transform: translateX(50%);
+  background-color: rgba(224, 222, 222, 0.349);
+  backdrop-filter: blur(11px);
+  border: 1px solid rgba(70, 50, 77, 0.308);
+  box-shadow: 0 7px 15px rgba(26, 26, 26, 0.24);
   overflow: hidden;
-  padding: 20px;
-  z-index: 1000;
+  padding: 15px;
 }
 
 li:hover .menu__container {
@@ -798,27 +746,109 @@ li > .menu__container > .grid__controling .control_center--grid {
 
 .window {
   display: none;
-  flex-direction: column; /* Ensure children stack vertically */
-  position:absolute;
+  position: absolute;
   min-width: 60%;
   max-width: 80%;
-  height: 520px; /* Slightly increased default height */
+  height: 520px;
   transform-origin: center center;
   will-change: transform, opacity;
   overflow: hidden;
-  border-radius: 1.2rem;
+  border-radius: 1rem;
   background: transparent;
   box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
   border: 1px solid rgba(255, 255, 255, 0.2);
   backdrop-filter: blur(20px);
   z-index: 10;
-  touch-action: none;
 }
 
 .window.is-fullscreen {
   border-radius: 0 !important;
   box-shadow: none !important;
   border: none !important;
+  z-index: 99999 !important;
+}
+
+.window.is-fullscreen .window__taskbar {
+  z-index: 100000 !important;
+}
+
+.window.is-fullscreen .window__taskbar--actions {
+  z-index: 100001 !important;
+}
+
+.window.is-fullscreen .window__taskbar--actions button {
+  z-index: 100002 !important;
+  pointer-events: auto !important;
+}
+
+.window.is-fullscreen .resize-handle {
+  display: none !important;
+}
+
+/* Window resize handles */
+.resize-handle {
+  position: absolute;
+  z-index: 10;
+}
+
+.resize-handle-n {
+  top: 0;
+  left: 80px;
+  right: 10px;
+  height: 5px;
+  cursor: n-resize;
+}
+
+.resize-handle-s {
+  bottom: 0;
+  left: 10px;
+  right: 10px;
+  height: 5px;
+  cursor: s-resize;
+}
+
+.resize-handle-e {
+  top: 50px;
+  right: 0;
+  bottom: 10px;
+  width: 5px;
+  cursor: e-resize;
+}
+
+.resize-handle-w {
+  top: 50px;
+  left: 0;
+  bottom: 10px;
+  width: 5px;
+  cursor: w-resize;
+}
+
+.resize-handle-ne {
+  top: 0;
+  right: 0;
+  width: 10px;
+  height: 10px;
+  cursor: ne-resize;
+}
+
+.resize-handle-nw {
+  display: none;
+}
+
+.resize-handle-se {
+  bottom: 0;
+  right: 0;
+  width: 12px;
+  height: 12px;
+  cursor: se-resize;
+}
+
+.resize-handle-sw {
+  bottom: 0;
+  left: 0;
+  width: 12px;
+  height: 12px;
+  cursor: sw-resize;
 }
 
 /* Responsive adjustments */
@@ -834,13 +864,14 @@ li > .menu__container > .grid__controling .control_center--grid {
 
 .window__taskbar {
   height: 45px;
-  flex-shrink: 0;
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 0 16px;
   background-color: var(--app-color-white);
-  position: relative; /* Container for absolute centered title */
+  position: relative;
+  touch-action: none;
+  cursor: grab;
 }
 
 .Vscode .window__taskbar {
@@ -851,43 +882,41 @@ li > .menu__container > .grid__controling .control_center--grid {
   background: #2a2a2a;
   color: white;
 }
-/* Base style for hover symbols on ANY taskbar or window header */
-.window__taskbar:hover button::after,
-.window-header:hover button::after {
-  color: rgba(0, 0, 0, 0.6) !important;
-}
-
 .window__taskbar--actions {
   display: flex;
   align-items: center;
   position: relative;
-  z-index: 1000; /* Ensure the whole control group is above the taskbar background */
+  z-index: 1000;
 }
 
-/* Specific isolation for icons in some windows */
+.window__taskbar:hover button::after,
+.window__taskbar--actions:hover button::after {
+  color: rgba(0, 0, 0, 0.6) !important;
+}
+
 .window__taskbar--actions button::after {
-  pointer-events: none; /* Icons shouldn't steal clicks from the hit-target buffer */
+  pointer-events: none;
 }
 
 .window__taskbar--actions button {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 22px; /* Standard macOS hit target size */
+  width: 22px;
   height: 22px;
   padding: 0;
-  border: 5px solid transparent; /* Invisible buffer */
-  background-clip: content-box; /* Color restricted to the center */
+  border: 5px solid transparent;
+  background-clip: content-box;
   border-radius: 50%;
   transition: 0.2s;
   cursor: pointer !important;
   position: relative;
-  z-index: 100; /* Above the taskbar surface */
-  margin-right: 2px;
+  z-index: 1001;
+  pointer-events: auto !important;
 }
 
 .window__taskbar--actions button:not(:last-child) {
-  margin-right: 0; /* Gap handled by borders */
+  margin-right: 0;
 }
 
 .window__taskbar--actions button:nth-child(1) {
@@ -944,15 +973,16 @@ li > .menu__container > .grid__controling .control_center--grid {
   display: flex;
   align-items: center;
   justify-content: center;
-  pointer-events: none; /* Title should not steal clicks or drag start */
+  pointer-events: none;
   width: auto;
   white-space: nowrap;
+  z-index: 1;
 }
 
 .window__taskbar--content h2 {
   color: var(--color-black);
   font-weight: 600;
-  font-size: 14px; /* More modern/compact size */
+  font-size: 14px;
   margin: 0;
 }
 
@@ -988,12 +1018,13 @@ li > .menu__container > .grid__controling .control_center--grid {
 }
 
 .window__taskbar--right {
-  width: 60%;
+  flex: 1;
   height: 100%;
   background-color: transparent;
   display: flex;
   align-items: center;
-  justify-content: space-around;
+  justify-content: flex-end;
+  gap: 10px;
 }
 
 @media screen and (max-width: 900px) {
@@ -1142,21 +1173,21 @@ li > .menu__container > .grid__controling .control_center--grid {
 }
 
 .spotlight_serach {
-  width: 450px;
-  height: 55px;
+  width: 400px;
+  height: 50px;
   display: flex;
   align-items: center;
   position: absolute;
   top: 30%;
   left: 50%;
   transform: translateX(-50%) translateY(-50%);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  border: 1px solid var(--color-white-100);
   justify-content: start;
-  border-radius: 12px;
-  background-color: rgba(255, 255, 255, 0.15);
-  backdrop-filter: blur(25px) saturate(180%);
-  z-index: 9999; /* Always on top */
-  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+  border-radius: 8px;
+  background-color: transparent;
+  backdrop-filter: blur(10px);
+  z-index: 10;
+  box-shadow: 0 10px 10px rgba(37, 37, 37, 0.137);
 }
 .spotlight_serach svg {
   margin-left: 10px;
@@ -1353,12 +1384,11 @@ li > .menu__container > .grid__controling .control_center--grid {
 }
 
 .calculator {
-  position: absolute; /* Add explicit position just in case */
   display: none;
   width: 20rem;
   max-width: 100%;
-  height: 30rem; /* Increased height */
-  max-height: 90%;
+  height: 25rem;
+  max-height: 80%;
   background: var(--color-black-500);
   backdrop-filter: blur(1rem);
   border-radius: 1rem;
@@ -1369,102 +1399,77 @@ li > .menu__container > .grid__controling .control_center--grid {
 
 .calculator__top {
   width: 100%;
-  height: 35%; /* Increased height slightly */
+  height: 30%;
   display: flex;
   flex-direction: column;
-  padding-bottom: 5px;
 }
 
-.calculator .window__taskbar {
-  height: 30px;
-  padding: 0 8px; 
+.calculator__top--taskabr {
+  height: 40px;
+  padding: 0 2px;
   display: flex;
   align-items: center;
-  justify-content: flex-start !important; 
-  gap: 0; /* Gap handled by button invisible borders */
-  background: transparent;
 }
 
-.calculator__formula {
-  height: 20px;
-  padding: 0 15px;
-  text-align: right;
-  font-size: 13px;
-  color: rgba(255, 255, 255, 0.5);
-  font-family: -apple-system, sans-serif;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.calculator .window__taskbar button {
+.calculator__top--taskabr button {
   position: relative;
-  width: 24px; /* Larger clickable area */
-  height: 24px;
-  padding: 0;
-  border: 6px solid transparent; /* Invisible buffer */
-  background-clip: content-box; /* Color only in the center */
+  width: 1px;
+  height: 1px;
+  padding: 8px;
   border-radius: 50%;
-  margin: 0;
+  margin-left: 8px;
   transition: 0.4s;
   display: flex;
   align-items: center;
   justify-content: center;
-  cursor: pointer;
-  box-sizing: border-box;
-  box-shadow: none; /* Reset distinct shadows if any */
 }
 
-.calculator .window__taskbar button:nth-child(1) {
+.calculator__top--taskabr button:nth-child(1) {
   background-color: #ff6059;
 }
 
-.calculator .window__taskbar button:nth-child(1):hover {
+.calculator__top--taskabr button:nth-child(1):hover {
   background-color: #fc3c32;
 }
 
-.calculator .window__taskbar button:nth-child(2) {
+.calculator__top--taskabr button:nth-child(2) {
   background-color: #ffbd2e;
 }
 
-.calculator .window__taskbar button:nth-child(2):hover {
+.calculator__top--taskabr button:nth-child(2):hover {
   background-color: #ffa600;
 }
 
-.calculator .window__taskbar button:nth-child(3) {
+.calculator__top--taskabr button:nth-child(3) {
   background-color: #28c941;
 }
 
-.calculator .window__taskbar button:nth-child(3):hover {
+.calculator__top--taskabr button:nth-child(3):hover {
   background-color: #12aa29;
 }
 
-.calculator .window__taskbar button::after {
+.calculator__top--taskabr button::after {
   display: block;
   font-size: 14px;
   color: transparent;
   font-weight: 900;
-  position: absolute; /* Needed for specific positioning if flex fails */
+  position: absolute;
 }
 
-.calculator .window__taskbar:hover button::after {
-  color: rgba(0, 0, 0, 0.6); /* Standard macOS icon color */
+.calculator__top--taskabr:hover button::after {
+  color: #000;
 }
 
-.calculator .window__taskbar button:nth-child(1)::after {
+.calculator__top--taskabr button:nth-child(1)::after {
   content: "×";
-  top: -1px; /* Micro-adjustment for visual centering */
 }
 
-.calculator .window__taskbar button:nth-child(2)::after {
+.calculator__top--taskabr button:nth-child(2)::after {
   content: "−";
-  top: -1px;
 }
 
-.calculator .window__taskbar button:nth-child(3)::after {
-  content: "⤡"; 
-  font-size: 12px;
-  top: 0;
+.calculator__top--taskabr button:nth-child(3)::after {
+  content: "⤡";
 }
 
 .calculator__top--output {
@@ -1520,16 +1525,14 @@ li > .menu__container > .grid__controling .control_center--grid {
 }
 
 .context-menu {
-  padding: 6px;
+  padding: 0 3px;
   position: absolute;
-  border-radius: 12px;
-  text-align: left;
-  background: rgba(255, 255, 255, 0.15);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-  backdrop-filter: blur(30px) saturate(180%);
+  border-radius: 7px;
+  text-align: center;
+  background: rgba(255, 255, 255, 0.219);
+  border: 1px solid rgba(255, 255, 255, 0.281);
   overflow: hidden;
-  z-index: 99999;
+  backdrop-filter: blur(15px);
 }
 
 .context-menu ul {
@@ -2330,10 +2333,10 @@ li > .menu__container > .grid__controling .control_center--grid {
 /* Editor amélioré */
 /* Editor Modernisé - Style Hyper-Réaliste "Pages / Word" */
 .editor-content {
-  flex: 1; /* Take remaining space in .window */
   display: flex;
   flex-direction: column;
   background: #f5f5f7;
+  height: calc(100% - 28px);
   border-radius: 0 0 10px 10px;
   overflow: hidden;
   position: relative;
