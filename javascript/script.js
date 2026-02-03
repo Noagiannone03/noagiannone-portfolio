@@ -79,6 +79,16 @@ document.addEventListener('DOMContentLoaded', function () {
     powerSource: document.querySelector(".power-source"),
   };
 
+  /********** Spotlight Outside Click **********/
+  document.addEventListener("click", (e) => {
+    if (elements.spotlight_search && elements.spotlight_search.style.display === "flex") {
+      // Si on clique en dehors de la barre de recherche ET du bouton qui l'ouvre
+      if (!elements.spotlight_search.contains(e.target) && !elements.open_spotlight.contains(e.target)) {
+        elements.spotlight_search.style.display = "none";
+      }
+    }
+  });
+
   // Calculator App
   const calculatorApp = {
     app_name: document.querySelector("#calculator"),
@@ -179,6 +189,7 @@ document.addEventListener('DOMContentLoaded', function () {
   function handleopen_spotlight() {
     if (elements.spotlight_search.style.display === "none") {
       elements.spotlight_search.style.display = "flex";
+      elements.spotlight_search.querySelector("input").focus(); // Focus input automatically
     } else {
       elements.spotlight_search.style.display = "none";
     }

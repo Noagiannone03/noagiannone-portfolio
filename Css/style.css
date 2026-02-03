@@ -746,19 +746,19 @@ li > .menu__container > .grid__controling .control_center--grid {
 
 .window {
   display: none;
+  flex-direction: column; /* Ensure children stack vertically */
   position:absolute;
   min-width: 60%;
   max-width: 80%;
-  height: 460px;
-  /* FORCE TOUTES LES FENÊTRES AU CENTRE ET EN OVERLAP */
-  transform-origin: center center; /* Garder l'origine de la transformation au centre */
-  will-change: transform, opacity; /* Optimisation des performances */
+  height: 520px; /* Slightly increased default height */
+  transform-origin: center center;
+  will-change: transform, opacity;
   overflow: hidden;
-  border-radius: 1rem;
+  border-radius: 1.2rem;
   background: transparent;
-  box-shadow: 0 20px 30px var(--color-black-500);
-  border: 1px solid #ffffff34;
-  animation: zoom-out 0.3s;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(20px);
   z-index: 10;
   touch-action: none;
 }
@@ -781,9 +781,11 @@ li > .menu__container > .grid__controling .control_center--grid {
 }
 
 .window__taskbar {
-  height: 12%;
+  height: 45px; /* Fixed height for consistency */
+  flex-shrink: 0;
   display: flex;
   justify-content: space-between;
+  align-items: center;
   padding: 0 16px;
   background-color: var(--app-color-white);
 }
@@ -1066,21 +1068,21 @@ li > .menu__container > .grid__controling .control_center--grid {
 }
 
 .spotlight_serach {
-  width: 400px;
-  height: 50px;
+  width: 450px;
+  height: 55px;
   display: flex;
   align-items: center;
   position: absolute;
   top: 30%;
   left: 50%;
   transform: translateX(-50%) translateY(-50%);
-  border: 1px solid var(--color-white-100);
+  border: 1px solid rgba(255, 255, 255, 0.2);
   justify-content: start;
-  border-radius: 8px;
-  background-color: transparent;
-  backdrop-filter: blur(10px);
-  z-index: 10;
-  box-shadow: 0 10px 10px rgba(37, 37, 37, 0.137);
+  border-radius: 12px;
+  background-color: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(25px) saturate(180%);
+  z-index: 9999; /* Always on top */
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
 }
 .spotlight_serach svg {
   margin-left: 10px;
@@ -2226,10 +2228,10 @@ li > .menu__container > .grid__controling .control_center--grid {
 /* Editor amélioré */
 /* Editor Modernisé - Style Hyper-Réaliste "Pages / Word" */
 .editor-content {
+  flex: 1; /* Take remaining space in .window */
   display: flex;
   flex-direction: column;
   background: #f5f5f7;
-  height: calc(100% - 28px);
   border-radius: 0 0 10px 10px;
   overflow: hidden;
   position: relative;
