@@ -79,10 +79,24 @@ document.addEventListener('DOMContentLoaded', function () {
     powerSource: document.querySelector(".power-source"),
   };
 
-  /********** Spotlight Outside Click **********/
+  /********** Apple Menu Interactivity **********/
+  const appleLogo = document.querySelector(".navbar .leftLi.logo");
+  if (appleLogo) {
+    appleLogo.addEventListener("click", (e) => {
+      e.stopPropagation();
+      appleLogo.classList.toggle("active");
+    });
+  }
+
+  // Close menus when clicking outside
   document.addEventListener("click", (e) => {
+    // Apple Menu
+    if (appleLogo && !appleLogo.contains(e.target)) {
+      appleLogo.classList.remove("active");
+    }
+
+    // Spotlight (existing logic maintained below)
     if (elements.spotlight_search && elements.spotlight_search.style.display === "flex") {
-      // Si on clique en dehors de la barre de recherche ET du bouton qui l'ouvre
       if (!elements.spotlight_search.contains(e.target) && !elements.open_spotlight.contains(e.target)) {
         elements.spotlight_search.style.display = "none";
       }
@@ -724,6 +738,9 @@ document.addEventListener('DOMContentLoaded', function () {
     let drag = false, ox = 0, oy = 0;
 
     const start = e => {
+      // Prevent drag if we're clicking a button
+      if (e.target.closest('button')) return;
+
       e.preventDefault();
       drag = true;
       win.style.zIndex = ++zTop;
@@ -766,32 +783,23 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // Date and time
   const dateElement = document.getElementById("date");
-  const currentDate = new Date();
-  dateElement.innerHTML = currentDate.toDateString();
 
   function digi() {
     const date = new Date();
-    let hour = date.getHours();
-    let minute = checkTime(date.getMinutes());
 
-    function checkTime(i) {
-      if (i < 10) {
-        i = "0" + i;
-      }
-      return i;
+    // Options for French localization
+    const dateOptions = { weekday: 'short', day: 'numeric', month: 'short' };
+    const timeOptions = { hour: '2-digit', minute: '2-digit', hour12: false };
+
+    // Update Date (e.g., "mar. 3 févr.")
+    if (dateElement) {
+      dateElement.innerHTML = date.toLocaleDateString('fr-FR', dateOptions);
+      dateElement.classList.remove('hidden'); // Ensure it's visible
     }
 
-    if (hour > 12) {
-      hour = hour - 12;
-      if (hour === 12) {
-        hour = checkTime(hour);
-        elements.clockElement.innerHTML = hour + ":" + minute + " AM";
-      } else {
-        hour = checkTime(hour);
-        elements.clockElement.innerHTML = hour + ":" + minute + " PM";
-      }
-    } else {
-      elements.clockElement.innerHTML = hour + ":" + minute + " AM";
+    // Update Clock (e.g., "01:43")
+    if (elements.clockElement) {
+      elements.clockElement.innerHTML = date.toLocaleTimeString('fr-FR', timeOptions);
     }
   }
 

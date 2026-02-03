@@ -93,6 +93,45 @@ body {
 
 .navbar .leftLi.logo img {
   transform: translateY(1px);
+  cursor: pointer;
+}
+
+.navbar .leftLi.logo ul {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 250px;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(30px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 12px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+  padding: 8px 0;
+  z-index: 1000;
+}
+
+.navbar .leftLi.logo:hover ul,
+.navbar .leftLi.logo.active ul {
+  display: block;
+}
+
+.navbar .leftLi.logo ul li {
+  padding: 6px 16px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.navbar .leftLi.logo ul li:hover {
+  background: var(--color-blue-800);
+}
+
+.navbar .leftLi.logo ul li button {
+  color: #fff;
+  font-size: 14px;
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
 }
 
 .navbar svg {
@@ -794,13 +833,14 @@ li > .menu__container > .grid__controling .control_center--grid {
 }
 
 .window__taskbar {
-  height: 45px; /* Fixed height for consistency */
+  height: 45px;
   flex-shrink: 0;
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 0 16px;
   background-color: var(--app-color-white);
+  position: relative; /* Container for absolute centered title */
 }
 
 .Vscode .window__taskbar {
@@ -811,28 +851,43 @@ li > .menu__container > .grid__controling .control_center--grid {
   background: #2a2a2a;
   color: white;
 }
+/* Base style for hover symbols on ANY taskbar or window header */
+.window__taskbar:hover button::after,
+.window-header:hover button::after {
+  color: rgba(0, 0, 0, 0.6) !important;
+}
+
 .window__taskbar--actions {
   display: flex;
   align-items: center;
+  position: relative;
+  z-index: 1000; /* Ensure the whole control group is above the taskbar background */
 }
 
-.window__taskbar:hover button::after {
-  color: #000;
+/* Specific isolation for icons in some windows */
+.window__taskbar--actions button::after {
+  pointer-events: none; /* Icons shouldn't steal clicks from the hit-target buffer */
 }
 
 .window__taskbar--actions button {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 0.8rem;
-  height: 0.8rem;
-  padding: 8px;
+  width: 22px; /* Standard macOS hit target size */
+  height: 22px;
+  padding: 0;
+  border: 5px solid transparent; /* Invisible buffer */
+  background-clip: content-box; /* Color restricted to the center */
   border-radius: 50%;
-  transition: 0.4s;
+  transition: 0.2s;
+  cursor: pointer !important;
+  position: relative;
+  z-index: 100; /* Above the taskbar surface */
+  margin-right: 2px;
 }
 
 .window__taskbar--actions button:not(:last-child) {
-  margin-right: 8px;
+  margin-right: 0; /* Gap handled by borders */
 }
 
 .window__taskbar--actions button:nth-child(1) {
@@ -882,17 +937,23 @@ li > .menu__container > .grid__controling .control_center--grid {
 }
 
 .window__taskbar--content {
-  width: 100%;
-  height: 100%;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
   display: flex;
   align-items: center;
   justify-content: center;
+  pointer-events: none; /* Title should not steal clicks or drag start */
+  width: auto;
+  white-space: nowrap;
 }
 
 .window__taskbar--content h2 {
   color: var(--color-black);
   font-weight: 600;
-  font-size: 18px;
+  font-size: 14px; /* More modern/compact size */
+  margin: 0;
 }
 
 .terminal .window__taskbar,
