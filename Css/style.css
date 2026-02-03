@@ -882,6 +882,13 @@ li > .menu__container > .grid__controling .control_center--grid {
   background: #2a2a2a;
   color: white;
 }
+
+/* Safari Taskbar - fond visible */
+.safari .window__taskbar {
+  background: linear-gradient(180deg, #e8e8ea 0%, #d6d6d8 100%);
+  border-bottom: 1px solid #c5c5c7;
+  height: 32px;
+}
 .window__taskbar--actions {
   display: flex;
   align-items: center;
