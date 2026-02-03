@@ -1217,7 +1217,15 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // Navigation buttons
   safariApp.back.addEventListener("click", () => {
-    // Go back to home page
+    // Go back in history
+    if (safariApp.history.length > 1) {
+      safariApp.history.pop(); // Remove current page
+      const prevPage = safariApp.history[safariApp.history.length - 1];
+      switchSafariPage(prevPage, false); // Don't add to history
+    }
+  });
+
+  safariApp.home.addEventListener("click", () => {
     switchSafariPage("home");
   });
 
