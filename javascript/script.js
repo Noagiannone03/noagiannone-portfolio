@@ -101,6 +101,14 @@ document.addEventListener('DOMContentLoaded', function () {
     opening_l: document.querySelector(".open-cal-lunching")
   };
 
+  // Prevent dragging when clicking calculator buttons (Explicit Fix)
+  [calculatorApp.close, calculatorApp.backfull, document.querySelector(".max-cal")].forEach(btn => {
+    if (btn) {
+      btn.addEventListener('mousedown', (e) => e.stopPropagation());
+      btn.addEventListener('click', (e) => e.stopPropagation());
+    }
+  });
+
   // Notes App
   const notesApp = {
     app_name: document.querySelector("#Notes"),
@@ -593,6 +601,7 @@ document.addEventListener('DOMContentLoaded', function () {
   const calculatorButtons = document.querySelectorAll(".input button");
   // select the <input type="text" class="display" disabled> element
   const calculatorDisplay = document.querySelector(".display");
+  const calculatorFormula = document.querySelector(".calculator__formula");
 
   // --- CALCULATOR LOGIC (Advanced) ---
   let calcState = {
@@ -605,6 +614,16 @@ document.addEventListener('DOMContentLoaded', function () {
   function updateDisplay() {
     if (calculatorDisplay) {
       calculatorDisplay.value = calcState.displayValue;
+    }
+    if (calculatorFormula) {
+      if (calcState.operator && calcState.firstOperand !== null) {
+        // Un mappage pour que ce soit plus joli (ex: * devient ×)
+        const opMap = { '/': '÷', '*': '×', '+': '+', '-': '−' };
+        const opPretty = opMap[calcState.operator] || calcState.operator;
+        calculatorFormula.innerText = `${calcState.firstOperand} ${opPretty}`;
+      } else {
+        calculatorFormula.innerText = '';
+      }
     }
   }
 
@@ -1100,6 +1119,7 @@ document.addEventListener('DOMContentLoaded', function () {
   // Call the functions
   calculateBattery();
   digi();
+  setInterval(digi, 1000);
 
 
 });
