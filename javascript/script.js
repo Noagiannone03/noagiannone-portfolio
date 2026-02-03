@@ -1131,7 +1131,7 @@ document.addEventListener('DOMContentLoaded', function () {
     handleFullScreen(safariApp.window)
   );
 
-  // Safari Tab Switching
+  // Safari Page Switching
   function switchSafariPage(pageName) {
     if (pageName === safariApp.currentPage) return;
 
@@ -1141,14 +1141,19 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     // Show loading animation
-    safariApp.loadingBar.classList.add("loading");
+    if (safariApp.loadingBar) {
+      safariApp.loadingBar.classList.add("loading");
+    }
 
     // Update URL bar
     const urls = {
+      home: "",
       histoire: "noagiannone.com/mon-histoire",
       cv: "noagiannone.com/mon-cv"
     };
-    safariApp.addressBar.value = urls[pageName] || "";
+    if (safariApp.addressBar) {
+      safariApp.addressBar.value = urls[pageName] || "";
+    }
 
     // Fade out current page
     const currentPageEl = document.querySelector(".safari-page.active");
@@ -1158,8 +1163,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Switch pages after animation
     setTimeout(() => {
-      safariApp.pages.forEach(page => {
+      document.querySelectorAll(".safari-page").forEach(page => {
         page.classList.remove("active");
+        page.style.opacity = "";
       });
 
       const newPage = document.querySelector(`.safari-page-${pageName}`);
@@ -1168,9 +1174,11 @@ document.addEventListener('DOMContentLoaded', function () {
         newPage.style.opacity = "1";
       }
 
-      safariApp.loadingBar.classList.remove("loading");
+      if (safariApp.loadingBar) {
+        safariApp.loadingBar.classList.remove("loading");
+      }
       safariApp.currentPage = pageName;
-    }, 400);
+    }, 300);
   }
 
   // Pinned tabs click handlers
@@ -1181,12 +1189,25 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   });
 
+  // Favorites grid click handlers (on start page)
+  document.querySelectorAll(".favorite-item").forEach(item => {
+    item.addEventListener("click", (e) => {
+      e.preventDefault();
+      const gotoPage = item.dataset.goto;
+      const externalLink = item.dataset.external;
+      
+      if (gotoPage) {
+        switchSafariPage(gotoPage);
+      } else if (externalLink) {
+        window.open(externalLink, "_blank");
+      }
+    });
+  });
+
   // Navigation buttons
   safariApp.back.addEventListener("click", () => {
-    safariApp.content.style.opacity = "0.5";
-    setTimeout(() => {
-      safariApp.content.style.opacity = "1";
-    }, 300);
+    // Go back to home page
+    switchSafariPage("home");
   });
 
   safariApp.forward.addEventListener("click", () => {
@@ -1198,17 +1219,19 @@ document.addEventListener('DOMContentLoaded', function () {
 
   safariApp.reload.addEventListener("click", () => {
     safariApp.reload.classList.add("rotating");
-    safariApp.loadingBar.classList.add("loading");
+    if (safariApp.loadingBar) {
+      safariApp.loadingBar.classList.add("loading");
+    }
     safariApp.content.style.opacity = "0.5";
 
     setTimeout(() => {
       safariApp.content.style.opacity = "1";
       safariApp.reload.classList.remove("rotating");
-      safariApp.loadingBar.classList.remove("loading");
+      if (safariApp.loadingBar) {
+        safariApp.loadingBar.classList.remove("loading");
+      }
     }, 800);
   });
-
-
 
 
 

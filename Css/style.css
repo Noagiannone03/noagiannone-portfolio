@@ -3337,6 +3337,252 @@ li > .menu__container > .grid__controling .control_center--grid {
   border-top: 1px solid #eee;
 }
 
+/* ========================================
+   SAFARI START PAGE - BEAUTIFUL DESIGN
+   ======================================== */
+
+.safari-startpage {
+  min-height: 100%;
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+}
+
+.startpage-title,
+.startpage-section-title {
+  font-size: 12px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.5);
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  margin: 0 0 20px 0;
+  text-align: center;
+}
+
+.favorites-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  max-width: 400px;
+}
+
+.favorite-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  transition: all 0.25s ease;
+  cursor: pointer;
+}
+
+.favorite-item:hover {
+  transform: translateY(-4px);
+}
+
+.favorite-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 26px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3), inset 0 1px 1px rgba(255,255,255,0.1);
+  transition: all 0.25s ease;
+}
+
+.favorite-icon svg {
+  width: 28px;
+  height: 28px;
+}
+
+.favorite-item:hover .favorite-icon {
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.4), inset 0 1px 1px rgba(255,255,255,0.1);
+  transform: scale(1.05);
+}
+
+.favorite-label {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.8);
+  font-weight: 500;
+  text-align: center;
+}
+
+/* Icon specific backgrounds */
+.favorite-icon[style*="667eea"] {
+  background: linear-gradient(135deg, #667eea, #764ba2) !important;
+}
+
+.favorite-icon[style*="11998e"] {
+  background: linear-gradient(135deg, #11998e, #38ef7d) !important;
+}
+
+.github-icon {
+  color: white;
+}
+
+.linkedin-icon {
+  color: white;
+}
+
+/* ========================================
+   MON HISTOIRE - CLEAN DESIGN
+   ======================================== */
+
+.histoire-minimal {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 50px 40px;
+  background: #fff;
+  min-height: 100%;
+}
+
+.histoire-header {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  margin-bottom: 50px;
+  padding-bottom: 30px;
+  border-bottom: 1px solid #eee;
+}
+
+.histoire-photo {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  object-fit: cover;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.histoire-title h1 {
+  font-size: 28px;
+  font-weight: 700;
+  color: #1d1d1f;
+  margin: 0 0 6px 0;
+  letter-spacing: -0.5px;
+}
+
+.histoire-title p {
+  font-size: 15px;
+  color: #86868b;
+  margin: 0;
+}
+
+.histoire-content {
+  display: flex;
+  flex-direction: column;
+  gap: 36px;
+}
+
+.histoire-block h2 {
+  font-size: 18px;
+  font-weight: 600;
+  color: #1d1d1f;
+  margin: 0 0 14px 0;
+  letter-spacing: -0.3px;
+}
+
+.histoire-block p {
+  font-size: 15px;
+  line-height: 1.75;
+  color: #424245;
+  margin: 0 0 12px 0;
+}
+
+.histoire-block p:last-of-type:not(:only-of-type) {
+  margin-bottom: 0;
+}
+
+.histoire-photos {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-top: 18px;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.histoire-photos.triple {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.histoire-photos img {
+  width: 100%;
+  height: 140px;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.histoire-photos img:hover {
+  transform: scale(1.02);
+}
+
+.histoire-cta {
+  margin-top: 50px;
+  padding-top: 30px;
+  border-top: 1px solid #eee;
+  font-size: 15px;
+  color: #86868b;
+  text-align: center;
+}
+
+.histoire-cta a {
+  color: #0071e3;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.histoire-cta a:hover {
+  text-decoration: underline;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .safari-startpage {
+    padding: 30px 20px;
+  }
+  
+  .favorites-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    max-width: 180px;
+  }
+  
+  .favorite-icon {
+    width: 50px;
+    height: 50px;
+    font-size: 22px;
+  }
+  
+  .histoire-minimal {
+    padding: 30px 20px;
+  }
+  
+  .histoire-header {
+    flex-direction: column;
+    text-align: center;
+    gap: 16px;
+  }
+  
+  .histoire-title h1 {
+    font-size: 24px;
+  }
+  
+  .histoire-photos,
+  .histoire-photos.triple {
+    grid-template-columns: 1fr;
+  }
+  
+  .histoire-photos img {
+    height: 180px;
+  }
+}
+
+/* ======================================== */
+
 /* Responsive design */
 @media (max-width: 768px) {
   .safari-navbar {
@@ -3376,7 +3622,6 @@ li > .menu__container > .grid__controling .control_center--grid {
     flex-direction: column;
   }
 }
-
 
 /* Styles pour l'onglet Paramètres */
 .parametres-container {

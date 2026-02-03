@@ -887,107 +887,97 @@
           <!-- Contenu Safari - Pages -->
           <div class="safari-content">
 
+            <!-- PAGE: Accueil Safari (Start Page) -->
+            <div class="safari-page safari-page-home active">
+              <div class="safari-startpage">
+                <h2 class="startpage-title">Favoris</h2>
+                <div class="favorites-grid">
+                  <a href="#" class="favorite-item" data-goto="histoire">
+                    <div class="favorite-icon" style="background: linear-gradient(135deg, #667eea, #764ba2);">
+                      <span>📖</span>
+                    </div>
+                    <span class="favorite-label">Mon Histoire</span>
+                  </a>
+                  <a href="#" class="favorite-item" data-goto="cv">
+                    <div class="favorite-icon" style="background: linear-gradient(135deg, #11998e, #38ef7d);">
+                      <span>📄</span>
+                    </div>
+                    <span class="favorite-label">Mon CV</span>
+                  </a>
+                  <a href="#" class="favorite-item" data-external="https://github.com/Noagiannone03">
+                    <div class="favorite-icon" style="background: #24292e;">
+                      <span>🐙</span>
+                    </div>
+                    <span class="favorite-label">GitHub</span>
+                  </a>
+                  <a href="#" class="favorite-item" data-external="https://linkedin.com/in/noa-giannone">
+                    <div class="favorite-icon" style="background: #0077b5;">
+                      <span>💼</span>
+                    </div>
+                    <span class="favorite-label">LinkedIn</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+
             <!-- PAGE: Mon Histoire -->
-            <div class="safari-page safari-page-histoire active">
-              <div class="safari-homepage">
-                <div class="safari-hero">
-                  <h1>Bienvenue dans mon univers</h1>
-                  <div class="safari-hero-tagline">Dev le jour, voyageur toujours</div>
-                </div>
+            <div class="safari-page safari-page-histoire">
+              <div class="histoire-minimal">
+                <!-- Header -->
+                <header class="histoire-header">
+                  <img src="images/profile-noa.jpeg" alt="Noa" class="histoire-photo" />
+                  <div class="histoire-title">
+                    <h1>Noa Giannone</h1>
+                    <p>Developpeur • 22 ans • Marseille</p>
+                  </div>
+                </header>
 
-                <div class="safari-section">
-                  <div class="safari-section-header">
-                    <div class="safari-section-icon">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
-                        viewBox="0 0 16 16">
-                        <path
-                          d="M10.478 1.647a.5.5 0 1 0-.956-.294l-4 13a.5.5 0 0 0 .956.294l4-13zM4.854 4.146a.5.5 0 0 1 0 .708L1.707 8l3.147 3.146a.5.5 0 0 1-.708.708l-3.5-3.5a.5.5 0 0 1 0-.708l3.5-3.5a.5.5 0 0 1 .708 0zm6.292 0a.5.5 0 0 0 0 .708L14.293 8l-3.147 3.146a.5.5 0 0 0 .708.708l3.5-3.5a.5.5 0 0 0 0-.708l-3.5-3.5a.5.5 0 0 0-.708 0z" />
-                      </svg>
-                    </div>
-                    <h2>Le code, c'est mon truc</h2>
-                  </div>
-                  <div class="safari-section-content">
-                    <p>A 10 ans, j'ai recu mon premier PC. Un truc magique. J'ai passe des heures a fouiner dans les
-                      menus, a casser des trucs, a les reparer. Petit a petit, j'ai compris que derriere chaque clic, y
-                      avait du code. Et ca m'a fascine.</p>
-                    <p>Le declic, c'est mon cousin en Espagne qui l'a provoque. Il m'a montre son blog fait maison -
-                      juste du HTML/CSS tout simple - et la j'ai eu les yeux qui brillent. Moi aussi je voulais creer
-                      des trucs sur internet. Depuis, j'ai jamais arrete. Des sites web aux apps mobiles, je construis
-                      des projets qui ont du sens.</p>
-                  </div>
-                </div>
+                <!-- Content -->
+                <main class="histoire-content">
+                  <section class="histoire-block">
+                    <h2>Le debut</h2>
+                    <p>Mon premier PC a 10 ans. Un vieux Windows XP que mon pere m'a file. Je passais mes apres-midi a
+                      fouiller dans les menus, telecharger des trucs chelous, choper des virus, puis galérer 3h a tout
+                      reparer. C'etait le kif.</p>
+                    <p>Le declic c'est mon cousin qui me montre son blog. Un truc moche en HTML avec du Comic Sans. Mais
+                      la j'ai tilte : "on peut fabriquer des pages soi-meme ?" Depuis j'ai plus jamais lache.</p>
+                  </section>
 
-                <div class="safari-section">
-                  <div class="safari-section-header">
-                    <div class="safari-section-icon icon-sport">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
-                        viewBox="0 0 16 16">
-                        <path
-                          d="M3.051 3.26a.5.5 0 0 1 .354-.613l1.932-.518a.5.5 0 0 1 .62.39c.655-.079 1.35-.117 2.043-.117.72 0 1.443.041 2.12.126a.5.5 0 0 1 .622-.399l1.932.518a.5.5 0 0 1 .306.729c.14.09.266.19.373.297.408.408.78 1.05 1.095 1.772.32.733.599 1.591.805 2.466.206.875.34 1.78.364 2.606.024.816-.059 1.602-.328 2.21a1.42 1.42 0 0 1-1.445.83c-.636-.067-1.115-.394-1.513-.773-.245-.232-.496-.526-.739-.808-.126-.148-.25-.292-.368-.423-.728-.804-1.597-1.527-3.224-1.527-1.627 0-2.496.723-3.224 1.527-.119.131-.242.275-.368.423-.243.282-.494.575-.739.808-.398.38-.877.706-1.513.773a1.42 1.42 0 0 1-1.445-.83c-.27-.608-.352-1.395-.329-2.21.024-.826.16-1.73.365-2.606.206-.875.486-1.733.805-2.466.315-.722.687-1.364 1.094-1.772a2.34 2.34 0 0 1 .433-.335.504.504 0 0 1-.028-.079zm2.036.412c-.877.185-1.469.443-1.733.708-.276.276-.587.783-.885 1.465a13.748 13.748 0 0 0-.748 2.295 12.351 12.351 0 0 0-.339 2.406c-.022.755.062 1.368.243 1.776a.42.42 0 0 0 .426.24c.327-.034.61-.199.929-.502.212-.202.4-.423.615-.674.133-.156.276-.323.44-.505.826-.913 1.899-1.726 3.966-1.726 2.067 0 3.14.813 3.966 1.726.164.182.307.35.44.505.214.25.403.472.615.674.318.303.601.468.929.503a.42.42 0 0 0 .426-.241c.18-.408.265-1.02.243-1.776a12.354 12.354 0 0 0-.339-2.406 13.753 13.753 0 0 0-.748-2.295c-.298-.682-.61-1.19-.885-1.465-.264-.265-.856-.523-1.733-.708-.85-.179-1.877-.27-2.913-.27-1.036 0-2.063.091-2.913.27z" />
-                      </svg>
-                    </div>
-                    <h2>Quand je deconnecte</h2>
-                  </div>
-                  <div class="safari-section-content">
-                    <p>L'escalade, c'est mon exutoire. Quand je suis sur le mur, plus de notifications, plus de code qui
-                      bugge - juste moi et la prochaine prise. Ca me vide la tete comme rien d'autre. Chaque voie est un
-                      nouveau puzzle a resoudre avec le corps.</p>
-                    <p>Et quand je cours en colline, c'est pareil : juste le bruit de mes pas et la nature autour. Pas
-                      de chrono, pas de performance - juste la liberte de courir et de respirer. Ces moments me
-                      permettent de revenir au code avec les idees claires.</p>
-                    <div class="safari-images">
-                      <div class="safari-image">
-                        <img src="images/escalade-falaise.jpg" alt="Escalade" />
-                        <div class="safari-image-caption">Session escalade</div>
-                      </div>
-                      <div class="safari-image">
-                        <img src="images/trail-running.jpg" alt="Course en nature" />
-                        <div class="safari-image-caption">Mon echappatoire</div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+                  <section class="histoire-block">
+                    <h2>Aujourd'hui</h2>
+                    <p>Je dev des apps React Native et des sites en Vue. Mon projet actuel c'est Vago - une app qui
+                      transforme tes trajets en carburant gratuit. J'aime partir d'une idee floue et finir avec un truc
+                      qui marche vraiment.</p>
+                  </section>
 
-                <div class="safari-section">
-                  <div class="safari-section-header">
-                    <div class="safari-section-icon icon-travel">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
-                        viewBox="0 0 16 16">
-                        <path
-                          d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm7.5-6.923c-.67.204-1.335.82-1.887 1.855A7.97 7.97 0 0 0 5.145 4H7.5V1.077zM4.09 4a9.267 9.267 0 0 1 .64-1.539 6.7 6.7 0 0 1 .597-.933A7.025 7.025 0 0 0 2.255 4H4.09zm-.582 3.5c.03-.877.138-1.718.312-2.5H1.674a6.958 6.958 0 0 0-.656 2.5h2.49zM4.847 5a12.5 12.5 0 0 0-.338 2.5H7.5V5H4.847zM8.5 5v2.5h2.99a12.495 12.495 0 0 0-.337-2.5H8.5zM4.51 8.5a12.5 12.5 0 0 0 .337 2.5H7.5V8.5H4.51zm3.99 0V11h2.653c.187-.765.306-1.608.338-2.5H8.5zM5.145 12c.138.386.295.744.468 1.068.552 1.035 1.218 1.65 1.887 1.855V12H5.145zm.182 2.472a6.696 6.696 0 0 1-.597-.933A9.268 9.268 0 0 1 4.09 12H2.255a7.024 7.024 0 0 0 3.072 2.472zM3.82 11a13.652 13.652 0 0 1-.312-2.5h-2.49c.062.89.291 1.733.656 2.5H3.82zm6.853 3.472A7.024 7.024 0 0 0 13.745 12H11.91a9.27 9.27 0 0 1-.64 1.539 6.688 6.688 0 0 1-.597.933zM8.5 12v2.923c.67-.204 1.335-.82 1.887-1.855.173-.324.33-.682.468-1.068H8.5zm3.68-1h2.146c.365-.767.594-1.61.656-2.5h-2.49a13.65 13.65 0 0 1-.312 2.5zm2.802-3.5a6.959 6.959 0 0 0-.656-2.5H12.18c.174.782.282 1.623.312 2.5h2.49zM11.27 2.461c.247.464.462.98.64 1.539h1.835a7.024 7.024 0 0 0-3.072-2.472c.218.284.418.598.597.933zM10.855 4a7.966 7.966 0 0 0-.468-1.068C9.835 1.897 9.17 1.282 8.5 1.077V4h2.355z" />
-                      </svg>
+                  <section class="histoire-block">
+                    <h2>Hors ecran</h2>
+                    <p>Quand je code pas, je grimpe. L'escalade c'est mon truc pour couper - sur le mur y a pas de
+                      notif, pas de bug a fixer. Juste toi et la prochaine prise. Sinon je cours dans les collines
+                      derriere chez moi. C'est la que mes meilleures idees de code me viennent.</p>
+                    <div class="histoire-photos">
+                      <img src="images/escalade-falaise.jpg" alt="Escalade" />
+                      <img src="images/trail-running.jpg" alt="Trail" />
                     </div>
-                    <h2>Le virus du voyage</h2>
-                  </div>
-                  <div class="safari-section-content">
-                    <p>J'ai attrape le virus du voyage grace a mes parents. Premier grand choc : New York a 14 ans.
-                      L'energie de cette ville, les buildings, les gens de partout... ca m'a retourne le cerveau.
-                      Depuis, je collectionne les tampons dans mon passeport.</p>
-                    <p>Crete, Espagne, Autriche, Italie, Croatie... Chaque voyage m'apprend un truc nouveau. Maintenant
-                      on explore a deux avec ma copine, et la liste des destinations s'allonge a chaque conversation.
-                      Prochaine etape? On hesite entre le Japon et la Scandinavie!</p>
-                    <div class="safari-images safari-world-map">
-                      <div class="safari-image">
-                        <img src="images/Image JPEG.jpeg" alt="Carte des voyages" />
-                        <div class="safari-image-caption">Mes destinations</div>
-                      </div>
+                  </section>
+
+                  <section class="histoire-block">
+                    <h2>Voyages</h2>
+                    <p>New York a 14 ans, premier gros choc. L'energie de cette ville m'a retourne. Depuis je
+                      collectionne : Crete, Vienne, Dubrovnik... Maintenant je voyage avec ma copine et notre liste
+                      s'allonge a chaque conversation. Prochaine cible : le Japon.</p>
+                    <div class="histoire-photos triple">
+                      <img src="images/newyork.jpg" alt="New York" />
+                      <img src="images/vienne.jpg" alt="Vienne" />
+                      <img src="images/dubrovnik.jpg" alt="Dubrovnik" />
                     </div>
-                    <div class="safari-images">
-                      <div class="safari-image">
-                        <img src="images/newyork.jpg" alt="New York" />
-                        <div class="safari-image-caption">New York - Premier choc</div>
-                      </div>
-                      <div class="safari-image">
-                        <img src="images/vienne.jpg" alt="Vienne" />
-                        <div class="safari-image-caption">Vienne - En duo</div>
-                      </div>
-                      <div class="safari-image">
-                        <img src="images/dubrovnik.jpg" alt="Dubrovnik" />
-                        <div class="safari-image-caption">Dubrovnik - Coup de coeur</div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+                  </section>
+                </main>
+
+                <!-- Footer -->
+                <footer class="histoire-cta">
+                  Envie de bosser ensemble ? <a href="mailto:contact@noagiannone.com">Ecris-moi</a>
+                </footer>
               </div>
             </div>
 
@@ -1037,260 +1027,262 @@
           </div>
         </div>
       </div>
+    </div>
+  </div>
 
-      <!-- Structure de base de l'onglet -->
-      <div class="window parametres" id="win-parametres">
-        <div class="window__taskbar">
-          <div class="window__taskbar--actions">
-            <button class="close close-parametres"></button>
-            <button class="backfull backfull-parametres"></button>
-            <button class="full full-parametres"></button>
+  <!-- Structure de base de l'onglet -->
+  <div class="window parametres" id="win-parametres">
+    <div class="window__taskbar">
+      <div class="window__taskbar--actions">
+        <button class="close close-parametres"></button>
+        <button class="backfull backfull-parametres"></button>
+        <button class="full full-parametres"></button>
+      </div>
+      <div class="window__taskbar--content" style="color: white;">
+        <h2 style="color: #fff;">Paramètres</h2>
+      </div>
+    </div>
+    <div class="parametres_content">
+      <div class="parametres-container">
+        <!-- Structure à deux colonnes: sidebar + contenu principal -->
+        <div class="parametres-body">
+          <!-- Sidebar avec icônes -->
+          <div class="parametres-sidebar">
+            <ul>
+              <li class="active">
+                <span class="sidebar-icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
+                    <path d="M2 17l10 5 10-5"></path>
+                    <path d="M2 12l10 5 10-5"></path>
+                  </svg>
+                </span>
+                <span>Astuces</span>
+              </li>
+              <li>
+                <span class="sidebar-icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="3"></circle>
+                    <path
+                      d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z">
+                    </path>
+                  </svg>
+                </span>
+                <span>Général</span>
+              </li>
+              <li>
+                <span class="sidebar-icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <path d="M8 14s1.5 2 4 2 4-2 4-2"></path>
+                    <line x1="9" y1="9" x2="9.01" y2="9"></line>
+                    <line x1="15" y1="9" x2="15.01" y2="9"></line>
+                  </svg>
+                </span>
+                <span>Apparence</span>
+              </li>
+              <li>
+                <span class="sidebar-icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                    <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                  </svg>
+                </span>
+                <span>Confidentialité</span>
+              </li>
+              <li>
+                <span class="sidebar-icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+                    <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+                  </svg>
+                </span>
+                <span>Notifications</span>
+              </li>
+              <li>
+                <span class="sidebar-icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M3 18v-6a9 9 0 0 1 18 0v6"></path>
+                    <path
+                      d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z">
+                    </path>
+                  </svg>
+                </span>
+                <span>Son</span>
+              </li>
+              <li>
+                <span class="sidebar-icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <line x1="12" y1="16" x2="12" y2="12"></line>
+                    <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                  </svg>
+                </span>
+                <span>À propos</span>
+              </li>
+            </ul>
           </div>
-          <div class="window__taskbar--content" style="color: white;">
-            <h2 style="color: #fff;">Paramètres</h2>
-          </div>
-        </div>
-        <div class="parametres_content">
-          <div class="parametres-container">
-            <!-- Structure à deux colonnes: sidebar + contenu principal -->
-            <div class="parametres-body">
-              <!-- Sidebar avec icônes -->
-              <div class="parametres-sidebar">
-                <ul>
-                  <li class="active">
-                    <span class="sidebar-icon">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
-                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
-                        <path d="M2 17l10 5 10-5"></path>
-                        <path d="M2 12l10 5 10-5"></path>
-                      </svg>
-                    </span>
-                    <span>Astuces</span>
-                  </li>
-                  <li>
-                    <span class="sidebar-icon">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
-                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <circle cx="12" cy="12" r="3"></circle>
-                        <path
-                          d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z">
-                        </path>
-                      </svg>
-                    </span>
-                    <span>Général</span>
-                  </li>
-                  <li>
-                    <span class="sidebar-icon">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
-                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <circle cx="12" cy="12" r="10"></circle>
-                        <path d="M8 14s1.5 2 4 2 4-2 4-2"></path>
-                        <line x1="9" y1="9" x2="9.01" y2="9"></line>
-                        <line x1="15" y1="9" x2="15.01" y2="9"></line>
-                      </svg>
-                    </span>
-                    <span>Apparence</span>
-                  </li>
-                  <li>
-                    <span class="sidebar-icon">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
-                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
-                        <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
-                      </svg>
-                    </span>
-                    <span>Confidentialité</span>
-                  </li>
-                  <li>
-                    <span class="sidebar-icon">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
-                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
-                        <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
-                      </svg>
-                    </span>
-                    <span>Notifications</span>
-                  </li>
-                  <li>
-                    <span class="sidebar-icon">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
-                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M3 18v-6a9 9 0 0 1 18 0v6"></path>
-                        <path
-                          d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z">
-                        </path>
-                      </svg>
-                    </span>
-                    <span>Son</span>
-                  </li>
-                  <li>
-                    <span class="sidebar-icon">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
-                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <circle cx="12" cy="12" r="10"></circle>
-                        <line x1="12" y1="16" x2="12" y2="12"></line>
-                        <line x1="12" y1="8" x2="12.01" y2="8"></line>
-                      </svg>
-                    </span>
-                    <span>À propos</span>
-                  </li>
-                </ul>
+
+          <!-- Contenu principal (avec scroll corrigé) -->
+          <div class="parametres-main">
+            <!-- En-tête avec icône et titre -->
+            <div class="parametres-header">
+              <div class="header-icon">
+                <img src="./images/profile-noa.jpeg" style="border-radius: 180px;" alt="Portfolio Icon" />
+              </div>
+              <div class="header-text">
+                <h1>Hello ! Moi, c'est Noa.</h1>
+                <p class="subtitle">Développeur Web & Mobile</p>
+              </div>
+            </div>
+
+            <!-- Section concept -->
+            <div class="parametres-section">
+              <h2>À propos de ce portfolio</h2>
+              <div class="concept-content">
+                <p>Je vois le développement comme une forme d'artisanat. Mon objectif n'est pas seulement de
+                  produire du code, mais de façonner des outils qui ont une âme et une véritable utilité. J'aime
+                  construire des projets qui créent du lien et qui apportent quelque chose de positif, simplement.
+                </p>
+                <p>Ici, pas de CV tout gris ! J'ai voulu rendre la visite plus fun en créant cette interface
+                  interactive. Balade-toi dans mes dossiers, ouvre mes applications et découvre mon univers à ton
+                  rythme. Fais comme chez toi et bonne visite ! ✌️</p>
+              </div>
+            </div>
+
+            <!-- Section onglets à découvrir -->
+            <div class="parametres-section">
+              <h2>Les onglets à découvrir</h2>
+
+              <!-- Notes -->
+              <div class="app-section">
+                <div class="app-icon">
+                  <img src="./icon/dock/notes.png" alt="Notes Icon" />
+                </div>
+                <div class="app-description">
+                  <h3>Notes</h3>
+                  <p>Consultez mon parcours professionnel et académique. Découvrez les étapes clés de ma formation
+                    et de mon évolution dans le monde du développement web.</p>
+                </div>
               </div>
 
-              <!-- Contenu principal (avec scroll corrigé) -->
-              <div class="parametres-main">
-                <!-- En-tête avec icône et titre -->
-                <div class="parametres-header">
-                  <div class="header-icon">
-                    <img src="./images/profile-noa.jpeg" style="border-radius: 180px;" alt="Portfolio Icon" />
-                  </div>
-                  <div class="header-text">
-                    <h1>Hello ! Moi, c'est Noa.</h1>
-                    <p class="subtitle">Développeur Web & Mobile</p>
-                  </div>
+              <!-- VS Code -->
+              <div class="app-section reverse">
+                <div class="app-description">
+                  <h3>VS Code</h3>
+                  <p>Explorez mes compétences techniques en développement, du front-end au back-end. Découvrez les
+                    langages, frameworks et outils que je maîtrise pour créer des solutions web innovantes.</p>
                 </div>
-
-                <!-- Section concept -->
-                <div class="parametres-section">
-                  <h2>À propos de ce portfolio</h2>
-                  <div class="concept-content">
-                    <p>Je vois le développement comme une forme d'artisanat. Mon objectif n'est pas seulement de
-                      produire du code, mais de façonner des outils qui ont une âme et une véritable utilité. J'aime
-                      construire des projets qui créent du lien et qui apportent quelque chose de positif, simplement.
-                    </p>
-                    <p>Ici, pas de CV tout gris ! J'ai voulu rendre la visite plus fun en créant cette interface
-                      interactive. Balade-toi dans mes dossiers, ouvre mes applications et découvre mon univers à ton
-                      rythme. Fais comme chez toi et bonne visite ! ✌️</p>
-                  </div>
+                <div class="app-icon">
+                  <img src="./icon/dock/vscode.svg" alt="VS Code Icon" />
                 </div>
+              </div>
 
-                <!-- Section onglets à découvrir -->
-                <div class="parametres-section">
-                  <h2>Les onglets à découvrir</h2>
+              <!-- Safari -->
+              <div class="app-section">
+                <div class="app-icon">
+                  <img src="./icon/Launchpad/safari.png" alt="Safari Icon" />
+                </div>
+                <div class="app-description">
+                  <h3>Safari</h3>
+                  <p>Faites connaissance avec ma personnalité, mes passions et mes centres d'intérêt. Découvrez ce
+                    qui m'anime au quotidien et ce qui façonne ma vision du développement web.</p>
+                </div>
+              </div>
 
-                  <!-- Notes -->
-                  <div class="app-section">
-                    <div class="app-icon">
-                      <img src="./icon/dock/notes.png" alt="Notes Icon" />
-                    </div>
-                    <div class="app-description">
-                      <h3>Notes</h3>
-                      <p>Consultez mon parcours professionnel et académique. Découvrez les étapes clés de ma formation
-                        et de mon évolution dans le monde du développement web.</p>
-                    </div>
-                  </div>
+              <!-- Finder -->
+              <div class="app-section reverse">
+                <div class="app-description">
+                  <h3>Finder</h3>
+                  <p>Parcourez mes projets personnels et professionnels. Chaque dossier contient un projet sur
+                    lequel j'ai travaillé, avec des détails sur les technologies utilisées et les défis relevés.</p>
+                </div>
+                <div class="app-icon">
+                  <img src="./icon/dock/finder.png" alt="Finder Icon" />
+                </div>
+              </div>
 
-                  <!-- VS Code -->
-                  <div class="app-section reverse">
-                    <div class="app-description">
-                      <h3>VS Code</h3>
-                      <p>Explorez mes compétences techniques en développement, du front-end au back-end. Découvrez les
-                        langages, frameworks et outils que je maîtrise pour créer des solutions web innovantes.</p>
-                    </div>
-                    <div class="app-icon">
-                      <img src="./icon/dock/vscode.svg" alt="VS Code Icon" />
-                    </div>
-                  </div>
-
-                  <!-- Safari -->
-                  <div class="app-section">
-                    <div class="app-icon">
-                      <img src="./icon/Launchpad/safari.png" alt="Safari Icon" />
-                    </div>
-                    <div class="app-description">
-                      <h3>Safari</h3>
-                      <p>Faites connaissance avec ma personnalité, mes passions et mes centres d'intérêt. Découvrez ce
-                        qui m'anime au quotidien et ce qui façonne ma vision du développement web.</p>
-                    </div>
-                  </div>
-
-                  <!-- Finder -->
-                  <div class="app-section reverse">
-                    <div class="app-description">
-                      <h3>Finder</h3>
-                      <p>Parcourez mes projets personnels et professionnels. Chaque dossier contient un projet sur
-                        lequel j'ai travaillé, avec des détails sur les technologies utilisées et les défis relevés.</p>
-                    </div>
-                    <div class="app-icon">
-                      <img src="./icon/dock/finder.png" alt="Finder Icon" />
-                    </div>
-                  </div>
-
-                  <!-- Mail -->
-                  <div class="app-section" style="margin-bottom: 20vh;">
-                    <div class="app-icon">
-                      <img src="./icon/dock/mail.png" alt="Mail Icon" />
-                    </div>
-                    <div class="app-description">
-                      <h3>Mail</h3>
-                      <p>Envie d'en savoir plus ou de discuter d'un projet ? N'hésitez pas à me contacter via cette
-                        application. Je serai ravi d'échanger avec vous et de répondre à vos questions.</p>
-                    </div>
-                  </div>
+              <!-- Mail -->
+              <div class="app-section" style="margin-bottom: 20vh;">
+                <div class="app-icon">
+                  <img src="./icon/dock/mail.png" alt="Mail Icon" />
+                </div>
+                <div class="app-description">
+                  <h3>Mail</h3>
+                  <p>Envie d'en savoir plus ou de discuter d'un projet ? N'hésitez pas à me contacter via cette
+                    application. Je serai ravi d'échanger avec vous et de répondre à vos questions.</p>
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-      <!--debut code finder-->
+    </div>
+  </div>
+  <!--debut code finder-->
 
 
 
 
-      <div class="window finder">
-        <div class="window__taskbar">
-          <div class="window__taskbar--actions">
-            <button class="close-finder"></button>
-            <button class="backfull-finder"></button>
-            <button class="full-finder"></button>
-          </div>
-          <div class="window__taskbar--content">
-            <h2>Finder</h2>
-          </div>
-        </div>
-        <div class="content">
-          <div class="finder-container">
-            <div class="finder-body">
-              <!-- Sidebar -->
-              <nav class="finder-sidebar">
-                <ul>
-                  <li class="active">
-                    <img src="https://img.icons8.com/fluency/48/rocket.png" alt="projects" /> Mes projets
-                  </li>
-                  <li>
-                    <img src="https://img.icons8.com/fluency/48/downloads-folder.png" alt="download" /> Téléchargements
-                  </li>
-                  <li>
-                    <img src="https://img.icons8.com/fluency/48/documents-folder.png" alt="docs" /> Documents
-                  </li>
-                  <li>
-                    <img src="https://img.icons8.com/fluency/48/desktop-mac.png" alt="desktop" /> Bureau
-                  </li>
-                </ul>
-              </nav>
+  <div class="window finder">
+    <div class="window__taskbar">
+      <div class="window__taskbar--actions">
+        <button class="close-finder"></button>
+        <button class="backfull-finder"></button>
+        <button class="full-finder"></button>
+      </div>
+      <div class="window__taskbar--content">
+        <h2>Finder</h2>
+      </div>
+    </div>
+    <div class="content">
+      <div class="finder-container">
+        <div class="finder-body">
+          <!-- Sidebar -->
+          <nav class="finder-sidebar">
+            <ul>
+              <li class="active">
+                <img src="https://img.icons8.com/fluency/48/rocket.png" alt="projects" /> Mes projets
+              </li>
+              <li>
+                <img src="https://img.icons8.com/fluency/48/downloads-folder.png" alt="download" /> Téléchargements
+              </li>
+              <li>
+                <img src="https://img.icons8.com/fluency/48/documents-folder.png" alt="docs" /> Documents
+              </li>
+              <li>
+                <img src="https://img.icons8.com/fluency/48/desktop-mac.png" alt="desktop" /> Bureau
+              </li>
+            </ul>
+          </nav>
 
-              <!-- Main area -->
-              <div class="finder-main">
-                <!-- Barre d'outils -->
-                <div class="finder-toolbar">
-                  <div class="finder-nav-buttons">
-                    <img src="https://img.icons8.com/ios-glyphs/30/000000/chevron-left.png" class="finder-nav-btn" />
-                    <img src="https://img.icons8.com/ios-glyphs/30/000000/chevron-right.png" class="finder-nav-btn" />
-                  </div>
-                  <div class="breadcrumb">Mes projets</div>
-                  <div class="finder-actions">
-                    <img src="https://img.icons8.com/ios-glyphs/30/000000/search--v1.png" alt="Rechercher"
-                      class="icon-search" />
-                    <img src="https://img.icons8.com/material-outlined/30/000000/grid-2.png" alt="Vue"
-                      class="icon-filter" />
-                  </div>
-                </div>
+          <!-- Main area -->
+          <div class="finder-main">
+            <!-- Barre d'outils -->
+            <div class="finder-toolbar">
+              <div class="finder-nav-buttons">
+                <img src="https://img.icons8.com/ios-glyphs/30/000000/chevron-left.png" class="finder-nav-btn" />
+                <img src="https://img.icons8.com/ios-glyphs/30/000000/chevron-right.png" class="finder-nav-btn" />
+              </div>
+              <div class="breadcrumb">Mes projets</div>
+              <div class="finder-actions">
+                <img src="https://img.icons8.com/ios-glyphs/30/000000/search--v1.png" alt="Rechercher"
+                  class="icon-search" />
+                <img src="https://img.icons8.com/material-outlined/30/000000/grid-2.png" alt="Vue"
+                  class="icon-filter" />
+              </div>
+            </div>
 
-                <!-- Grille de fichiers (inchangée) -->
-                <div class="file-grid">
-                  <div class="file-card" data-title="Vago.docx" data-content="
+            <!-- Grille de fichiers (inchangée) -->
+            <div class="file-grid">
+              <div class="file-card" data-title="Vago.docx" data-content="
               <div class='editor-document vago-doc'>
                 <div class='editor-header'>
                   <img src='https://img.icons8.com/fluency/96/000000/money-bag.png' class='editor-logo'/>
@@ -1355,11 +1347,11 @@
                 </div>
               </div>
             ">
-                    <img src="https://img.icons8.com/fluency/96/000000/money-bag.png" alt="Finance">
-                    <span>Vago.docx</span>
-                  </div>
+                <img src="https://img.icons8.com/fluency/96/000000/money-bag.png" alt="Finance">
+                <span>Vago.docx</span>
+              </div>
 
-                  <div class="file-card" data-title="Whisp.docx" data-content="
+              <div class="file-card" data-title="Whisp.docx" data-content="
               <div class='editor-document whisp-doc'>
                 <div class='editor-header'>
                   <img src='https://img.icons8.com/fluency/96/000000/chat--v1.png' class='editor-logo'/>
@@ -1403,11 +1395,11 @@
                 </div>
               </div>
             ">
-                    <img src="https://img.icons8.com/fluency/96/000000/chat--v1.png" alt="Chat">
-                    <span>Whisp.docx</span>
-                  </div>
+                <img src="https://img.icons8.com/fluency/96/000000/chat--v1.png" alt="Chat">
+                <span>Whisp.docx</span>
+              </div>
 
-                  <div class="file-card" data-title="ViteMonGrandOral.docx" data-content="
+              <div class="file-card" data-title="ViteMonGrandOral.docx" data-content="
               <div class='editor-document grand-oral-doc'>
                 <div class='editor-header'>
                   <img src='https://img.icons8.com/fluency/96/000000/idea.png' class='editor-logo'/>
@@ -1462,12 +1454,12 @@
                 </div>
               </div>
             ">
-                    <img src="https://img.icons8.com/fluency/96/000000/idea.png" alt="Étude">
-                    <span>ViteMonGrandOral.docx</span>
-                  </div>
+                <img src="https://img.icons8.com/fluency/96/000000/idea.png" alt="Étude">
+                <span>ViteMonGrandOral.docx</span>
+              </div>
 
 
-                  <div class="file-card" data-title="Portfolio.docx" data-content="
+              <div class="file-card" data-title="Portfolio.docx" data-content="
               <div class='editor-document portfolio-doc'>
                 <div class='editor-header'>
                   <img src='https://img.icons8.com/fluency/96/000000/briefcase.png' class='editor-logo'/>
@@ -1515,19 +1507,19 @@
                 </div>
               </div>
             ">
-                    <img src="https://img.icons8.com/fluency/96/000000/briefcase.png" alt="Portfolio">
-                    <span>Portfolio.docx</span>
-                  </div>
-                </div>
+                <img src="https://img.icons8.com/fluency/96/000000/briefcase.png" alt="Portfolio">
+                <span>Portfolio.docx</span>
               </div>
             </div>
-
-            <!-- File Editor Overlay (Nouveau style Pages/Word) -->
-
           </div>
         </div>
+
+        <!-- File Editor Overlay (Nouveau style Pages/Word) -->
+
       </div>
     </div>
+  </div>
+  </div>
   </div>
 
   <!-- Editor Window -->
