@@ -902,11 +902,10 @@ li > .menu__container > .grid__controling .control_center--grid {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 22px;
-  height: 22px;
+  width: 16px;
+  height: 16px;
   padding: 0;
-  border: 5px solid transparent;
-  background-clip: content-box;
+  border: none;
   border-radius: 50%;
   transition: 0.2s;
   cursor: pointer !important;
@@ -916,12 +915,11 @@ li > .menu__container > .grid__controling .control_center--grid {
 }
 
 .window__taskbar--actions button:not(:last-child) {
-  margin-right: 0;
+  margin-right: 6px;
 }
 
 .window__taskbar--actions button:nth-child(1) {
   background-color: #ff5f56;
-  box-shadow: 0 0 0 0.5px #e0443e;
 }
 
 .window__taskbar--actions button::after {
@@ -941,7 +939,6 @@ li > .menu__container > .grid__controling .control_center--grid {
 
 .window__taskbar--actions button:nth-child(2) {
   background-color: #ffbd2e;
-  box-shadow: 0 0 0 0.5px #dea123;
 }
 
 .window__taskbar--actions button:nth-child(2)::after {
@@ -954,7 +951,6 @@ li > .menu__container > .grid__controling .control_center--grid {
 
 .window__taskbar--actions button:nth-child(3) {
   background-color: #27c93f;
-  box-shadow: 0 0 0 0.5px #1aab29;
 }
 
 .window__taskbar--actions button:nth-child(3)::after {
@@ -1070,86 +1066,235 @@ li > .menu__container > .grid__controling .control_center--grid {
   display: flex;
 }
 /* Style de base amélioré */
+/* Notes App Redesign - Apple Style */
 .window.note {
-  border-radius: 8px;
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+  border-radius: 10px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
   overflow: hidden;
   background: #fff;
-  max-width: 900px;
-  margin: 0 auto;
+  /* Use flex to manage height properly */
+  display: flex !important; 
+  flex-direction: column;
 }
 
-.window__taskbar {
-  padding: 12px 16px;
-  background: linear-gradient(135deg, #f8f9fa, #e9ecef);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border-bottom: 1px solid #dee2e6;
+/* Ensure taskbar stays at top */
+.window.note .window__taskbar {
+  flex-shrink: 0;
+  background: #f5f5f5; /* macOS light titlebar */
+  border-bottom: 1px solid #ddd;
+  padding: 0 15px; /* Adjust padding matching others */
+  height: 40px; /* Standard height */
 }
 
-.window__taskbar--actions {
-  display: flex;
-  gap: 8px;
+/* Window Actions (Traffic lights) override for Notes if needed, but defaults are fine */
+
+.window.note .content {
+    display: flex;
+    flex: 1; /* Take remaining height */
+    overflow: hidden; /* Prevent window scroll */
+    height: auto; /* Override fixed height */
 }
 
-.window__taskbar--actions button {
-  width: 16px;
-  height: 16px;
-  border-radius: 50%;
-  border: none;
-  cursor: pointer;
-}
-
-.close-note {
-  background-color: #ff6b6b;
-}
-
-.backfull-note {
-  background-color: #ffd43b;
-}
-
-.full-note {
-  background-color: #69db7c;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.content {
-  display: flex;
-  height: 500px;
-}
-
+/* 3-Column Layout */
 .content__sidebar {
-  width: 30%;
-  height: 100%;
-  background: #f1f3f5;
-  transition: all 0.3s ease;
+    width: 200px;
+    background: rgba(243, 242, 242, 0.95);
+    border-right: 1px solid #d1d1d1;
+    display: flex;
+    flex-direction: column;
+}
+
+.content__list {
+    width: 250px;
+    background: #fff;
+    border-right: 1px solid #dedede;
+    display: flex;
+    flex-direction: column;
 }
 
 .Parent__content--typing {
-  width: 70%;
-  height: 100%;
-  border-top: 1px solid #e0e2e1;
-  background-color: #fff;
-  transition: all 0.3s ease;
+    flex: 1;
+    background: #fff;
+    overflow-y: auto; /* Scroll content */
+    padding: 0;
+    border: none; /* Remove old border */
 }
 
-.content__typing {
-  width: 100%;
-  height: 100%;
-  background: transparent;
-  border: none;
-  outline: none;
-  resize: none;
-  display: block; /* Modifié pour être visible par défaut */
-  color: #343a40;
-  font-weight: 600;
-  font-size: 16px;
-  font-family: "Courier New", monospace; /* Police monospace pour meilleure lisibilité des tirets et alignements */
-  padding: 20px;
-  line-height: 1.5;
+/* Sidebar (Folders) */
+.notes-sidebar-header, .notes-list-header {
+    padding: 10px 15px;
+    font-size: 11px;
+    font-weight: 600;
+    color: #666;
+    letter-spacing: 0.5px;
+}
+
+.notes-folders-list, .notes-items-list {
+    list-style: none;
+    padding: 0 10px;
+    margin: 0;
+}
+
+.notes-folders-list li {
+    display: flex;
+    align-items: center;
+    padding: 6px 10px;
+    border-radius: 5px;
+    color: #333;
+    font-size: 13px;
+    cursor: pointer;
+    margin-bottom: 2px;
+}
+
+.notes-folders-list li.active {
+    background: rgba(0, 0, 0, 0.06);
+}
+
+.notes-folders-list li span.material-icons-round {
+    font-size: 18px;
+    margin-right: 8px;
+    color: #f7b500; /* Apple Notes yellow folder color approx */
+}
+
+/* List (Notes) */
+.notes-items-list li {
+    padding: 10px 15px;
+    border-radius: 6px;
+    margin-bottom: 5px;
+    cursor: pointer;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.notes-items-list li.active {
+    background: #f7b500; /* Active note color */
+    color: #fff;
+    border-bottom: none;
+}
+
+.notes-items-list li.active .note-item-preview, .notes-items-list li.active .note-time, .notes-items-list li.active .note-item-title {
+    color: rgba(255,255,255,0.95);
+}
+
+.note-item-title {
+    font-weight: 700;
+    font-size: 14px;
+    margin-bottom: 4px;
+    color: #333;
+}
+
+.note-item-preview {
+    font-size: 12px;
+    color: #888;
+    display: flex;
+    gap: 6px;
+    flex-direction: column;
+}
+
+.note-time {
+    font-weight: 500;
+}
+
+/* Editor */
+.note-editor {
+    padding: 40px 60px;
+    max-width: 800px;
+    margin: 0 auto;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    color: #333;
+}
+
+.note-meta {
+    text-align: center;
+    color: #999;
+    font-size: 11px;
+    margin-bottom: 30px;
+}
+
+.note-body h1 {
+    font-size: 32px;
+    font-weight: 700;
+    margin-bottom: 30px;
+    line-height: 1.2;
+}
+
+.note-section {
+    margin-bottom: 40px;
+}
+
+.note-section h2 {
+    font-size: 15px;
+    color: #f7b500;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 700;
+    margin-bottom: 15px;
+    padding-bottom: 5px;
+}
+
+.experience-block, .education-block {
+    margin-bottom: 25px;
+}
+
+.experience-block h3, .education-block h3 {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 2px;
+    color: #222;
+}
+
+.experience-block .company, .education-block .school {
+    font-weight: 500;
+    color: #555;
+    font-size: 14px;
+}
+
+.experience-block .date, .education-block .date {
+    font-size: 13px;
+    color: #888;
+    margin-left: 6px;
+}
+
+.experience-block ul {
+    margin: 8px 0 12px 18px;
+    list-style-type: disc;
+    padding-left: 0;
+}
+
+.experience-block li {
+    font-size: 14px;
+    margin-bottom: 4px;
+    color: #444;
+    line-height: 1.5;
+}
+
+.skills-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 10px;
+}
+
+.skills-tags span {
+    background: #f0f0f0;
+    color: #555;
+    font-size: 11px;
+    padding: 3px 8px;
+    border-radius: 12px;
+    font-weight: 500;
+}
+
+.note-divider {
+    border: 0;
+    border-top: 1px solid #f0f0f0;
+    margin: 40px 0;
+}
+
+.quote {
+    font-style: italic;
+    color: #666;
+    border-left: 3px solid #f7b500;
+    padding-left: 10px;
+    margin-top: 10px;
 }
 
 /* Media query pour mobile */

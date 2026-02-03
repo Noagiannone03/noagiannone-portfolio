@@ -551,62 +551,123 @@
         </div>
         <div class="content">
           <div class="content__sidebar">
-            <div class="content__sidebar--notes"></div>
+            <div class="notes-sidebar-header">
+              <span class="sidebar-title">Dossiers</span>
+            </div>
+            <ul class="notes-folders-list">
+              <li class="active">
+                <span class="material-icons-round">folder_open</span>
+                <span>iCloud</span>
+              </li>
+              <li>
+                <span class="material-icons-round">delete_outline</span>
+                <span>Corbeille</span>
+              </li>
+            </ul>
+          </div>
+
+          <div class="content__list">
+            <div class="notes-list-header">
+              <span class="list-title">Notes</span>
+            </div>
+            <ul class="notes-items-list">
+              <li class="active">
+                <div class="note-item-title">Mon Parcours</div>
+                <div class="note-item-preview">
+                  <span class="note-time">10:48</span>
+                  <span class="note-preview-text">Developpeur Web - Alternance...</span>
+                </div>
+              </li>
+              <li>
+                <div class="note-item-title">Idées Projets</div>
+                <div class="note-item-preview">
+                  <span class="note-time">Hier</span>
+                  <span class="note-preview-text">Une app de voyage avec...</span>
+                </div>
+              </li>
+            </ul>
           </div>
           <div class="Parent__content--typing">
-            <textarea cols="30" rows="12" class="content__typing">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-    MON PARCOURS
-    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-    
-    ► EXPÉRIENCES PROFESSIONNELLES
-    
-    2025  DÉVELOPPEUR WEB - ALTERNANCE
-          No ID Lab, Toulon
-         
-          ● Développement d'une plateforme web innovante
-          ● Conception et implémentation de fonctionnalités sur mesure
-          ● Intégration d'interfaces utilisateur dynamiques et réactives
-          ● Collaboration avec l'équipe design pour l'UX/UI
-         
-          ✔ Technologies : HTML5, CSS3, JavaScript avancé, React.js
-          ✔ Compétences : Travail d'équipe, méthodologie Agile, résolution de problèmes
-    
-    2024  TECHNICIEN D'EXPLOITATION - CDD
-          PROFER, Marseille
-         
-          ● Supervision et maintenance des infrastructures informatiques
-          ● Support technique aux utilisateurs
-          ● Participation active à la restructuration du SI
-          ● Documentation des procédures techniques
-         
-          ✔ Compétences acquises : Vision globale des infrastructures, compréhension des besoins métier, gestion des incidents
-    
-    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-    
-    ► FORMATION
-    
-    2024  CYCLE BACHELOR NUMÉRIQUE
-          Institut G4, Marseille
-         
-          Programme de 1ère année :
-          ● Développement web front-end et back-end
-          ● HTML, CSS, bases PHP, SQL
-          ● Systèmes de gestion de contenu (CMS)
-          ● Référencement SEO/SEA
-          ● Design graphique et création multimédia
-          ● Gestion de projet numérique
-    
-    2024  BACCALAURÉAT
-          Lycée Sévigné, Marseille
-         
-          ● Série générale et technologique
-          ● Mention très bien
-         
-          Cette réussite a confirmé mon choix de poursuivre
-          dans le domaine du numérique, alliant créativité 
-          et technicité dans mes projets.
-    
-    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</textarea>
+            <div class="note-editor">
+              <div class="note-meta">
+                <span class="note-date">Modifié aujourd'hui à 10:48</span>
+              </div>
+              <div class="note-body">
+                <h1>Mon Parcours</h1>
+
+                <div class="note-section">
+                  <h2>Expériences Professionnelles</h2>
+
+                  <div class="experience-block">
+                    <h3>Développeur Full Stack & IoT</h3>
+                    <span class="company">Aircarto</span>
+                    <span class="date">2025 - Aujourd'hui</span>
+                    <ul>
+                      <li>Conception et assemblage de capteurs open-source pour la qualité de l’air</li>
+                      <li>Développement d’API pour la gestion et le pilotage de parc de capteurs</li>
+                      <li>Création d’outils performants pour la collecte et la visualisation de données</li>
+                      <li>Développement d'application mobile sous React Native/Expo</li>
+                      <li>Conception micro-électronique et prototypage hardware</li>
+                    </ul>
+                    <div class="skills-tags">
+                      <span>React
+                        Native</span><span>Expo</span><span>Node.js</span><span>Hardware</span><span>IoT</span>
+                    </div>
+                  </div>
+
+                  <div class="experience-block">
+                    <h3>Développeur Web - Alternance</h3>
+                    <span class="company">No ID Lab, Toulon</span>
+                    <span class="date">2025</span>
+                    <ul>
+                      <li>Développement d'une plateforme web innovante</li>
+                      <li>Conception et implémentation de fonctionnalités sur mesure</li>
+                      <li>Intégration d'interfaces utilisateur dynamiques et réactives</li>
+                      <li>Collaboration avec l'équipe design pour l'UX/UI</li>
+                    </ul>
+                    <div class="skills-tags">
+                      <span>HTML5</span><span>CSS3</span><span>JS</span><span>React.js</span>
+                    </div>
+                  </div>
+
+                  <div class="experience-block">
+                    <h3>Technicien d'Exploitation - CDD</h3>
+                    <span class="company">PROFER, Marseille</span>
+                    <span class="date">2024</span>
+                    <ul>
+                      <li>Supervision et maintenance des infrastructures informatiques</li>
+                      <li>Support technique aux utilisateurs</li>
+                      <li>Participation active à la restructuration du SI</li>
+                      <li>Documentation des procédures techniques</li>
+                    </ul>
+                  </div>
+                </div>
+
+                <hr class="note-divider">
+
+                <div class="note-section">
+                  <h2>Formation</h2>
+
+                  <div class="education-block">
+                    <h3>Cycle Bachelor Numérique</h3>
+                    <span class="school">Institut G4, Marseille</span>
+                    <span class="date">2024</span>
+                    <p>Programme de 1ère année : Développement web front/back, CMS, SEO/SEA, Design, Gestion de projet.
+                    </p>
+                  </div>
+
+                  <div class="education-block">
+                    <h3>Baccalauréat</h3>
+                    <span class="school">Lycée Sévigné, Marseille</span>
+                    <span class="date">2024</span>
+                    <p>Série générale et technologique. Mention Très Bien.</p>
+                    <p class="quote">"Cette réussite a confirmé mon choix de poursuivre dans le domaine du numérique."
+                    </p>
+                  </div>
+                </div>
+
+              </div>
+            </div>
           </div>
         </div>
       </div>

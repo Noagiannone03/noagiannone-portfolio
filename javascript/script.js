@@ -133,7 +133,7 @@ document.addEventListener('DOMContentLoaded', function () {
     point: document.querySelector("#point-note"),
     adding: document.querySelector(".adding"),
     deleting: document.querySelector(".deleting"),
-    content_typing: document.querySelector(".content__typing"),
+    content_typing: document.querySelector(".note-editor"),
     opening: document.querySelector(".open-note")
   };
 
@@ -219,19 +219,19 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // Notes app function start
   function handleAdding() {
-    const create_input = document.createElement("input");
-    create_input.placeholder = "Writing name";
-    notesApp.adding.append(create_input);
+    // Feature disabled for static portfolio
+    console.log("Add note feature disabled");
   }
 
   function handleDeleting() {
-    const inputChild = document.querySelector(".content__sidebar--notes input");
-    inputChild.remove();
-    notesApp.content_typing.style.display = "none";
+    // Feature disabled for static portfolio
+    console.log("Delete note feature disabled");
   }
 
   function handleNotes() {
-    notesApp.content_typing.style.display = "block";
+    if (notesApp.content_typing) {
+      notesApp.content_typing.style.display = "block";
+    }
   }
 
 
