@@ -63,15 +63,16 @@ body {
   position: fixed;
   top: 0;
   left: 0;
-  color: var(--color-white-900);
-  box-shadow: 0 2px 10px var(--color-black-100);
-  background: rgba(255, 255, 255, 0.2);
-  backdrop-filter: blur(12px);  display: flex;
+  background: rgba(255, 255, 255, 0.25); /* Plus opaque pour la lisibilité */
+  backdrop-filter: blur(25px) saturate(200%); /* Blur et saturation augmentés pour le relief */
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+  display: flex;
   align-items: center;
   justify-content: space-between;
   color:#fff;
-  z-index: 20;
+  z-index: 200;
   animation: top-to-bottom 0.3s;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1); /* Légère ombre pour détacher de l'arrière-plan */
 }
 
 .navbar > ul {
@@ -211,18 +212,17 @@ li.app_name {
 
 .navbar__right .battery__popup {
   position: absolute;
-  top: calc(100% + 6px);
+  top: calc(100% + 10px);
   right: 0;
   opacity: 0;
-  width: 220px;
+  width: 240px;
   transition: all ease-out 0.2s;
-  padding: 4px;
-  background: rgba(0, 0, 0, 0.1);
+  padding: 8px;
+  background: rgba(255, 255, 255, 0.15);
   border: 1px solid rgba(255, 255, 255, 0.2);
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
-  -webkit-backdrop-filter: blur(60px);
-  backdrop-filter: blur(60px);
-  border-radius: 8px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(30px) saturate(180%);
+  border-radius: 12px;
 }
 
 .navbar__right .battery__popup.opened {
@@ -282,18 +282,19 @@ li.app_name {
 li > ul {
   display: none;
   position: absolute;
-  align-items: center;
+  align-items: stretch;
   flex-direction: column;
   left: 0;
-  top: 100%;
-  margin-top: 1px;
-  font-weight: 600;
-  padding: 4px;
-  min-width: 200px;
-  background: var(--color-white-400);
-  backdrop-filter: blur(11px);
-  border-radius: 5px;
-  box-shadow: 0 2px 7px rgba(0, 0, 0, 0.363);
+  top: calc(100% + 5px);
+  font-weight: 500;
+  padding: 5px;
+  min-width: 220px;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(30px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 12px;
+  box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+  z-index: 1000;
 }
 
 li:hover > ul {
@@ -342,17 +343,18 @@ li > .menu__container {
   display: none;
   position: absolute;
   width: 380px;
-  border-radius: 20px;
-  top: 100%;
-  right: 50%;
-  height: 24rem;
-  transform: translateX(50%);
-  background-color: rgba(224, 222, 222, 0.349);
-  backdrop-filter: blur(11px);
-  border: 1px solid rgba(70, 50, 77, 0.308);
-  box-shadow: 0 7px 15px rgba(26, 26, 26, 0.24);
+  border-radius: 18px;
+  top: calc(100% + 10px);
+  right: 10px;
+  height: auto; /* Permettre au contenu de dicter la hauteur si besoin */
+  max-height: 85vh;
+  background-color: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(30px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.4);
   overflow: hidden;
-  padding: 15px;
+  padding: 20px;
+  z-index: 1000;
 }
 
 li:hover .menu__container {
@@ -1420,14 +1422,16 @@ li > .menu__container > .grid__controling .control_center--grid {
 }
 
 .context-menu {
-  padding: 0 3px;
+  padding: 6px;
   position: absolute;
-  border-radius: 7px;
-  text-align: center;
-  background: rgba(255, 255, 255, 0.219);
-  border: 1px solid rgba(255, 255, 255, 0.281);
+  border-radius: 12px;
+  text-align: left;
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+  backdrop-filter: blur(30px) saturate(180%);
   overflow: hidden;
-  backdrop-filter: blur(15px);
+  z-index: 99999;
 }
 
 .context-menu ul {
