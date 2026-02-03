@@ -2332,44 +2332,47 @@ li > .menu__container > .grid__controling .control_center--grid {
 /* Zone de texte - Workspace */
 .editor-area {
   flex: 1;
-  overflow-y: scroll;
-  background: #cbd3dc; /* Gris de travail plus sombre pour réalisme */
-  padding: 50px 20px;
-  display: block; 
+  min-height: 0; /* Important flex fix to allow scrolling */
+  overflow-y: auto;
+  background: #cbd3dc; /* Desk gray */
+  padding: 0; /* Padding will be handled by document and spacer */
+  display: block;
 }
 
-/* La page (Document) - Effet Papier Hyper-Réaliste */
+/* Page Document - Amélioration du réalisme */
 .editor-document {
   display: block;
   background: white;
   width: 90%;
-  max-width: 800px;
-  min-height: 1100px;
-  padding: 70px 90px;
-  margin: 0 auto 100px auto;
+  max-width: 816px; /* A4 approx */
+  min-height: 1056px; /* A4 approx */
+  padding: 2cm 2.5cm; /* Standard margins */
+  margin: 40px auto; 
   box-shadow: 
     0 1px 1px rgba(0,0,0,0.1), 
     0 4px 10px rgba(0,0,0,0.1),
-    0 15px 30px rgba(0,0,0,0.15); /* Ombre de pile de feuilles */
-  border: 1px solid rgba(0,0,0,0.05);
+    0 20px 40px rgba(0,0,0,0.2); /* Deeper shadow for "stack" effect */
+  border: 1px solid #c0c0c0;
   border-radius: 1px;
   text-align: left;
   outline: none;
+  position: relative;
 }
 
-/* [NEW] Status Bar Style */
+/* [NEW] Status Bar Style - Pinned to bottom */
 .editor-status-bar {
-  background: #fbfbfb;
-  border-top: 1px solid #dcdcdc;
-  height: 24px;
+  background: #f1f1f1;
+  border-top: 1px solid #d1d1d1;
+  height: 26px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 12px;
+  padding: 0 15px;
   font-size: 11px;
-  color: #666;
+  color: #444;
   font-family: -apple-system, sans-serif;
   flex-shrink: 0;
+  z-index: 101;
 }
 
 .status-right {
