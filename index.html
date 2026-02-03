@@ -1249,14 +1249,18 @@
                   <h4>Origine du projet</h4>
                   <p>La création de ViteMonGrandOral est née directement de ma propre frustration lors de la préparation du Grand Oral au lycée. Je me souviens encore de ces longues heures passées à essayer de formuler une problématique pertinente, alors que j'avais seulement quelques idées de thématiques vagues.</p>
                   <div class='scenario-box'>
-                    <div class='scenario-icon'>â “</div>
+                    <div class='scenario-icon'>
+                      <img src='https://img.icons8.com/fluency/48/question-mark.png' style='width:24px;'/>
+                    </div>
                     <div class='scenario-text'>
                       <h5>Le problème</h5>
                       <p>Les lycéens ont souvent des idées générales mais peinent à formuler des problématiques précises et stimulantes pour leur Grand Oral.</p>
                     </div>
                   </div>
                   <div class='scenario-box solution'>
-                    <div class='scenario-icon'>💡</div>
+                    <div class='scenario-icon'>
+                      <img src='https://img.icons8.com/fluency/48/light-it-up.png' style='width:24px;'/>
+                    </div>
                     <div class='scenario-text'>
                       <h5>La solution</h5>
                       <p>Un outil IA qui transforme des mots-clés en sujets structurés avec problématique, introduction et pistes de réflexion.</p>
@@ -1443,20 +1447,79 @@
 
 
       <div class="editor-menu">
-        <button title="Nouveau">📄</button>
-        <button title="Ouvrir">📂</button>
-        <button title="Sauvegarder">💾</button>
+        <div class="menu-group">
+          <button title="Nouveau">
+            <img src="https://img.icons8.com/fluency/48/add-file.png" alt="New" />
+          </button>
+          <button title="Ouvrir">
+            <img src="https://img.icons8.com/fluency/48/opened-folder.png" alt="Open" />
+          </button>
+          <button title="Sauvegarder">
+            <img src="https://img.icons8.com/fluency/48/save-as.png" alt="Save" />
+          </button>
+        </div>
         <div class="editor-separator"></div>
-        <button title="Gras"><strong>B</strong></button>
-        <button title="Italique"><em>I</em></button>
-        <button title="Souligné"><u>U</u></button>
+        <div class="menu-group">
+          <button title="Gras">
+            <img src="https://img.icons8.com/fluency/48/bold.png" alt="Bold" />
+          </button>
+          <button title="Italique">
+            <img src="https://img.icons8.com/fluency/48/italic.png" alt="Italic" />
+          </button>
+          <button title="Souligné">
+            <img src="https://img.icons8.com/fluency/48/underline.png" alt="Underline" />
+          </button>
+        </div>
         <div class="editor-separator"></div>
-        <button title="Police">Aa</button>
-        <button title="Taille">🔠</button>
-        <div class="editor-separator"></div>
-        <button title="Gauche">⬅️</button>
-        <button title="Centré">↔️</button>
-        <button title="Droite">➡️</button>
+        <div class="menu-group">
+          <button title="Police">
+            <img src="https://img.icons8.com/fluency/48/font-size.png" alt="Font" />
+          </button>
+          <button title="Gauche">
+            <img src="https://img.icons8.com/fluency/48/align-left.png" alt="Left" />
+          </button>
+          <button title="Centré">
+            <img src="https://img.icons8.com/fluency/48/align-center.png" alt="Center" />
+          </button>
+          <button title="Droite">
+            <img src="https://img.icons8.com/fluency/48/align-right.png" alt="Right" />
+          </button>
+        </div>
+      </div>
+
+      <!-- Ruler -->
+      <div class="editor-ruler">
+        <div class="ruler-line">
+          <div class="ruler-marker" style="left: 0%;">0</div>
+          <div class="ruler-marker" style="left: 10%;">1</div>
+          <div class="ruler-marker" style="left: 20%;">2</div>
+          <div class="ruler-marker" style="left: 30%;">3</div>
+          <div class="ruler-marker" style="left: 40%;">4</div>
+          <div class="ruler-marker" style="left: 50%;">5</div>
+          <div class="ruler-marker" style="left: 60%;">6</div>
+          <div class="ruler-marker" style="left: 70%;">7</div>
+          <div class="ruler-marker" style="left: 80%;">8</div>
+          <div class="ruler-marker" style="left: 90%;">9</div>
+          <div class="ruler-marker" style="left: 100%;">10</div>
+        </div>
+      </div>
+
+      <!-- Zone editable -->
+      <div class="editor-area" contenteditable="true">
+        <!-- Contenu injecté ici -->
+      </div>
+
+      <!-- Bottom Status Bar -->
+      <div class="editor-status-bar">
+        <div class="status-left">Page 1 sur 1</div>
+        <div class="status-center">854 mots</div>
+        <div class="status-right">
+          <span>100%</span>
+          <div class="zoom-slider">
+            <div class="zoom-track"></div>
+            <div class="zoom-thumb"></div>
+          </div>
+        </div>
       </div>
       <!-- Zone editable -->
       <div class="editor-area" contenteditable="true">

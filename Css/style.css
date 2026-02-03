@@ -2224,120 +2224,196 @@ li > .menu__container > .grid__controling .control_center--grid {
 }
 
 /* Editor amélioré */
-/* Editor Modernisé - Style "TextEdit" / "Pages" */
+/* Editor Modernisé - Style Hyper-Réaliste "Pages / Word" */
 .editor-content {
   display: flex;
   flex-direction: column;
-  background: #f5f5f7; /* Apple standard gray background */
+  background: #f5f5f7;
   height: calc(100% - 28px);
   border-radius: 0 0 10px 10px;
-  overflow: hidden; 
+  overflow: hidden;
+  position: relative;
 }
 
-/* Barre d'outils style "Format Bar" - Redesign */
+/* Barre d'outils style "Format Bar" - Redesign avec Groupage */
 .editor-menu {
-    border-bottom: 1px solid #d1d1d1;
-    background: #fff;
-    padding: 10px 16px;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    z-index: 10;
-    flex-wrap: wrap;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+  border-bottom: 1px solid #dcdcdc;
+  background: #fbfbfb;
+  padding: 6px 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  z-index: 100;
+  flex-shrink: 0;
+}
+
+.menu-group {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  background: rgba(0,0,0,0.02);
+  padding: 2px;
+  border-radius: 6px;
 }
 
 .editor-menu button {
-  background: #fff;
-  border: 1px solid #dcdcdc;
-  border-radius: 6px;
-  font-size: 14px;
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 4px;
   cursor: pointer;
-  padding: 6px 12px;
-  transition: all 0.2s cubic-bezier(0.25, 0.1, 0.25, 1);
-  color: #333;
+  padding: 5px;
+  transition: all 0.2s;
   display: flex;
   align-items: center;
   justify-content: center;
-  min-width: 32px;
-  font-family: -apple-system, sans-serif;
-  box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+  min-width: 30px;
+  height: 30px;
+}
+
+.editor-menu button img {
+  width: 18px;
+  height: 18px;
+  opacity: 0.8;
 }
 
 .editor-menu button:hover {
-  background: #f0f0f0;
-  border-color: #c0c0c0;
-  transform: translateY(-1px);
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  background: #fff;
+  border-color: #dcdcdc;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.05);
 }
 
-.editor-menu button:active {
-  transform: translateY(0);
-  background: #e5e5e5;
-  box-shadow: none;
+.editor-menu button:hover img {
+  opacity: 1;
 }
 
 .editor-separator {
   width: 1px;
-  height: 24px;
+  height: 20px;
   background: #e0e0e0;
-  margin: 0 4px;
+  margin: 0 2px;
 }
 
-/* Zone de texte - Wrapper scrollable */
+/* [NEW] Ruler Style */
+.editor-ruler {
+  height: 20px;
+  background: #fbfbfb;
+  border-bottom: 1px solid #dcdcdc;
+  position: relative;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.ruler-line {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90%;
+  max-width: 800px; /* Aligné sur la largeur du document */
+  height: 100%;
+  display: flex;
+  border-left: 1px solid #999;
+  border-right: 1px solid #999;
+}
+
+.ruler-marker {
+  position: absolute;
+  top: 0;
+  font-size: 9px;
+  color: #888;
+  height: 100%;
+  display: flex;
+  align-items: flex-end;
+  padding-bottom: 2px;
+  padding-left: 2px;
+  border-left: 1px solid #ddd;
+}
+
+/* Zone de texte - Workspace */
 .editor-area {
   flex: 1;
-  overflow-y: auto; /* Enable vertical scrolling */
-  background: #f0f2f5; 
-  padding: 40px 20px;
-  display: flex !important;
-  flex-direction: column;
-  align-items: center; /* Center the document horizontally */
-  cursor: default;
+  overflow-y: scroll;
+  background: #cbd3dc; /* Gris de travail plus sombre pour réalisme */
+  padding: 50px 20px;
+  display: block; 
 }
 
-/* La page (Document) injectée par JS */
+/* La page (Document) - Effet Papier Hyper-Réaliste */
 .editor-document {
-    display: block;
-    background: white;
-    width: 100%;
-    max-width: 800px; /* A4 width */
-    min-height: 1000px;
-    padding: 60px 70px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.1), 0 1px 3px rgba(0,0,0,0.05); /* Realistic paper shadow */
-    border-radius: 2px;
-    margin-bottom: 50px;
-    text-align: left;
-    color: #1d1d1f;
+  display: block;
+  background: white;
+  width: 90%;
+  max-width: 800px;
+  min-height: 1100px;
+  padding: 70px 90px;
+  margin: 0 auto 100px auto;
+  box-shadow: 
+    0 1px 1px rgba(0,0,0,0.1), 
+    0 4px 10px rgba(0,0,0,0.1),
+    0 15px 30px rgba(0,0,0,0.15); /* Ombre de pile de feuilles */
+  border: 1px solid rgba(0,0,0,0.05);
+  border-radius: 1px;
+  text-align: left;
+  outline: none;
 }
 
-/* Fonts inside the document - Clean & Professional */
-.editor-document h3 {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    font-size: 28px;
-    font-weight: 700;
-    color: #000;
-    margin-bottom: 30px;
-    letter-spacing: -0.5px;
-    border-bottom: 1px solid #eee;
-    padding-bottom: 20px;
+/* [NEW] Status Bar Style */
+.editor-status-bar {
+  background: #fbfbfb;
+  border-top: 1px solid #dcdcdc;
+  height: 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 12px;
+  font-size: 11px;
+  color: #666;
+  font-family: -apple-system, sans-serif;
+  flex-shrink: 0;
 }
 
-.editor-document h4 {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    font-size: 18px;
-    font-weight: 600;
-    color: #007aff;
-    margin-top: 30px;
-    margin-bottom: 15px;
+.status-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
+.zoom-slider {
+  width: 80px;
+  height: 3px;
+  background: #ddd;
+  border-radius: 2px;
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.zoom-thumb {
+  width: 10px;
+  height: 10px;
+  background: #007aff;
+  border-radius: 50%;
+  position: absolute;
+  left: 50%;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+}
+
+/* Fonts & Typo */
 .editor-document p {
-    font-family: "Georgia", "Times New Roman", serif; /* Better serif for body text */
-    font-size: 17px;
-    line-height: 1.6;
-    margin-bottom: 20px;
-    color: #333;
+  font-family: "Georgia", serif;
+  font-size: 16px;
+  line-height: 1.6;
+  margin-bottom: 20px;
+  color: #1d1d1f;
+}
+
+.editor-document h3 {
+  font-family: -apple-system, sans-serif;
+  font-size: 32px;
+  font-weight: 700;
+  margin-top: 0;
+  margin-bottom: 30px;
+  letter-spacing: -0.5px;
 }
 
 /* Specific component styles inside document */
