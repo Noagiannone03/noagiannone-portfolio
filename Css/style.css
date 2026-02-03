@@ -1281,6 +1281,7 @@ li > .menu__container > .grid__controling .control_center--grid {
 }
 
 .calculator {
+  position: absolute; /* Add explicit position just in case */
   display: none;
   width: 20rem;
   max-width: 100%;

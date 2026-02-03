@@ -504,13 +504,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // Calculator app start
   function handleOpenCal_lunchpad() {
-    calculatorApp.window.style.display = "block";
-    calculatorApp.app_name.style.display = "block";
-    launchpad.container.style.display = "flex";
-    elements.navbar.style.display = "flex";
-    launchpad.window.style.display = "none";
-    calculatorApp.point.style.display = "block";
-    launchpad.point.style.display = "none";
+    open_window(calculatorApp.window, calculatorApp.point, calculatorApp.app_name);
   }
   // Calculator app end
 
@@ -600,69 +594,109 @@ document.addEventListener('DOMContentLoaded', function () {
   // select the <input type="text" class="display" disabled> element
   const calculatorDisplay = document.querySelector(".display");
 
-  // add eventListener to each button
-  calculatorButtons.forEach((button) => {
-    button.addEventListener("click", (event) =>
-      calculate(event.target.value, calculatorDisplay)
-    );
-  });
+  // --- CALCULATOR LOGIC (Advanced) ---
+  let calcState = {
+    displayValue: '0',
+    firstOperand: null,
+    waitingForSecondOperand: false,
+    operator: null,
+  };
 
-  function calculate(value, display) {
-    const latestChar = display.value[display.value.length - 1];
-
-    const isEmpty = display.value === "0";
-    const isDecimalLastOperand = lastNumber(display.value).includes(".");
-    const isNumber =
-      value === "0" ||
-      value === "1" ||
-      value === "2" ||
-      value === "3" ||
-      value === "4" ||
-      value === "5" ||
-      value === "6" ||
-      value === "7" ||
-      value === "8" ||
-      value === "9" ||
-      value === "10";
-
-    if (isEmpty && isNumber) {
-      return (display.value = value);
-    }
-
-    switch (value) {
-      case "=":
-        if (!isEmpty) display.value = eval(display.value);
-        return;
-      case ".":
-        if (!isDecimalLastOperand) display.value += ".";
-        return;
-      case "C":
-        return (display.value = "0");
-      case "+/-":
-        if (
-          !operators.some((operator) =>
-            display.value.replace(/^-/, "").includes(operator)
-          )
-        )
-          display.value = -1 * parseFloat(display.value);
-        return;
-      case "*":
-      case "/":
-      case "-":
-      case "+":
-      case "%":
-        if (
-          latestChar === "/" ||
-          latestChar === "*" ||
-          latestChar === "-" ||
-          latestChar === "+" ||
-          latestChar === "%"
-        )
-          return (display.value = display.value.slice(0, -1) + value);
-      default:
-        display.value += value;
+  function updateDisplay() {
+    if (calculatorDisplay) {
+      calculatorDisplay.value = calcState.displayValue;
     }
   }
+
+  function inputDigit(digit) {
+    const { displayValue, waitingForSecondOperand } = calcState;
+
+    if (waitingForSecondOperand === true) {
+      calcState.displayValue = digit;
+      calcState.waitingForSecondOperand = false;
+    } else {
+      calcState.displayValue = displayValue === '0' ? digit : displayValue + digit;
+    }
+  }
+
+  function inputDecimal(dot) {
+    if (calcState.waitingForSecondOperand === true) {
+      calcState.displayValue = "0.";
+      calcState.waitingForSecondOperand = false;
+      return;
+    }
+
+    if (!calcState.displayValue.includes(dot)) {
+      calcState.displayValue += dot;
+    }
+  }
+
+  function handleOperator(nextOperator) {
+    const { firstOperand, displayValue, operator } = calcState;
+    const inputValue = parseFloat(displayValue);
+
+    if (operator && calcState.waitingForSecondOperand) {
+      calcState.operator = nextOperator;
+      return;
+    }
+
+    if (firstOperand == null && !isNaN(inputValue)) {
+      calcState.firstOperand = inputValue;
+    } else if (operator) {
+      const result = performCalculation[operator](firstOperand, inputValue);
+      calcState.displayValue = String(Number(result.toFixed(7)));
+      calcState.firstOperand = result;
+    }
+
+    calcState.waitingForSecondOperand = true;
+    calcState.operator = nextOperator;
+  }
+
+  const performCalculation = {
+    '/': (firstOperand, secondOperand) => firstOperand / secondOperand,
+    '*': (firstOperand, secondOperand) => firstOperand * secondOperand,
+    '+': (firstOperand, secondOperand) => firstOperand + secondOperand,
+    '-': (firstOperand, secondOperand) => firstOperand - secondOperand,
+    '=': (firstOperand, secondOperand) => secondOperand,
+  };
+
+  function resetCalculator() {
+    calcState.displayValue = '0';
+    calcState.firstOperand = null;
+    calcState.waitingForSecondOperand = false;
+    calcState.operator = null;
+  }
+
+  function toggleSign() {
+    calcState.displayValue = String(parseFloat(calcState.displayValue) * -1);
+  }
+
+  function applyPercentage() {
+    calcState.displayValue = String(parseFloat(calcState.displayValue) / 100);
+  }
+
+  calculatorButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+      const { value } = button;
+
+      if (button.classList.contains('operator')) {
+        handleOperator(value);
+      } else if (button.classList.contains('operator-2')) {
+        if (value === 'C') resetCalculator();
+        if (value === '+/-') toggleSign();
+        if (value === '%') applyPercentage();
+      } else if (value === '.') {
+        inputDecimal(value);
+      } else if (value === '=') {
+        handleOperator(value);
+      } else {
+        inputDigit(value);
+      }
+      updateDisplay();
+    });
+  });
+
+  updateDisplay(); // Initial display
 
   // Custom dragging for all windows on desktop and mobile
   const wins = document.querySelectorAll('.window');
