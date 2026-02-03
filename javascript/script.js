@@ -350,7 +350,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const prevLeft = parseFloat(win.dataset.minLeft) || 0;
     const prevTop = parseFloat(win.dataset.minTop) || 0;
 
-    win.style.display = 'block';
+    win.style.display = win.dataset.display || 'block';
     win.style.left = win.dataset.minLeft;
     win.style.top = win.dataset.minTop;
 
@@ -450,7 +450,7 @@ document.addEventListener('DOMContentLoaded', function () {
       return;
     }
     elements.navbar.style.display = "flex";
-    open.style.display = "block";
+    open.style.display = open.dataset.display || "block";
     launchpad.container.style.display = "flex";
     launchpad.window.style.display = "none";
     launchpad.point.style.display = "none";
@@ -1106,10 +1106,12 @@ document.addEventListener('DOMContentLoaded', function () {
     back: document.querySelector(".safari-back"),
     forward: document.querySelector(".safari-forward"),
     reload: document.querySelector(".safari-reload"),
-    home: document.querySelector(".safari-home"),
-    plus: document.querySelector(".safari-plus"),
     addressBar: document.querySelector(".safari-url"),
-    content: document.querySelector(".safari-content")
+    loadingBar: document.querySelector(".safari-loading-bar"),
+    content: document.querySelector(".safari-content"),
+    pinnedTabs: document.querySelectorAll(".safari-pinned-tab"),
+    pages: document.querySelectorAll(".safari-page"),
+    currentPage: "histoire"
   };
 
   // Ouvrir/fermer la fenêtre Safari
@@ -1129,9 +1131,58 @@ document.addEventListener('DOMContentLoaded', function () {
     handleFullScreen(safariApp.window)
   );
 
-  // Simulation des boutons de navigation
+  // Safari Tab Switching
+  function switchSafariPage(pageName) {
+    if (pageName === safariApp.currentPage) return;
+
+    // Update tabs
+    safariApp.pinnedTabs.forEach(tab => {
+      tab.classList.toggle("active", tab.dataset.page === pageName);
+    });
+
+    // Show loading animation
+    safariApp.loadingBar.classList.add("loading");
+
+    // Update URL bar
+    const urls = {
+      histoire: "noagiannone.com/mon-histoire",
+      cv: "noagiannone.com/mon-cv"
+    };
+    safariApp.addressBar.value = urls[pageName] || "";
+
+    // Fade out current page
+    const currentPageEl = document.querySelector(".safari-page.active");
+    if (currentPageEl) {
+      currentPageEl.style.opacity = "0";
+    }
+
+    // Switch pages after animation
+    setTimeout(() => {
+      safariApp.pages.forEach(page => {
+        page.classList.remove("active");
+      });
+
+      const newPage = document.querySelector(`.safari-page-${pageName}`);
+      if (newPage) {
+        newPage.classList.add("active");
+        newPage.style.opacity = "1";
+      }
+
+      safariApp.loadingBar.classList.remove("loading");
+      safariApp.currentPage = pageName;
+    }, 400);
+  }
+
+  // Pinned tabs click handlers
+  safariApp.pinnedTabs.forEach(tab => {
+    tab.addEventListener("click", () => {
+      const pageName = tab.dataset.page;
+      switchSafariPage(pageName);
+    });
+  });
+
+  // Navigation buttons
   safariApp.back.addEventListener("click", () => {
-    // Animation pour simuler le retour en arrière
     safariApp.content.style.opacity = "0.5";
     setTimeout(() => {
       safariApp.content.style.opacity = "1";
@@ -1139,7 +1190,6 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 
   safariApp.forward.addEventListener("click", () => {
-    // Animation pour simuler l'avancement
     safariApp.content.style.opacity = "0.5";
     setTimeout(() => {
       safariApp.content.style.opacity = "1";
@@ -1147,17 +1197,16 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 
   safariApp.reload.addEventListener("click", () => {
-    // Animation de rechargement
     safariApp.reload.classList.add("rotating");
+    safariApp.loadingBar.classList.add("loading");
     safariApp.content.style.opacity = "0.5";
 
     setTimeout(() => {
       safariApp.content.style.opacity = "1";
       safariApp.reload.classList.remove("rotating");
-    }, 500);
+      safariApp.loadingBar.classList.remove("loading");
+    }, 800);
   });
-
-
 
 
 

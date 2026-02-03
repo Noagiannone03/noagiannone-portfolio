@@ -513,7 +513,7 @@
       <!-- Note -->
 
       <!-- Note -->
-      <div class="window note">
+      <div class="window note" data-display="flex">
         <div class="window__taskbar">
           <div class="window__taskbar--actions">
             <button class="close-note"></button>
@@ -817,7 +817,7 @@
           </div>
         </div>
         <div class="window-content">
-          <!-- Barre de navigation du navigateur -->
+          <!-- Barre de navigation Safari avec tabs epingles -->
           <div class="safari-navbar">
             <div class="safari-navbar-controls">
               <button class="safari-btn safari-back">
@@ -840,161 +840,200 @@
                     d="M8 3c-1.552 0-2.94.707-3.857 1.818a.5.5 0 1 1-.771-.636A6.002 6.002 0 0 1 13.917 7H12.9A5.002 5.002 0 0 0 8 3zM3.1 9a5.002 5.002 0 0 0 8.757 2.182.5.5 0 1 1 .771.636A6.002 6.002 0 0 1 2.083 9H3.1z" />
                 </svg>
               </button>
-              <button class="safari-btn safari-home">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+            </div>
+
+            <!-- Tabs epingles -->
+            <div class="safari-pinned-tabs">
+              <button class="safari-pinned-tab active" data-page="histoire">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" viewBox="0 0 16 16">
                   <path
-                    d="M8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4.5a.5.5 0 0 0 .5-.5v-4h2v4a.5.5 0 0 0 .5.5H14a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146zM2.5 14V7.707l5.5-5.5 5.5 5.5V14H10v-4a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5v4H2.5z" />
+                    d="M1 2.828c.885-.37 2.154-.769 3.388-.893 1.33-.134 2.458.063 3.112.752v9.746c-.935-.53-2.12-.603-3.213-.493-1.18.12-2.37.461-3.287.811V2.828zm7.5-.141c.654-.689 1.782-.886 3.112-.752 1.234.124 2.503.523 3.388.893v9.923c-.918-.35-2.107-.692-3.287-.81-1.094-.111-2.278-.039-3.213.492V2.687zM8 1.783C7.015.936 5.587.81 4.287.94c-1.514.153-3.042.672-3.994 1.105A.5.5 0 0 0 0 2.5v11a.5.5 0 0 0 .707.455c.882-.4 2.303-.881 3.68-1.02 1.409-.142 2.59.087 3.223.877a.5.5 0 0 0 .78 0c.633-.79 1.814-1.019 3.222-.877 1.378.139 2.8.62 3.681 1.02A.5.5 0 0 0 16 13.5v-11a.5.5 0 0 0-.293-.455c-.952-.433-2.48-.952-3.994-1.105C10.413.809 8.985.936 8 1.783z" />
                 </svg>
+                <span>Mon Histoire</span>
+              </button>
+              <button class="safari-pinned-tab" data-page="cv">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" viewBox="0 0 16 16">
+                  <path
+                    d="M4 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H4zm0 1h8a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1z" />
+                  <path
+                    d="M4.603 14.087a.81.81 0 0 1-.438-.42c-.195-.388-.13-.776.08-1.102.198-.307.526-.568.897-.787a7.68 7.68 0 0 1 1.482-.645a19.697 19.697 0 0 0 1.062-2.227a7.269 7.269 0 0 1-.43-1.295c-.086-.4-.119-.796-.046-1.136.075-.354.274-.672.65-.823.192-.077.4-.12.602-.077a.7.7 0 0 1 .477.365c.088.164.12.356.127.538.007.188-.012.396-.047.614-.084.51-.27 1.134-.52 1.794a10.954 10.954 0 0 0 .98 1.686a5.753 5.753 0 0 1 1.334.05c.364.066.734.195.96.465.12.144.193.32.2.518.007.192-.047.382-.138.563a1.04 1.04 0 0 1-.354.416a.856.856 0 0 1-.51.138c-.331-.014-.654-.196-.933-.417a5.712 5.712 0 0 1-.911-.95a11.651 11.651 0 0 0-1.997.406a11.307 11.307 0 0 1-1.02 1.51c-.292.35-.609.656-.927.787a.793.793 0 0 1-.58.029zm1.379-1.901c-.166.076-.32.156-.459.238-.328.194-.541.383-.647.547-.094.145-.096.25-.04.361.01.022.02.036.026.044a.266.266 0 0 0 .035-.012c.137-.056.355-.235.635-.572a8.18 8.18 0 0 0 .45-.606zm1.64-1.33a12.71 12.71 0 0 1 1.01-.193a11.744 11.744 0 0 1-.51-.858a20.801 20.801 0 0 1-.5 1.05zm2.446.45c.15.163.296.3.435.41.24.19.407.253.498.256a.107.107 0 0 0 .07-.015.307.307 0 0 0 .094-.125.436.436 0 0 0 .059-.2.095.095 0 0 0-.026-.063c-.052-.062-.2-.152-.518-.209a3.876 3.876 0 0 0-.612-.053zM8.078 7.8a6.7 6.7 0 0 0 .2-.828c.031-.188.043-.343.038-.465a.613.613 0 0 0-.032-.198.517.517 0 0 0-.145.04c-.087.035-.158.106-.196.283-.04.192-.03.469.046.822.024.111.054.227.09.346z" />
+                </svg>
+                <span>Mon CV</span>
               </button>
             </div>
+
             <div class="safari-address-bar">
               <div class="safari-icon">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
-                  <path
-                    d="M8 0C3.58 0 0 3.58 0 8s3.58 8 8 8 8-3.58 8-8-3.58-8-8-8zM6.96 12.186c-.102.153-.25.27-.438.353a1.49 1.49 0 0 1-.565.123c-.327 0-.583-.08-.769-.24a.86.86 0 0 1-.277-.7c0-.013 0-.032.003-.058l.001-.042 1.06-4.931a2 2 0 0 1 .166-.501c.09-.175.214-.318.37-.429.16-.11.35-.185.566-.222.215-.037.44-.055.673-.055.268 0 .487.06.656.179.17.118.255.292.255.521 0 .075-.01.159-.032.252l-1.068 4.989a2.845 2.845 0 0 1-.17.51zm.2-8.67c-.214.214-.5.321-.857.321-.357 0-.645-.107-.857-.32a1.07 1.07 0 0 1-.32-.79c0-.295.107-.544.32-.757.214-.214.5-.32.857-.32.357 0 .643.106.857.32.214.213.32.462.32.746 0 .295-.106.546-.32.76z" />
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" viewBox="0 0 16 16">
+                  <path fill-rule="evenodd"
+                    d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0zM2.04 4.326c.325 1.329 2.532 2.54 3.717 3.19.48.263.793.434.743.484-.08.08-.162.158-.242.234-.416.396-.787.749-.758 1.266.035.634.618.824 1.214 1.017.577.188 1.168.38 1.286.983.082.417-.075.988-.22 1.52-.215.782-.406 1.48.22 1.48 1.5-.5 3.798-3.186 4-5 .138-1.243-2-2-3.5-2.5-.478-.16-.755.081-.99.284-.172.15-.322.279-.51.216-.445-.148-2.5-2-1.5-2.5.78-.39.952-.171 1.227.182.078.099.163.208.273.318.609.304.662-.132.723-.633.039-.322.081-.671.277-.867.434-.434 1.265-.791 2.028-1.12.712-.306 1.365-.587 1.579-.88A7 7 0 1 1 2.04 4.327z" />
                 </svg>
               </div>
-              <input type="text" class="safari-url" value="https://monsite.com/portfolio" readonly>
+              <input type="text" class="safari-url" value="noagiannone.com/mon-histoire" readonly>
+              <!-- Loading bar -->
+              <div class="safari-loading-bar"></div>
             </div>
+
             <div class="safari-actions">
-              <button class="safari-btn safari-plus">
+              <button class="safari-btn safari-share">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
                   <path
-                    d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
-                </svg>
-              </button>
-              <button class="safari-btn safari-bookmarks">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
-                  <path
-                    d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5V2zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1H4z" />
-                </svg>
-              </button>
-              <button class="safari-btn safari-settings">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
-                  <path
-                    d="M8 4.754a3.246 3.246 0 1 0 0 6.492 3.246 3.246 0 0 0 0-6.492zM5.754 8a2.246 2.246 0 1 1 4.492 0 2.246 2.246 0 0 1-4.492 0z" />
-                  <path
-                    d="M9.796 1.343c-.527-1.79-3.065-1.79-3.592 0l-.094.319a.873.873 0 0 1-1.255.52l-.292-.16c-1.64-.892-3.433.902-2.54 2.541l.159.292a.873.873 0 0 1-.52 1.255l-.319.094c-1.79.527-1.79 3.065 0 3.592l.319.094a.873.873 0 0 1 .52 1.255l-.16.292c-.892 1.64.901 3.434 2.541 2.54l.292-.159a.873.873 0 0 1 1.255.52l.094.319c.527 1.79 3.065 1.79 3.592 0l.094-.319a.873.873 0 0 1 1.255-.52l.292.16c1.64.893 3.434-.902 2.54-2.541l-.159-.292a.873.873 0 0 1 .52-1.255l.319-.094c1.79-.527 1.79-3.065 0-3.592l-.319-.094a.873.873 0 0 1-.52-1.255l.16-.292c.893-1.64-.902-3.433-2.541-2.54l-.292.159a.873.873 0 0 1-1.255-.52l-.094-.319zm-2.633.283c.246-.835 1.428-.835 1.674 0l.094.319a1.873 1.873 0 0 0 2.693 1.115l.291-.16c.764-.415 1.6.42 1.184 1.185l-.159.292a1.873 1.873 0 0 0 1.116 2.692l.318.094c.835.246.835 1.428 0 1.674l-.319.094a1.873 1.873 0 0 0-1.115 2.693l.16.291c.415.764-.42 1.6-1.185 1.184l-.291-.159a1.873 1.873 0 0 0-2.693 1.116l-.094.318c-.246.835-1.428.835-1.674 0l-.094-.319a1.873 1.873 0 0 0-2.692-1.115l-.292.16c-.764.415-1.6-.42-1.184-1.185l.159-.291A1.873 1.873 0 0 0 1.945 8.93l-.319-.094c-.835-.246-.835-1.428 0-1.674l.319-.094A1.873 1.873 0 0 0 3.06 4.377l-.16-.292c-.415-.764.42-1.6 1.185-1.184l.292.159a1.873 1.873 0 0 0 2.692-1.115l.094-.319z" />
+                    d="M11 2.5a2.5 2.5 0 1 1 .603 1.628l-6.718 3.12a2.499 2.499 0 0 1 0 1.504l6.718 3.12a2.5 2.5 0 1 1-.488.876l-6.718-3.12a2.5 2.5 0 1 1 0-3.256l6.718-3.12A2.5 2.5 0 0 1 11 2.5z" />
                 </svg>
               </button>
             </div>
           </div>
 
-          <!-- Contenu de la page web -->
+          <!-- Contenu Safari - Pages -->
           <div class="safari-content">
-            <div class="safari-homepage">
-              <div class="safari-hero">
-                <h1>Bienvenue dans mon univers</h1>
-                <div class="safari-hero-tagline">Dev le jour, voyageur toujours</div>
-              </div>
 
-              <div class="safari-section">
-                <div class="safari-section-header">
-                  <div class="safari-section-icon">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
-                      viewBox="0 0 16 16">
-                      <path
-                        d="M8.211 2.047a.5.5 0 0 0-.422 0l-7.5 3.5a.5.5 0 0 0 .025.917l7.5 3a.5.5 0 0 0 .372 0L14 7.14V13a1 1 0 0 0-1 1v2h3v-2a1 1 0 0 0-1-1V6.739l.686-.275a.5.5 0 0 0 .025-.917l-7.5-3.5Z" />
-                      <path
-                        d="M4.176 9.032a.5.5 0 0 0-.656.327l-.5 1.7a.5.5 0 0 0 .294.605l4.5 1.8a.5.5 0 0 0 .372 0l4.5-1.8a.5.5 0 0 0 .294-.605l-.5-1.7a.5.5 0 0 0-.656-.327L8 10.466 4.176 9.032Z" />
-                    </svg>
-                  </div>
-                  <h2>Ma passion pour l'informatique</h2>
+            <!-- PAGE: Mon Histoire -->
+            <div class="safari-page safari-page-histoire active">
+              <div class="safari-homepage">
+                <div class="safari-hero">
+                  <h1>Bienvenue dans mon univers</h1>
+                  <div class="safari-hero-tagline">Dev le jour, voyageur toujours</div>
                 </div>
-                <div class="safari-section-content">
-                  <p>Tout a commencé quand j'avais 10 ans, lorsqu'on m'a offert mon premier PC. J'étais fasciné par
-                    cette machine et j'ai tout de suite voulu comprendre comment elle fonctionnait. Ce qui me captivait
-                    le plus, c'était ce défi constant entre moi et l'ordinateur, cette envie de découvrir ses secrets.
-                    💻</p>
-                  <p>C'est grâce à mon cousin qui vit en Espagne que je me suis vraiment plongé dans le développement.
-                    Quand j'ai vu qu'il avait créé son propre blog à partir de simples lignes de code, ça a été comme
-                    une révélation! J'ai toujours aimé construire, créer et partager avec les autres - des cabanes en
-                    carton enfant aux sites web aujourd'hui. Le code est devenu ma façon de donner vie à mon imagination
-                    et étancher cette soif de creation</p>
-                </div>
-              </div>
 
-              <div class="safari-section">
-                <div class="safari-section-header">
-                  <div class="safari-section-icon">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
-                      viewBox="0 0 16 16">
-                      <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm7-8A7 7 0 1 1 1 8a7 7 0 0 1 14 0z" />
-                      <path
-                        d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z" />
-                    </svg>
+                <div class="safari-section">
+                  <div class="safari-section-header">
+                    <div class="safari-section-icon">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
+                        viewBox="0 0 16 16">
+                        <path
+                          d="M10.478 1.647a.5.5 0 1 0-.956-.294l-4 13a.5.5 0 0 0 .956.294l4-13zM4.854 4.146a.5.5 0 0 1 0 .708L1.707 8l3.147 3.146a.5.5 0 0 1-.708.708l-3.5-3.5a.5.5 0 0 1 0-.708l3.5-3.5a.5.5 0 0 1 .708 0zm6.292 0a.5.5 0 0 0 0 .708L14.293 8l-3.147 3.146a.5.5 0 0 0 .708.708l3.5-3.5a.5.5 0 0 0 0-.708l-3.5-3.5a.5.5 0 0 0-.708 0z" />
+                      </svg>
+                    </div>
+                    <h2>Le code, c'est mon truc</h2>
                   </div>
-                  <h2>Sport et évasion</h2>
-                </div>
-                <div class="safari-section-content">
-                  <p>L'escalade est devenue une vraie passion pour moi. Ce que j'aime dans ce sport, c'est qu'il me
-                    pousse à me dépasser tout en me vidant complètement la tête. Chaque prise est un nouveau défi à
-                    surmonter! 🧗‍♂️</p>
-                  <p>J'adore aussi courir en pleine nature, surtout en colline. Ce n'est pas pour la performance, mais
-                    pour la sensation de liberté et la beauté des paysages. Ces moments me permettent de me déconnecter
-                    de la routine quotidienne et de me reconnecter à l'essentiel. Rien de tel qu'un sentier en pleine
-                    nature pour faire le vide et revenir aux sources.</p>
-                  <div class="safari-images">
-                    <div class="safari-image">
-                      <img src="images/escalade-falaise.jpg" alt="Escalade" />
-                      <div class="safari-image-caption">En pleine session d'escalade</div>
-                    </div>
-                    <div class="safari-image">
-                      <img src="images/trail-running.jpg" alt="Course en montagne" />
-                      <div class="safari-image-caption">Mon échappatoire en pleine nature</div>
-                    </div>
+                  <div class="safari-section-content">
+                    <p>A 10 ans, j'ai recu mon premier PC. Un truc magique. J'ai passe des heures a fouiner dans les
+                      menus, a casser des trucs, a les reparer. Petit a petit, j'ai compris que derriere chaque clic, y
+                      avait du code. Et ca m'a fascine.</p>
+                    <p>Le declic, c'est mon cousin en Espagne qui l'a provoque. Il m'a montre son blog fait maison -
+                      juste du HTML/CSS tout simple - et la j'ai eu les yeux qui brillent. Moi aussi je voulais creer
+                      des trucs sur internet. Depuis, j'ai jamais arrete. Des sites web aux apps mobiles, je construis
+                      des projets qui ont du sens.</p>
                   </div>
                 </div>
-              </div>
 
-              <div class="safari-section">
-                <div class="safari-section-header">
-                  <div class="safari-section-icon">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
-                      viewBox="0 0 16 16">
-                      <path
-                        d="M10 2a2 2 0 0 1-1.5 1.937v5.087c.863.083 1.5.377 1.5.726 0 .414-.895.75-2 .75s-2-.336-2-.75c0-.35.637-.643 1.5-.726V3.937A2 2 0 1 1 10 2z" />
-                      <path
-                        d="M0 9.665v1.717a1 1 0 0 0 .553.894l6.553 3.277a2 2 0 0 0 1.788 0l6.553-3.277a1 1 0 0 0 .553-.894V9.665c0-.1-.06-.19-.152-.23L9.5 6.715v.993l5.227 2.178a.125.125 0 0 1 .001.23l-5.94 2.546a2 2 0 0 1-1.576 0l-5.94-2.546a.125.125 0 0 1 .001-.23L6.5 7.708l-.013-.988L.152 9.435a.25.25 0 0 0-.152.23z" />
-                    </svg>
+                <div class="safari-section">
+                  <div class="safari-section-header">
+                    <div class="safari-section-icon icon-sport">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
+                        viewBox="0 0 16 16">
+                        <path
+                          d="M3.051 3.26a.5.5 0 0 1 .354-.613l1.932-.518a.5.5 0 0 1 .62.39c.655-.079 1.35-.117 2.043-.117.72 0 1.443.041 2.12.126a.5.5 0 0 1 .622-.399l1.932.518a.5.5 0 0 1 .306.729c.14.09.266.19.373.297.408.408.78 1.05 1.095 1.772.32.733.599 1.591.805 2.466.206.875.34 1.78.364 2.606.024.816-.059 1.602-.328 2.21a1.42 1.42 0 0 1-1.445.83c-.636-.067-1.115-.394-1.513-.773-.245-.232-.496-.526-.739-.808-.126-.148-.25-.292-.368-.423-.728-.804-1.597-1.527-3.224-1.527-1.627 0-2.496.723-3.224 1.527-.119.131-.242.275-.368.423-.243.282-.494.575-.739.808-.398.38-.877.706-1.513.773a1.42 1.42 0 0 1-1.445-.83c-.27-.608-.352-1.395-.329-2.21.024-.826.16-1.73.365-2.606.206-.875.486-1.733.805-2.466.315-.722.687-1.364 1.094-1.772a2.34 2.34 0 0 1 .433-.335.504.504 0 0 1-.028-.079zm2.036.412c-.877.185-1.469.443-1.733.708-.276.276-.587.783-.885 1.465a13.748 13.748 0 0 0-.748 2.295 12.351 12.351 0 0 0-.339 2.406c-.022.755.062 1.368.243 1.776a.42.42 0 0 0 .426.24c.327-.034.61-.199.929-.502.212-.202.4-.423.615-.674.133-.156.276-.323.44-.505.826-.913 1.899-1.726 3.966-1.726 2.067 0 3.14.813 3.966 1.726.164.182.307.35.44.505.214.25.403.472.615.674.318.303.601.468.929.503a.42.42 0 0 0 .426-.241c.18-.408.265-1.02.243-1.776a12.354 12.354 0 0 0-.339-2.406 13.753 13.753 0 0 0-.748-2.295c-.298-.682-.61-1.19-.885-1.465-.264-.265-.856-.523-1.733-.708-.85-.179-1.877-.27-2.913-.27-1.036 0-2.063.091-2.913.27z" />
+                      </svg>
+                    </div>
+                    <h2>Quand je deconnecte</h2>
                   </div>
-                  <h2>Voyages et découvertes</h2>
+                  <div class="safari-section-content">
+                    <p>L'escalade, c'est mon exutoire. Quand je suis sur le mur, plus de notifications, plus de code qui
+                      bugge - juste moi et la prochaine prise. Ca me vide la tete comme rien d'autre. Chaque voie est un
+                      nouveau puzzle a resoudre avec le corps.</p>
+                    <p>Et quand je cours en colline, c'est pareil : juste le bruit de mes pas et la nature autour. Pas
+                      de chrono, pas de performance - juste la liberte de courir et de respirer. Ces moments me
+                      permettent de revenir au code avec les idees claires.</p>
+                    <div class="safari-images">
+                      <div class="safari-image">
+                        <img src="images/escalade-falaise.jpg" alt="Escalade" />
+                        <div class="safari-image-caption">Session escalade</div>
+                      </div>
+                      <div class="safari-image">
+                        <img src="images/trail-running.jpg" alt="Course en nature" />
+                        <div class="safari-image-caption">Mon echappatoire</div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-                <div class="safari-section-content">
-                  <p>Cette passion pour les voyages, je la dois à mes parents. Tout a commencé par des petites escapades
-                    familiales en Crète et en Espagne. Mais c'est vraiment mon premier grand voyage aux États-Unis et au
-                    Canada, pour rendre visite à ma famille de globe-trotteurs, qui a été le déclic. C'est là que j'ai
-                    attrapé ce virus incurable du voyage! 🌍</p>
-                  <p>Depuis, je collectionne les expériences et les rencontres. Ce que j'aime par-dessus tout, c'est
-                    l'immersion dans de nouvelles cultures et les conversations avec les locaux qui me font voir le
-                    monde autrement. Chaque voyage est une nouvelle page de vie qui s'écrit. 🛣️</p>
-                  <p>Aujourd'hui, cette passion se partage à deux. Avec ma moitié, nous avons déjà exploré l'Autriche et
-                    l'Italie ensemble, et notre liste de futures destinations ne cesse de s'allonger! Voyager à deux,
-                    c'est doubler les souvenirs et partager ces moments où le temps semble s'arrêter devant un coucher
-                    de soleil ou une vue à couper le souffle. ❤️ 🧳</p>
-                  <div class="safari-images safari-world-map">
-                    <div class="safari-image">
-                      <img src="images/Image JPEG.jpeg" alt="Carte du monde avec destinations" />
-                      <div class="safari-image-caption">Les pays que j'ai eu la chance d'explorer</div>
+
+                <div class="safari-section">
+                  <div class="safari-section-header">
+                    <div class="safari-section-icon icon-travel">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
+                        viewBox="0 0 16 16">
+                        <path
+                          d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm7.5-6.923c-.67.204-1.335.82-1.887 1.855A7.97 7.97 0 0 0 5.145 4H7.5V1.077zM4.09 4a9.267 9.267 0 0 1 .64-1.539 6.7 6.7 0 0 1 .597-.933A7.025 7.025 0 0 0 2.255 4H4.09zm-.582 3.5c.03-.877.138-1.718.312-2.5H1.674a6.958 6.958 0 0 0-.656 2.5h2.49zM4.847 5a12.5 12.5 0 0 0-.338 2.5H7.5V5H4.847zM8.5 5v2.5h2.99a12.495 12.495 0 0 0-.337-2.5H8.5zM4.51 8.5a12.5 12.5 0 0 0 .337 2.5H7.5V8.5H4.51zm3.99 0V11h2.653c.187-.765.306-1.608.338-2.5H8.5zM5.145 12c.138.386.295.744.468 1.068.552 1.035 1.218 1.65 1.887 1.855V12H5.145zm.182 2.472a6.696 6.696 0 0 1-.597-.933A9.268 9.268 0 0 1 4.09 12H2.255a7.024 7.024 0 0 0 3.072 2.472zM3.82 11a13.652 13.652 0 0 1-.312-2.5h-2.49c.062.89.291 1.733.656 2.5H3.82zm6.853 3.472A7.024 7.024 0 0 0 13.745 12H11.91a9.27 9.27 0 0 1-.64 1.539 6.688 6.688 0 0 1-.597.933zM8.5 12v2.923c.67-.204 1.335-.82 1.887-1.855.173-.324.33-.682.468-1.068H8.5zm3.68-1h2.146c.365-.767.594-1.61.656-2.5h-2.49a13.65 13.65 0 0 1-.312 2.5zm2.802-3.5a6.959 6.959 0 0 0-.656-2.5H12.18c.174.782.282 1.623.312 2.5h2.49zM11.27 2.461c.247.464.462.98.64 1.539h1.835a7.024 7.024 0 0 0-3.072-2.472c.218.284.418.598.597.933zM10.855 4a7.966 7.966 0 0 0-.468-1.068C9.835 1.897 9.17 1.282 8.5 1.077V4h2.355z" />
+                      </svg>
                     </div>
+                    <h2>Le virus du voyage</h2>
                   </div>
-                  <div class="safari-images">
-                    <div class="safari-image">
-                      <img src="images/newyork.jpg" alt="New York" />
-                      <div class="safari-image-caption">Mon premier choc culturel à New York</div>
+                  <div class="safari-section-content">
+                    <p>J'ai attrape le virus du voyage grace a mes parents. Premier grand choc : New York a 14 ans.
+                      L'energie de cette ville, les buildings, les gens de partout... ca m'a retourne le cerveau.
+                      Depuis, je collectionne les tampons dans mon passeport.</p>
+                    <p>Crete, Espagne, Autriche, Italie, Croatie... Chaque voyage m'apprend un truc nouveau. Maintenant
+                      on explore a deux avec ma copine, et la liste des destinations s'allonge a chaque conversation.
+                      Prochaine etape? On hesite entre le Japon et la Scandinavie!</p>
+                    <div class="safari-images safari-world-map">
+                      <div class="safari-image">
+                        <img src="images/Image JPEG.jpeg" alt="Carte des voyages" />
+                        <div class="safari-image-caption">Mes destinations</div>
+                      </div>
                     </div>
-                    <div class="safari-image">
-                      <img src="images/vienne.jpg" alt="Venise" />
-                      <div class="safari-image-caption">Vienne, notre premier voyage en couple</div>
-                    </div>
-                    <div class="safari-image">
-                      <img src="images/dubrovnik.jpg" alt="Dubrovnik" />
-                      <div class="safari-image-caption">Dubrovnik, coup de cœur inattendu</div>
+                    <div class="safari-images">
+                      <div class="safari-image">
+                        <img src="images/newyork.jpg" alt="New York" />
+                        <div class="safari-image-caption">New York - Premier choc</div>
+                      </div>
+                      <div class="safari-image">
+                        <img src="images/vienne.jpg" alt="Vienne" />
+                        <div class="safari-image-caption">Vienne - En duo</div>
+                      </div>
+                      <div class="safari-image">
+                        <img src="images/dubrovnik.jpg" alt="Dubrovnik" />
+                        <div class="safari-image-caption">Dubrovnik - Coup de coeur</div>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
+
+            <!-- PAGE: Mon CV (PDF Viewer Style) -->
+            <div class="safari-page safari-page-cv">
+              <div class="cv-viewer">
+                <div class="cv-viewer-toolbar">
+                  <div class="cv-toolbar-left">
+                    <button class="cv-tool-btn" title="Zoom arriere">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                        viewBox="0 0 16 16">
+                        <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z" />
+                      </svg>
+                    </button>
+                    <span class="cv-zoom-level">100%</span>
+                    <button class="cv-tool-btn" title="Zoom avant">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                        viewBox="0 0 16 16">
+                        <path
+                          d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
+                      </svg>
+                    </button>
+                  </div>
+                  <div class="cv-toolbar-center">
+                    <span class="cv-filename">CV_Noa_Giannone.pdf</span>
+                  </div>
+                  <div class="cv-toolbar-right">
+                    <button class="cv-tool-btn" title="Telecharger">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                        viewBox="0 0 16 16">
+                        <path
+                          d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z" />
+                        <path
+                          d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z" />
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+                <div class="cv-viewer-content">
+                  <div class="cv-document">
+                    <img src="images/CV Noa Giannone sans qrcode-1.png" alt="CV Noa Giannone" />
+                  </div>
+                </div>
+              </div>
+            </div>
+
           </div>
         </div>
       </div>
