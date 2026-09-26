@@ -65,10 +65,11 @@
   <!-- Local link -->
   <link rel="manifest" href="./manifest.json" />
   <link rel="stylesheet" href="./Css/style.css" />
+  <link rel="stylesheet" href="./Css/apple-apps.css" />
 
 </head>
 
-<body onload="digi(), calculateBattery()">
+<body>
 
   <!-- Écran de chargement macOS -->
   <div id="macboot-loader" class="macboot-loader">
@@ -740,65 +741,33 @@
             <button class="full-email"></button>
           </div>
           <div class="window__taskbar--content">
-            <h2>Contactez-moi</h2>
+            <h2>Mail — Nouveau message</h2>
           </div>
         </div>
         <div class="window-content">
-          <!-- Toolbar avec bouton d'envoi -->
-          <div class="email-toolbar">
-            <div class="email-toolbar-group">
-              <button type="submit" form="contact-form" class="email-send-button">
-                <svg viewBox="0 0 24 24">
-                  <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"></path>
-                </svg>
-                Envoyer
-              </button>
-            </div>
-            <div class="email-toolbar-divider"></div>
-            <div class="email-toolbar-group">
-              <button class="email-toolbar-button" title="Pièce jointe">
-                <svg viewBox="0 0 24 24">
-                  <path
-                    d="M16.5 6v11.5c0 2.21-1.79 4-4 4s-4-1.79-4-4V5c0-1.38 1.12-2.5 2.5-2.5s2.5 1.12 2.5 2.5v10.5c0 .55-.45 1-1 1s-1-.45-1-1V6H10v9.5c0 1.38 1.12 2.5 2.5 2.5s2.5-1.12 2.5-2.5V5c0-2.21-1.79-4-4-4S7 2.79 7 5v12.5c0 3.04 2.46 5.5 5.5 5.5s5.5-2.46 5.5-5.5V6h-1.5z">
-                  </path>
-                </svg>
-              </button>
-              <button class="email-toolbar-button" title="Image">
-                <svg viewBox="0 0 24 24">
-                  <path
-                    d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z">
-                  </path>
-                </svg>
-              </button>
-            </div>
-            <div class="email-toolbar-divider"></div>
-            <div class="email-toolbar-group">
-              <button class="email-toolbar-button" title="Gras">B</button>
-              <button class="email-toolbar-button" title="Italique">I</button>
-              <button class="email-toolbar-button" title="Souligné">U</button>
-            </div>
-          </div>
-
+          <div class="email-toolbar"><span class="compose-caption">Nouveau message</span><button type="submit" form="contact-form" class="email-send-button"><img src="icon/apple/paperplane.png" alt="" aria-hidden="true"><span>Envoyer</span></button></div>
           <!-- Email composition area -->
           <div class="email-composition">
             <form id="contact-form" action="https://formspree.io/f/mdkgknrz" method="POST">
               <!-- Email header -->
               <div class="email-header">
                 <div class="email-header-row">
-                  <div class="email-header-label">À :</div>
-                  <input type="text" class="email-header-input" value="noa.giannone@noagiannone.fr" disabled>
+                  <label class="email-header-label" for="mail-to">À :</label>
+                  <input id="mail-to" type="text" class="email-header-input" value="noa.giannone@noagiannone.fr" disabled>
                 </div>
                 <div class="email-header-row">
-                  <div class="email-header-label">De :</div>
-                  <input type="email" name="email" class="email-header-input" placeholder="Votre adresse email"
+                  <label class="email-header-label" for="mail-from">De :</label>
+                  <input id="mail-from" type="email" name="email" class="email-header-input" placeholder="Votre adresse email"
                     required>
                 </div>
               </div>
 
+              <div class="email-header-row mail-subject"><label class="email-header-label" for="mail-subject">Objet :</label><input id="mail-subject" class="email-header-input" name="subject" placeholder="Parlons de votre projet" required></div>
               <!-- Message area -->
               <div class="email-message">
-                <textarea name="message" placeholder="Écrivez votre message ici..." required></textarea>
+                <textarea aria-label="Votre message" name="message" placeholder="Bonjour Noa,&#10;&#10;Je vous contacte à propos de…" required></textarea>
               </div>
+              <div class="mail-bottom"><span>À Noa Giannone</span><output id="mail-status" role="status" aria-live="polite"></output></div>
             </form>
           </div>
         </div>
@@ -1333,40 +1302,17 @@
       <div class="finder-container">
         <div class="finder-body">
           <!-- Sidebar -->
-          <nav class="finder-sidebar">
-            <ul>
-              <li class="active">
-                <img src="https://img.icons8.com/fluency/48/rocket.png" alt="projects" /> Mes projets
-              </li>
-              <li>
-                <img src="https://img.icons8.com/fluency/48/downloads-folder.png" alt="download" /> Téléchargements
-              </li>
-              <li>
-                <img src="https://img.icons8.com/fluency/48/documents-folder.png" alt="docs" /> Documents
-              </li>
-              <li>
-                <img src="https://img.icons8.com/fluency/48/desktop-mac.png" alt="desktop" /> Bureau
-              </li>
-            </ul>
+          <nav class="finder-sidebar" aria-label="Emplacements">
+            <p class="sidebar-heading">Favoris</p>
+            <ul><li><button type="button" data-location="Mes projets" class="active"><img src="icon/apple/folder.png" alt="" aria-hidden="true">Mes projets</button></li><li><button type="button" data-location="Récents" class=""><img src="icon/apple/clock.png" alt="" aria-hidden="true">Récents</button></li><li><button type="button" data-location="Documents" class=""><img src="icon/apple/doc.png" alt="" aria-hidden="true">Documents</button></li><li><button type="button" data-location="Bureau" class=""><img src="icon/apple/desktopcomputer.png" alt="" aria-hidden="true">Bureau</button></li><li><button type="button" data-location="Téléchargements" class=""><img src="icon/apple/arrow.down.circle.png" alt="" aria-hidden="true">Téléchargements</button></li></ul>
+            <div class="finder-owner"><img src="images/profile-noa.jpeg" alt=""><div>Noa Giannone<small>Portfolio personnel</small></div></div>
           </nav>
-
-          <!-- Main area -->
           <div class="finder-main">
-            <!-- Barre d'outils -->
             <div class="finder-toolbar">
-              <div class="finder-nav-buttons">
-                <img src="https://img.icons8.com/ios-glyphs/30/000000/chevron-left.png" class="finder-nav-btn" />
-                <img src="https://img.icons8.com/ios-glyphs/30/000000/chevron-right.png" class="finder-nav-btn" />
-              </div>
-              <div class="breadcrumb">Mes projets</div>
-              <div class="finder-actions">
-                <img src="https://img.icons8.com/ios-glyphs/30/000000/search--v1.png" alt="Rechercher"
-                  class="icon-search" />
-                <img src="https://img.icons8.com/material-outlined/30/000000/grid-2.png" alt="Vue"
-                  class="icon-filter" />
-              </div>
+              <strong class="breadcrumb">Mes projets</strong>
+              <div class="finder-actions"><div class="view-switch"><button type="button" title="Vue par icônes" aria-label="Vue par icônes" data-view="grid" aria-pressed="true"><img src="icon/apple/square.grid.2x2.png" alt="" aria-hidden="true"></button><button type="button" title="Vue par liste" aria-label="Vue par liste" data-view="list" aria-pressed="false"><img src="icon/apple/list.bullet.png" alt="" aria-hidden="true"></button></div>
+              <label class="finder-search"><img src="icon/apple/magnifyingglass.png" alt="" aria-hidden="true"><input type="search" placeholder="Rechercher" aria-label="Rechercher un fichier"></label></div>
             </div>
-
             <!-- Grille de fichiers (inchangée) -->
             <div class="file-grid">
               <div class="file-card" data-title="Vago.docx" data-content="
@@ -1434,7 +1380,7 @@
                 </div>
               </div>
             ">
-                <img src="https://img.icons8.com/fluency/96/000000/money-bag.png" alt="Finance">
+                <img src="icon/apple/document.png" alt="Finance">
                 <span>Vago.docx</span>
               </div>
 
@@ -1482,7 +1428,7 @@
                 </div>
               </div>
             ">
-                <img src="https://img.icons8.com/fluency/96/000000/chat--v1.png" alt="Chat">
+                <img src="icon/apple/document.png" alt="Chat">
                 <span>Whisp.docx</span>
               </div>
 
@@ -1541,7 +1487,7 @@
                 </div>
               </div>
             ">
-                <img src="https://img.icons8.com/fluency/96/000000/idea.png" alt="Étude">
+                <img src="icon/apple/document.png" alt="Étude">
                 <span>ViteMonGrandOral.docx</span>
               </div>
 
@@ -1594,14 +1540,14 @@
                 </div>
               </div>
             ">
-                <img src="https://img.icons8.com/fluency/96/000000/briefcase.png" alt="Portfolio">
+                <img src="icon/apple/document.png" alt="Portfolio">
                 <span>Portfolio.docx</span>
               </div>
             </div>
           </div>
         </div>
 
-        <!-- File Editor Overlay (Nouveau style Pages/Word) -->
+<div class="finder-footer"><span>Macintosh HD</span><span>›</span><span>Noa Giannone</span><span>›</span><strong>Mes projets</strong><output id="finder-count"></output></div>
 
       </div>
     </div>
@@ -1618,95 +1564,31 @@
         <button class="full-editor"></button>
       </div>
       <div class="window__taskbar--content">
-        <h2 id="editor-title">Éditeur de texte</h2>
+        <h2 id="editor-title">Sans titre</h2>
       </div>
     </div>
     <div class="editor-content">
-      <!-- Barre de menu -->
-
-
-      <div class="editor-menu">
-        <div class="menu-group">
-          <button title="Nouveau">
-            <img src="https://img.icons8.com/fluency/48/add-file.png" alt="New" />
-          </button>
-          <button title="Ouvrir">
-            <img src="https://img.icons8.com/fluency/48/opened-folder.png" alt="Open" />
-          </button>
-          <button title="Sauvegarder">
-            <img src="https://img.icons8.com/fluency/48/save-as.png" alt="Save" />
-          </button>
-        </div>
-        <div class="editor-separator"></div>
-        <div class="menu-group">
-          <button title="Gras">
-            <img src="https://img.icons8.com/fluency/48/bold.png" alt="Bold" />
-          </button>
-          <button title="Italique">
-            <img src="https://img.icons8.com/fluency/48/italic.png" alt="Italic" />
-          </button>
-          <button title="Souligné">
-            <img src="https://img.icons8.com/fluency/48/underline.png" alt="Underline" />
-          </button>
-        </div>
-        <div class="editor-separator"></div>
-        <div class="menu-group">
-          <button title="Police">
-            <img src="https://img.icons8.com/fluency/48/font-size.png" alt="Font" />
-          </button>
-          <button title="Gauche">
-            <img src="https://img.icons8.com/fluency/48/align-left.png" alt="Left" />
-          </button>
-          <button title="Centré">
-            <img src="https://img.icons8.com/fluency/48/align-center.png" alt="Center" />
-          </button>
-          <button title="Droite">
-            <img src="https://img.icons8.com/fluency/48/align-right.png" alt="Right" />
-          </button>
-        </div>
+      <div class="pages-toolbar">
+        <div class="pages-toolgroup"><button type="button" title="Ouvrir un document" aria-label="Ouvrir un document" id="pages-open"><img src="icon/apple/folder.png" alt="" aria-hidden="true"></button><button type="button" title="Télécharger le document" aria-label="Télécharger le document" id="pages-save"><img src="icon/apple/square.and.arrow.down.png" alt="" aria-hidden="true"></button></div>
+        <span class="pages-document-caption">Traitement de texte</span>
+        <button type="button" id="pages-format" aria-expanded="true"><img src="icon/apple/paintbrush.png" alt="" aria-hidden="true"><span>Format</span></button>
       </div>
-
-      <!-- Ruler -->
-      <div class="editor-ruler">
-        <div class="ruler-line">
-          <div class="ruler-marker" style="left: 0%;">0</div>
-          <div class="ruler-marker" style="left: 10%;">1</div>
-          <div class="ruler-marker" style="left: 20%;">2</div>
-          <div class="ruler-marker" style="left: 30%;">3</div>
-          <div class="ruler-marker" style="left: 40%;">4</div>
-          <div class="ruler-marker" style="left: 50%;">5</div>
-          <div class="ruler-marker" style="left: 60%;">6</div>
-          <div class="ruler-marker" style="left: 70%;">7</div>
-          <div class="ruler-marker" style="left: 80%;">8</div>
-          <div class="ruler-marker" style="left: 90%;">9</div>
-          <div class="ruler-marker" style="left: 100%;">10</div>
+      <div class="pages-workspace">
+        <div class="pages-canvas"><div class="editor-ruler" aria-hidden="true"><span>0</span><span>2</span><span>4</span><span>6</span><span>8</span><span>10</span><span>12</span><span>14</span><span>16</span></div>
+          <div class="editor-area" contenteditable="true" role="textbox" aria-multiline="true" aria-label="Contenu du document" spellcheck="true"><div class="editor-document"><div class="editor-header"><h3>Bienvenue dans mon portfolio.</h3></div><p>Des idées, des projets et l’envie de créer des choses utiles.</p><p>Ouvrez un document dans le Finder pour découvrir mes réalisations, ou écrivez ici.</p></div></div>
         </div>
+        <aside class="pages-inspector" aria-label="Mise en forme">
+          <h3>Texte</h3>
+          <label class="inspector-label" for="pages-style">Style de paragraphe</label><select id="pages-style"><option value="p">Corps</option><option value="h3">Titre</option><option value="h4">Sous-titre</option></select>
+          <div class="inspector-section"><h4>Police</h4><label class="sr-only" for="pages-font">Police</label><select id="pages-font"><option value="Helvetica">Helvetica Neue</option><option value="Georgia">Georgia</option><option value="Arial">Arial</option></select>
+          <div class="format-buttons"><button type="button" title="Gras" aria-label="Gras" data-command="bold"><img src="icon/apple/bold.png" alt="" aria-hidden="true"></button><button type="button" title="Italique" aria-label="Italique" data-command="italic"><img src="icon/apple/italic.png" alt="" aria-hidden="true"></button><button type="button" title="Souligné" aria-label="Souligné" data-command="underline"><img src="icon/apple/underline.png" alt="" aria-hidden="true"></button></div></div>
+          <div class="inspector-section"><h4>Alignement</h4><div class="format-buttons"><button type="button" title="Aligner à gauche" aria-label="Aligner à gauche" data-command="justifyLeft"><img src="icon/apple/text.alignleft.png" alt="" aria-hidden="true"></button><button type="button" title="Centrer" aria-label="Centrer" data-command="justifyCenter"><img src="icon/apple/text.aligncenter.png" alt="" aria-hidden="true"></button><button type="button" title="Aligner à droite" aria-label="Aligner à droite" data-command="justifyRight"><img src="icon/apple/text.alignright.png" alt="" aria-hidden="true"></button><button type="button" title="Justifier" aria-label="Justifier" data-command="justifyFull"><img src="icon/apple/text.justify.png" alt="" aria-hidden="true"></button></div></div>
+          <div class="inspector-section"><h4>Document</h4><div class="document-detail"><span>Format</span><strong>A4</strong></div><div class="document-detail"><span>Orientation</span><strong>Portrait</strong></div><p class="inspector-help">Sélectionnez du texte pour modifier sa mise en forme.</p></div>
+        </aside>
       </div>
-
-      <!-- Zone editable -->
-      <div class="editor-area" contenteditable="true">
-        <!-- Contenu injecté ici -->
-      </div>
-
-      <!-- Bottom Status Bar -->
-      <div class="editor-status-bar">
-        <div class="status-left">Page 1 sur 1</div>
-        <div class="status-center">854 mots</div>
-        <div class="status-right">
-          <span>100%</span>
-          <div class="zoom-slider">
-            <div class="zoom-track"></div>
-            <div class="zoom-thumb"></div>
-          </div>
-        </div>
-      </div>
-
+      <div class="editor-status-bar"><span>Pages</span><output class="status-center" aria-live="polite">0 mot</output><span>Document modifiable</span></div>
     </div>
   </div>
-
-
-
-
 
 
   <div class="window maps">
@@ -1798,37 +1680,9 @@
 
   <script src="./javascript/script.js"></script>
   <script src="./javascript/app.js"></script>
+  <script src="./javascript/apple-apps.js"></script>
 
-  <script>// 1) Récupère les conteneurs
-    const finderBody = document.querySelector('.finder-body');
-    const fileEditor = document.querySelector('.file-editor');
-    const editorFilename = fileEditor.querySelector('.editor-filename');
-    const editorArea = fileEditor.querySelector('.editor-area');
-    const editorBackBtn = fileEditor.querySelector('.editor-back');
 
-    // 2) Gère le clic sur chaque fichier
-    document.querySelectorAll('.file-card').forEach(card => {
-      card.addEventListener('click', () => {
-        // titre et contenu à injecter
-        const title = card.dataset.title || card.querySelector('span').textContent;
-        const content = card.dataset.content || `<p>Contenu du fichier <strong>${title}</strong></p>`;
-
-        // remplace l'affichage
-        finderBody.style.display = 'none';
-        fileEditor.style.display = 'flex';
-
-        // injecte titre + texte
-        editorFilename.textContent = title;
-        editorArea.innerHTML = content;
-      });
-    });
-
-    // 3) Bouton « ← Retour »
-    editorBackBtn.addEventListener('click', () => {
-      fileEditor.style.display = 'none';
-      finderBody.style.display = 'flex';
-    });
-  </script>
   </div> <!-- Fermeture de main-content -->
 
   <!-- CSS pour l'écran de chargement macOS -->

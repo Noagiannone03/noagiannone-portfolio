@@ -39,25 +39,27 @@ document.addEventListener('DOMContentLoaded', function () {
     handleFullScreen(emailApp.window)
   );
 
-  // Confirmation envoi formulaire
-  emailApp.form.addEventListener("submit", e => {
+  // Preserve the contact endpoint and report delivery inline.
+  emailApp.form.addEventListener("submit", async e => {
     e.preventDefault();
-    fetch(emailApp.form.action, {
-      method: "POST",
-      body: new FormData(emailApp.form),
-      headers: { 'Accept': 'application/json' }
-    }).then(response => {
-      if (response.ok) {
-        alert("Votre message a bien été envoyé !");
-        emailApp.form.reset();
-      } else {
-        alert("Une erreur est survenue, veuillez réessayer.");
-      }
-    });
+    const button = document.querySelector('.email-send-button');
+    const status = document.getElementById('mail-status');
+    button.disabled = true;
+    status.textContent = 'Envoi en cours…';
+    try {
+      const response = await fetch(emailApp.form.action, {
+        method: 'POST', body: new FormData(emailApp.form), headers: { Accept: 'application/json' }
+      });
+      if (!response.ok) throw new Error('Delivery failed');
+      emailApp.form.reset();
+      status.textContent = 'Votre message a bien été envoyé.';
+    } catch {
+      status.textContent = 'Envoi impossible. Votre message est conservé, réessayez.';
+    } finally { button.disabled = false; }
   });
 
   // global z-index tracker
-  let zTop = 1;
+  let zTop = 20;
   const minimizedWindows = new Set();
   /********** ELEMENTS **********/
   const elements = {
@@ -483,7 +485,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // S'assurer que la fenêtre reste dans les limites de l'écran
     baseLeft = Math.max(10, Math.min(baseLeft, screenWidth - windowWidth - 10));
-    baseTop = Math.max(10, Math.min(baseTop, screenHeight - 100)); // Laisse un peu d'espace en bas
+    baseTop = Math.max(30, Math.min(baseTop, screenHeight - windowHeight - 90)); // Laisse un peu d'espace en bas
 
     // Applique la position
     open.style.left = baseLeft + 'px';
@@ -499,29 +501,51 @@ document.addEventListener('DOMContentLoaded', function () {
   launchpad.opening.addEventListener("click", handleOpenLaunching);
 
 
+  // Keep the backdrop outside containers that can clip or transform it.
+  document.body.appendChild(launchpad.window);
+  let launchpadReturnFocus;
+  function closeLaunchpad() {
+    launchpad.window.style.display = "none";
+    elements.navbar.style.display = "flex";
+    launchpad.point.style.display = "none";
+    launchpad.container.style.display = "flex";
+    launchpadReturnFocus?.focus();
+  }
   function handleOpenLaunching() {
-    if (launchpad.window.style.display === "none") {
-      launchpad.window.style.display = "block";
-      elements.navbar.style.display = "none";
-      launchpad.point.style.display = "block";
-    } else {
-      launchpad.window.style.display = "none";
-      elements.navbar.style.display = "flex";
-      launchpad.point.style.display = "none";
+    if (getComputedStyle(launchpad.window).display !== "none") {
+      closeLaunchpad();
+      return;
     }
-    launchpad.container.style.display = "none";
+    launchpadReturnFocus = document.activeElement;
+    launchpad.window.style.display = "block";
+    elements.navbar.style.display = "none";
+    launchpad.point.style.display = "block";
+    launchpad.searchbox.querySelector('input').focus();
   }
-
+  launchpad.window.addEventListener('click', event => {
+    if (!event.target.closest('.child-launchpad, .searchContainer')) closeLaunchpad();
+  });
+  document.addEventListener('keydown', event => {
+    if (event.key === 'Escape' && getComputedStyle(launchpad.window).display !== 'none') closeLaunchpad();
+  });
   function handleLaunchpadSearch(e) {
-    for (let app of launchpad.app_container.children) {
-      if (e.target.value) {
-        app.style.display = "none";
-        if (app.dataset.keywords.includes(e.target.value)) {
-          app.style.display = "flex";
-        }
-      } else app.style.display = "flex";
+    const query = e.target.value.trim().toLocaleLowerCase();
+    for (const app of launchpad.app_container.children) {
+      app.style.display = (app.dataset.keywords + ' ' + app.textContent).toLocaleLowerCase().includes(query) ? 'flex' : 'none';
     }
   }
+  const launchTargets = { Home: '.open-finder', Mail: '.open-email', Pages: '.open-editor', 'Safari browser': '.open-safari' };
+  Object.entries(launchTargets).forEach(([keyword, selector]) => {
+    const tile = Array.from(launchpad.app_container.children).find(app => app.dataset.keywords.split(',').includes(keyword));
+    if (tile) tile.addEventListener('click', () => { closeLaunchpad(); document.querySelector(selector)?.click(); });
+  });
+  Array.from(launchpad.app_container.children).forEach(tile => {
+    tile.tabIndex = 0;
+    tile.setAttribute('role', 'button');
+    tile.addEventListener('keydown', event => {
+      if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); tile.click(); }
+    });
+  });
   // Launchpad function end
 
   // Calculator app start

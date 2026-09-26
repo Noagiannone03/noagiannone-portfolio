@@ -1,0 +1,123 @@
+/* Native macOS surfaces. Symbols are rendered from Apple's SF Symbols. */
+:is(.finder, .email, .editor) { font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif; color: #282828; }
+.window:is(.finder, .email, .editor) { min-width: 0; max-width: calc(100vw - 24px); border-radius: 12px; border: 1px solid #0003; box-shadow: 0 24px 70px #0004, 0 0 0 1px #ffffff70 inset; }
+.window.finder { width: 900px; height: min(570px, calc(100dvh - 110px)); background: #f5f5f5e8; }
+.window.email { width: 780px; height: min(620px, calc(100dvh - 110px)); background: white; }
+.window.editor { width: 1120px; height: min(760px, calc(100dvh - 100px)); background: #ededed; }
+:is(.finder, .email, .editor) > .window__taskbar { height: 46px; min-height: 46px; background: #f3f3f3ed; border-bottom: 1px solid #00000012; }
+:is(.finder, .email, .editor) button { font: inherit; cursor: pointer; }
+:is(.finder, .email, .editor) button:focus-visible, :is(.finder, .email, .editor) input:focus-visible, .pages-inspector select:focus-visible { outline: 3px solid #007aff70; outline-offset: 2px; }
+:is(.finder-actions, .pages-toolbar, .format-buttons) button { display: inline-flex; align-items: center; justify-content: center; border: 0; border-radius: 5px; background: transparent; padding: 0 4px; min-width: 30px; height: 30px; }
+:is(.finder-actions, .pages-toolbar, .format-buttons) button:hover { background: #0000000b; }
+:is(.finder-actions, .pages-toolbar, .format-buttons) button:active { background: #00000016; }
+:is(.finder-actions, .pages-toolbar, .format-buttons) button img { width: 30px; height: 30px; object-fit: contain; }
+/* Launchpad covers the viewport independently of desktop and window heights. */
+body > .launchpad { position: fixed; inset: 0; width: 100%; height: 100dvh; z-index: 100010; overflow-y: auto; padding: 24px 0 110px; background: #24233748; backdrop-filter: blur(35px) saturate(120%); -webkit-backdrop-filter: blur(35px) saturate(120%); box-sizing: border-box; }
+.launchpad .searchbox { height: 68px; }
+.launchpad .searchContainer { background: #ffffff15; border: 1px solid #ffffff50; border-radius: 6px; width: 250px; }
+.launchpad .searchbox input { font: 14px -apple-system, sans-serif; }
+.launchpad .Apps-container { width: min(1000px, 88%); height: auto; margin: 25px auto 0; grid-template-columns: repeat(6, 1fr); grid-template-rows: none; gap: 34px 22px; }
+.launchpad .child-launchpad { padding: 8px; border-radius: 12px; gap: 7px; }
+.launchpad .child-launchpad img { width: 76px; height: 76px; object-fit: contain; }
+.launchpad .child-launchpad strong { font: 13px -apple-system, sans-serif; text-shadow: 0 1px 4px #0008; }
+.launchpad .child-launchpad:active { animation: none; transform: scale(.95); }
+/* Finder */
+.finder > .content { height: calc(100% - 46px); }
+.finder-container { border-radius: 0; background: transparent; backdrop-filter: none; }
+.finder-body { min-height: 0; }
+.finder-sidebar { display: flex; width: 186px; flex-shrink: 0; padding: 18px 10px 12px; background: #e8e8eb85; border-right: 1px solid #00000012; }
+.sidebar-heading { font-size: 11px; font-weight: 600; color: #888; padding: 0 10px 8px; }
+.finder-sidebar li { margin: 0; padding: 0; display: block; background: transparent !important; }
+.finder-sidebar li button { width: 100%; border: 0; background: transparent; color: #333; display: flex; align-items: center; text-align: left; gap: 5px; padding: 3px 6px; border-radius: 5px; font-size: 12px; }
+.finder-sidebar li button img { width: 27px; height: 27px; margin: 0; filter: invert(37%) sepia(98%) saturate(2200%) hue-rotate(185deg); }
+.finder-sidebar li button.active { background: #0000000c; font-weight: 600; }
+.finder-sidebar li button:hover { background: #00000008; }
+.finder-owner { margin-top: auto; display: flex; align-items: center; gap: 8px; padding: 20px 7px 2px; font-size: 11px; }
+.finder-owner img { width: 28px; height: 28px; object-fit: cover; border-radius: 50%; }
+.finder-owner small { display: block; color: #888; font-size: 10px; margin-top: 3px; }
+.finder-main { flex: 1; min-width: 0; background: white; }
+.finder-toolbar { position: static; box-shadow: none; padding: 10px 18px; min-height: 54px; background: #fafafa; border-bottom: 1px solid #e6e6e6; gap: 12px; }
+.finder-toolbar .breadcrumb { font-size: 14px; color: #333; white-space: nowrap; }
+.finder-actions { margin-left: auto; gap: 14px; }
+.view-switch { display: flex; background: #eaeaea; border-radius: 6px; padding: 2px; }
+.view-switch button[aria-pressed="true"] { background: white; box-shadow: 0 1px 3px #0002; }
+.finder-search { display: flex; align-items: center; border: 1px solid #ddd; border-radius: 6px; background: white; width: 150px; }
+.finder-search img { width: 26px; height: 26px; }
+.finder-search input { width: 100%; min-width: 0; font: inherit; font-size: 12px; border: 0; background: transparent; color: #333; }
+.finder .file-grid { flex: 1; align-content: start; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); grid-auto-rows: 142px; padding: 26px 20px; gap: 16px; }
+.finder .file-card { border: 1px solid transparent; padding: 10px 5px; }
+.finder .file-card > img { width: 66px !important; height: 76px !important; filter: none; }
+.finder .file-card > span { font-size: 12px; }
+.finder .file-grid.is-list { display: flex; flex-direction: column; gap: 0; padding: 12px; }
+.finder .is-list .file-card { flex-direction: row; gap: 10px; padding: 5px 12px; min-height: 42px; }
+.finder .is-list .file-card:nth-child(even) { background: #f5f5f5; }
+.finder .is-list .file-card > img { width: 26px !important; height: 30px !important; margin: 0; }
+.finder-footer { display: flex; align-items: center; gap: 10px; padding: 9px 18px; border-top: 1px solid #ddd; background: #f5f5f5; font-size: 10px; color: #777; }
+.finder-footer strong { font-weight: 500; }
+.finder-footer output { margin-left: auto; }
+.finder-empty { padding: 30px; font-size: 13px; color: #888; }
+/* Mail composition */
+.email .window-content { height: calc(100% - 46px); display: flex; flex-direction: column; border-radius: 0; }
+.email-toolbar { height: 50px; flex-shrink: 0; padding: 0 22px; background: #fafafa; border-bottom: 1px solid #e5e5e5; justify-content: space-between; }
+.compose-caption { color: #777; font-size: 12px; }
+.email-send-button { border: 1px solid #0070e7; border-radius: 6px; background: #007aff; font-size: 12px; gap: 4px; padding: 3px 12px 3px 4px; box-shadow: 0 1px 2px #0001; }
+.email-send-button img { width: 30px; height: 30px; filter: brightness(0) invert(1); }
+.email-send-button:disabled { opacity: .55; cursor: wait; }
+.email-composition { flex: 1; min-height: 0; overflow: auto; padding: 0 24px; }
+#contact-form { display: flex; flex-direction: column; height: 100%; min-height: 320px; }
+.email-header { padding: 0; border: 0; }
+.email-header-row { min-height: 43px; margin: 0; border-bottom: 1px solid #ececec; gap: 12px; }
+.email-header-label { flex: 0 0 45px; width: 45px; font-size: 12px; font-weight: 400; color: #888; }
+.email-header-input { padding: 8px 0; font: 13px -apple-system, sans-serif; border: 0; color: #333; background: transparent; min-width: 0; }
+.email-header-input:disabled { color: #2873b4; -webkit-text-fill-color: #2873b4; opacity: 1; }
+.email-header-input:focus { border: 0; outline: none; }
+.email-header-row:focus-within { border-bottom-color: #007aff; }
+.email-message { flex: 1; display: flex; padding: 0; margin: 0; min-height: 180px; }
+.email-message textarea { height: 100%; min-height: 180px; width: 100%; padding: 24px 0; font: 14px/1.7 -apple-system, sans-serif; resize: none; outline: 0; background: white; }
+.email-message textarea::placeholder { color: #9a9a9a; }
+.mail-bottom { display: flex; justify-content: space-between; gap: 16px; padding: 13px 0; border-top: 1px solid #eee; font-size: 11px; color: #888; }
+#mail-status { color: #2873b4; }
+/* Pages: a restrained canvas and an independent formatting inspector. */
+.editor-content { height: calc(100% - 46px); border-radius: 0; }
+.pages-toolbar { display: flex; align-items: center; justify-content: space-between; min-height: 52px; padding: 6px 16px; background: #fafafa; border-bottom: 1px solid #d2d2d2; }
+.pages-toolgroup { display: flex; gap: 10px; }
+.pages-document-caption { color: #888; font-size: 11px; }
+#pages-format { font-size: 11px; height: 35px; padding-right: 10px; }
+#pages-format[aria-expanded="true"] { background: #e9e9e9; }
+.pages-workspace { display: flex; flex: 1; min-height: 0; }
+.pages-canvas { flex: 1; min-width: 0; overflow: auto; background: #dedee0; }
+.editor-ruler { display: flex; justify-content: space-between; padding: 3px 8%; height: 23px; position: sticky; top: 0; z-index: 1; color: #888; font-size: 9px; background: #f4f4f4; border-bottom: 1px solid #c9c9c9; }
+.editor .editor-area { min-height: calc(100% - 23px); overflow: visible; padding: 28px; background: transparent; outline: none; }
+.editor .editor-document { box-sizing: border-box; width: 100%; max-width: 720px; min-height: 880px; padding: 65px 58px; margin: 0 auto; border: 0; border-radius: 0; box-shadow: 0 1px 5px #0003; color: #292929; background: white; font: 14px/1.7 'Helvetica Neue', Arial, sans-serif; }
+.editor .editor-document p { font: inherit; color: inherit; margin: 0 0 18px; }
+.editor .editor-document .editor-header { display: block; border: 0; padding: 0; margin: 0 0 30px; background: none; text-align: left; }
+.editor .editor-document .editor-header h3 { font: 600 30px/1.2 'Helvetica Neue', Arial, sans-serif; color: #252525; letter-spacing: -.8px; margin: 0; }
+.editor .editor-logo, .editor .feature-icon, .editor .mockup-img { display: none; }
+.editor .editor-section h4 { color: #333; font-size: 17px; font-weight: 600; border-bottom: 1px solid #e5e5e5; padding-bottom: 7px; margin: 26px 0 14px; }
+.editor .editor-document ul, .editor .editor-document ol { padding-left: 20px; }
+.editor .editor-document :is(.feature-box, .stats-container, .whisp-mockup, .skills-container) { background: #f7f7f7; border-radius: 0; box-shadow: none; }
+.pages-inspector { flex: 0 0 222px; background: #f8f8f8; border-left: 1px solid #c8c8c8; padding: 0 16px; overflow-y: auto; font-size: 12px; }
+.pages-inspector[hidden] { display: none; }
+.pages-inspector h3 { text-align: center; padding: 17px 0; font-size: 13px; font-weight: 600; }
+.inspector-label { display: block; font-size: 10px; color: #888; margin: 6px 0; }
+.pages-inspector select { width: 100%; border: 1px solid #d2d2d2; border-radius: 5px; padding: 5px 8px; background: white; color: #333; font: inherit; }
+.inspector-section { border-top: 1px solid #ddd; margin-top: 20px; padding: 17px 0 0; }
+.inspector-section h4 { font-size: 11px; font-weight: 600; margin: 0 0 10px; }
+.format-buttons { display: flex; margin-top: 10px; background: #e9e9e9; border-radius: 5px; }
+.format-buttons button { flex: 1; border-right: 1px solid #d5d5d5; border-radius: 0; }
+.format-buttons button:last-child { border: 0; }
+.document-detail { display: flex; justify-content: space-between; font-size: 11px; margin: 12px 0; }
+.document-detail strong { font-weight: 400; }
+.inspector-help { font-size: 11px; line-height: 1.6; color: #999; margin-top: 24px; }
+.editor-status-bar { z-index: auto; height: 28px; min-height: 28px; font-size: 10px; background: #f6f6f6; color: #888; }
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+@media(max-width: 760px) { .launchpad .Apps-container { grid-template-columns: repeat(4, 1fr); gap: 20px 8px; } .launchpad .child-launchpad img { width: 62px; height: 62px; } .finder-sidebar { width: 150px; } .finder-search { width: 110px; } .pages-inspector { flex-basis: 180px; padding: 0 12px; } .editor .editor-area { padding: 18px; } .editor .editor-document { padding: 36px 28px; } }
+@media(max-width: 540px) { .finder-sidebar { width: 118px; padding: 12px 5px; } .finder-sidebar li button { font-size: 10px; padding: 4px 0; gap: 0; } .finder-owner { display: none; } .finder-toolbar { flex-wrap: wrap; padding: 9px; } .finder-actions { margin-left: 0; width: 100%; justify-content: space-between; gap: 6px; } .finder-footer { gap: 5px; padding: 8px; } .finder-footer > span:first-child, .finder-footer > span:nth-child(2) { display: none; } .pages-workspace { position: relative; } .pages-inspector { position: absolute; right: 0; top: 0; bottom: 0; width: 200px; z-index: 2; box-shadow: -6px 0 20px #0001; } .pages-document-caption { display: none; } .email-composition { padding: 0 16px; } .launchpad .Apps-container { grid-template-columns: repeat(3, 1fr); } }
+@media(prefers-reduced-motion: reduce) { .launchpad { animation: none; } }
+/* Keep the blur stationary while the content fades in. */
+body > .launchpad { animation: launchpad-fade 180ms ease-out; }
+@keyframes launchpad-fade { from { opacity: 0; } to { opacity: 1; } }
+.email-header { gap: 0; margin-bottom: 0; }
+.email-composition { height: auto; }
+.window.editor { height: min(720px, calc(100dvh - 140px)); }
+@media(prefers-reduced-motion: reduce) { body > .launchpad { animation: none; } }
