@@ -14,11 +14,11 @@
 
   <!-- Meta description -->
   <meta name="description"
-    content="Développeur web créatif, je conçois des solutions digitales innovantes pour les étudiants. Découvrez Whisp, ViteMonGrandOral, Vago et bien plus dans mon portfolio interactif au design macOS unique. Alternant passionné alliant code, entrepreneuriat et créativité.">
+    content="Noa Giannone, développeur front-end et applications mobiles : React, Vue.js, TypeScript, React Native et Expo. Découvrez mes projets, mon parcours chez AirCarto et mon activité indépendante.">
 
   <!-- Mots-clés -->
   <meta name="keywords"
-    content="Noa Giannone, développeur web créatif, alternance développement, Whisp, ViteMonGrandOral, Vago, portfolio interactif, macOS design, entrepreneur étudiant, React, PHP, Python, innovation digitale">
+    content="Noa Giannone, développeur front-end, React, Vue.js, TypeScript, React Native, Expo, Swift, Python, C++, AirCarto, Vago, Whisp, portfolio">
 
   <!-- Auteur -->
   <meta name="author" content="Noa Giannone">
@@ -29,7 +29,7 @@
   <!-- Open Graph -->
   <meta property="og:title" content="Noa Giannone – Développeur Web Créatif & Entrepreneur Étudiant">
   <meta property="og:description"
-    content="Développeur web créatif, je conçois des solutions digitales innovantes comme Whisp, ViteMonGrandOral et Vago. Portfolio interactif au design macOS unique. Alternant passionné alliant code, entrepreneuriat et créativité.">
+    content="Noa Giannone, développeur front-end et applications mobiles : React, Vue.js, TypeScript, React Native et Expo. Découvrez mes projets, mon parcours chez AirCarto et mon activité indépendante.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://www.noagiannone.com/">
   <meta property="og:image" content="https://www.noagiannone.com/assets/og-image.png">
@@ -40,7 +40,7 @@
   <meta name="twitter:site" content="@noagiannone">
   <meta name="twitter:title" content="Noa Giannone – Développeur Web Créatif & Entrepreneur Étudiant">
   <meta name="twitter:description"
-    content="Développeur web créatif, je conçois des solutions digitales innovantes comme Whisp, ViteMonGrandOral et Vago. Portfolio interactif au design macOS unique. Alternant passionné alliant code, entrepreneuriat et créativité.">
+    content="Noa Giannone, développeur front-end et applications mobiles : React, Vue.js, TypeScript, React Native et Expo. Découvrez mes projets, mon parcours chez AirCarto et mon activité indépendante.">
   <link rel="shortcut icon" type="image/png" href="./icon/apple_icon.png" />
   <!-- Google fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Baloo+Tammudu+2&family=Roboto:wght@100&display=swap"
@@ -67,6 +67,7 @@
   <link rel="stylesheet" href="./Css/style.css" />
   <link rel="stylesheet" href="./Css/apple-apps.css" />
 
+<link rel="stylesheet" href="Css/macos-dark.css?v=3">
 </head>
 
 <body>
@@ -94,233 +95,28 @@
 
   <!-- Contenu principal (masqué pendant le chargement) -->
   <div id="main-content" class="main-content-hidden">
-    <div class="navbar">
-      <ul>
-        <li class="leftLi logo">
-          <img src="./icon/apple-white.png" alt="Apple logo" />
-          <ul>
-            <li>
-              <button>About This Mac</button>
-            </li>
-            <li>
-              <button>System Preferences...</button>
-            </li>
-            <li>
-              <button>Recent Items</button>
-            </li>
-            <li>
-              <button>Force Quit Finder</button>
-            </li>
-            <li>
-              <button>Sleep</button>
-              <button onClick="window.location.reload();">Restart...</button>
-              <button>Shut Down...</button>
-            </li>
-            <li>
-              <button>Lock Screen</button>
-              <button>Log Out</button>
-            </li>
-          </ul>
-        </li>
-        <li class="leftLi app_name" id="Terminal">
-          <p>Terminal</p>
-        </li>
-        <li class="leftLi app_name" id="Notes">
-          <p>Notes</p>
-        </li>
-        <li class="leftLi app_name" id="calculator">
-          <p>Calculator</p>
-        </li>
-        <li class="leftLi app_name" id="VScode">
-          <p>VScode</p>
-        </li>
-        <li class="leftLi app_name" id="map">
-          <p>Maps</p>
-        </li>
-        <li class="leftLi">
-          File
-          <ul>
-            <li>
-              <button>New File</button>
-              <button>New Window</button>
-            </li>
-            <li>
-              <button>Open File</button>
-              <button>Open Recent File</button>
-            </li>
-            <li>
-              <button>Save</button>
-              <button>Save as</button>
-            </li>
-            <li>
-              <button>Searching</button>
-              <button>Propertie File</button>
-            </li>
-            <li>
-              <button>Customize</button>
-            </li>
-            <li>
-              <button>Exit</button>
-            </li>
-          </ul>
-        </li>
-        <li class="leftLi hidden">Edit</li>
-        <li class="leftLi hidden">View</li>
-        <li class="leftLi hidden">Go</li>
-        <li class="leftLi hidden">Tools</li>
-        <li class="leftLi">Help</li>
-      </ul>
-
-      <ul class="navbar__right">
-        <li class="battery">
-          <span class="battery__text"></span>
-          <div class="battery__container">
-            <div class="battery__progress">
-              <img class="is-charging" src="./icon/charging.png" alt="Battery is charging">
-            </div>
-          </div>
-
-          <div class="battery__popup">
-            <header>
-              <h3>Battery</h3>
-              <span></span>
-            </header>
-            <p>Power Source: <span class="power-source">Battery</span></p>
-            <hr />
-            <button>Battery Preferences...</button>
-          </div>
-        </li>
-        <li class="wifi">
-          <svg width="24" height="24">
-            <path
-              d="M12 6c3.537 0 6.837 1.353 9.293 3.809l1.414-1.414C19.874 5.561 16.071 4 12 4 7.929 4.001 4.126 5.561 1.293 8.395l1.414 1.414C5.163 7.353 8.463 6 12 6zM17.671 14.307c-3.074-3.074-8.268-3.074-11.342 0l1.414 1.414c2.307-2.307 6.207-2.307 8.514 0L17.671 14.307z">
-            </path>
-            <path
-              d="M20.437,11.293c-4.572-4.574-12.301-4.574-16.873,0l1.414,1.414c3.807-3.807,10.238-3.807,14.045,0L20.437,11.293z">
-            </path>
-            <circle cx="12" cy="18" r="2"></circle>
-          </svg>
-        </li>
-        <li class="open_Search">
-          <svg width="20" height="20">
-            <path
-              d="M10,18c1.846,0,3.543-0.635,4.897-1.688l4.396,4.396l1.414-1.414l-4.396-4.396C17.365,13.543,18,11.846,18,10 c0-4.411-3.589-8-8-8s-8,3.589-8,8S5.589,18,10,18z M10,4c3.309,0,6,2.691,6,6s-2.691,6-6,6s-6-2.691-6-6S6.691,4,10,4z">
-            </path>
-          </svg>
-        </li>
-        <li class="open_control hidden">
-          <img src="./icon/control_center.gif" class="control-center" alt="controlCenter" />
-          <div class="menu__container">
-            <div class="grid__controling">
-              <div class="control_center--grid col-5">
-                <button>
-                  <svg width="24" height="24">
-                    <path
-                      d="M12 6c3.537 0 6.837 1.353 9.293 3.809l1.414-1.414C19.874 5.561 16.071 4 12 4 7.929 4.001 4.126 5.561 1.293 8.395l1.414 1.414C5.163 7.353 8.463 6 12 6zM17.671 14.307c-3.074-3.074-8.268-3.074-11.342 0l1.414 1.414c2.307-2.307 6.207-2.307 8.514 0L17.671 14.307z" />
-                    <path
-                      d="M20.437,11.293c-4.572-4.574-12.301-4.574-16.873,0l1.414,1.414c3.807-3.807,10.238-3.807,14.045,0L20.437,11.293z" />
-                    <circle cx="12" cy="18" r="2"></circle>
-                  </svg>
-                  Wi-Fi
-                </button>
-                <button>
-                  <svg height="24px" width="24px" viewBox="0 0 100 100">
-                    <path
-                      d="M62.6 68.501c-1.582 1.637-4.2 1.637-5.782.055-1.636-1.582-1.691-4.146-.109-5.783 1.8-1.8 2.836-4.146 2.836-6.765 0-5.292-4.255-9.547-9.545-9.547s-9.545 4.255-9.545 9.547c0 2.619 1.036 4.965 2.836 6.765 1.582 1.637 1.527 4.255-.109 5.837-1.582 1.528-4.2 1.528-5.782-.109-3.109-3.164-5.127-7.638-5.127-12.493 0-9.82 7.964-17.73 17.727-17.73s17.727 7.91 17.727 17.73c0 4.855-2.018 9.329-5.127 12.493z" />
-                    <path
-                      d="M50 24.639c17.291 0 31.364 14.021 31.364 31.369 0 8.62-3.491 16.585-9.273 22.149-1.582 1.582-4.2 1.582-5.782-.055-1.582-1.582-1.527-4.201.109-5.783 4.145-4.092 6.764-9.929 6.764-16.312 0-6.437-2.618-12.166-6.818-16.421-4.2-4.201-9.982-6.765-16.364-6.765-6.436 0-12.164 2.564-16.364 6.765-4.255 4.255-6.818 9.984-6.818 16.421 0 6.383 2.618 12.22 6.764 16.312 1.636 1.582 1.691 4.201.109 5.783-1.582 1.637-4.2 1.637-5.782.055-5.782-5.565-9.273-13.53-9.273-22.149 0-17.349 14.073-31.369 31.364-31.369z" />
-                    <path
-                      d="M86.818 56.008c0-10.202-4.091-19.367-10.8-26.023C69.364 23.275 60.145 19.183 50 19.183c-10.2 0-19.364 4.092-26.018 10.802-6.709 6.656-10.8 15.821-10.8 26.023 0 10.147 4.145 19.367 10.8 26.023 1.582 1.582 1.582 4.146 0 5.783-1.582 1.582-4.2 1.582-5.782 0C10.018 79.739 5 68.392 5 56.008 5 31.131 25.182 11 50 11s45 20.131 45 45.008c0 12.384-5.018 23.731-13.2 31.806-1.636 1.582-4.2 1.582-5.782 0-1.582-1.637-1.582-4.201 0-5.783 6.655-6.656 10.8-15.876 10.8-26.023z" />
-                  </svg>
-                  AirDrop
-                </button>
-                <button>
-                  <svg height="24" width="24" viewBox="0 0 100 100">
-                    <path
-                      d="M48.7 97.5c-.7 0-1.3-.1-1.9-.4-1.7-.8-2.8-2.5-2.8-4.3V60.7L30.1 73.1c-1.1 1-2.8.9-3.8-.2l-2.8-3.1c-1-1.1-.9-2.8.2-3.8l17.8-16-17.8-16c-1.1-1-1.2-2.7-.2-3.8l2.8-3.1c1-1.1 2.7-1.2 3.8-.2l13.8 12.4v-32c0-1.9 1.1-3.6 2.8-4.3 1.7-.8 3.7-.4 5.1.8l23.7 21.4c1 .9 1.6 2.2 1.6 3.5 0 1.3-.6 2.6-1.6 3.5L55.8 50l19.8 17.8c1 .9 1.6 2.2 1.6 3.5s-.6 2.6-1.6 3.5L51.8 96.3c-.9.8-2 1.2-3.1 1.2zm4.7-36.8v21.4l11.9-10.7-11.9-10.7zm0-42.8v21.4l11.9-10.7-11.9-10.7z" />
-                  </svg>
-                  Bluetooth
-                </button>
-              </div>
-              <div class="control_center--grid col-7">
-                <button>
-                  <svg height="24px" width="24px" version="1.1" viewBox="0 0 48 48">
-                    <path
-                      d="M6.67,23.6c0,10.75,8.75,19.5,19.5,19.5c5.89,0,11.46-2.69,15.16-7.25c-1.06,0.17-2.12,0.25-3.16,0.25  c-11.3,0-20.5-9.2-20.5-20.5c0-3.81,1.04-7.48,3.03-10.71C12.5,7.3,6.67,14.97,6.67,23.6z" />
-                  </svg>
-                  Do Not <br />
-                  Disturb
-                </button>
-              </div>
-
-              <div class="control_center--grid col-3--brightness">
-                <button class="nobtn">
-                  <svg height="40px" width="40px" viewBox="0 0 100 100">
-                    <defs>
-                      <g id="a">
-                        <path
-                          d=" M 60 62.8 L 72.8 50 70 47.15 57.15 60 60 62.8 M 38 68 L 38 72 62 72 62 68 38 68 M 27.15 50 L 40 62.8 42.8 60 30 47.15 27.15 50 M 18 72 L 32 72 32 68 18 68 18 72 M 51.95 38.45 L 47.95 38.45 48 56.6 52 56.6 51.95 38.45 M 82 72 L 82 68 68 68 68 72 82 72 Z" />
-                      </g>
-                    </defs>
-                    <g transform="matrix( 1, 0, 0, 1, 0,-5.2) ">
-                      <use xlink:href="#a" />
-                    </g>
-                  </svg>
-                </button>
-              </div>
-              <div class="control_center--grid col-3--battery">
-                <button class="nobtn">
-                  <svg width="40px" style="
-                      background-color: transparent;
-                      transform: scale(1.3);
-                      transform: translateY(1px);
-                      padding: 0;
-                      margin: 0 5px;
-                    " viewBox="0 0 84 84">
-                    <g transform="matrix(1,0,0,1,1,0)">
-                      <path
-                        d="M69.117,21.917C69.426,21.923 69.733,21.941 70.04,21.976C70.751,22.057 71.451,22.223 72.123,22.469C73.359,22.922 74.491,23.647 75.422,24.578C76.379,25.535 77.119,26.705 77.569,27.982C77.794,28.622 77.947,29.286 78.024,29.96C78.059,30.267 78.077,30.574 78.083,30.883C78.113,35.628 78.113,40.372 78.083,45.117C78.077,45.426 78.059,45.733 78.024,46.04C77.947,46.714 77.794,47.378 77.569,48.018C77.119,49.295 76.379,50.465 75.422,51.422C74.491,52.353 73.359,53.078 72.123,53.531C71.451,53.777 70.751,53.943 70.04,54.024C69.733,54.059 69.426,54.077 69.117,54.083C49.373,54.208 29.627,54.208 9.883,54.083C9.574,54.077 9.267,54.059 8.96,54.024C8.286,53.947 7.622,53.794 6.982,53.569C5.705,53.119 4.535,52.379 3.578,51.422C2.647,50.491 1.922,49.359 1.469,48.123C1.223,47.451 1.057,46.751 0.976,46.04C0.941,45.733 0.923,45.426 0.917,45.117C0.887,40.372 0.887,35.628 0.917,30.883C0.923,30.574 0.941,30.267 0.976,29.96C1.057,29.249 1.223,28.549 1.469,27.877C1.922,26.641 2.647,25.509 3.578,24.578C4.535,23.621 5.705,22.881 6.982,22.431C7.622,22.206 8.286,22.053 8.96,21.976C9.267,21.941 9.574,21.923 9.883,21.917C29.627,21.792 49.373,21.792 69.117,21.917ZM10.007,26.083C9.428,26.087 8.855,26.182 8.311,26.381C7.641,26.627 7.029,27.02 6.524,27.524C6.02,28.029 5.627,28.641 5.381,29.311C5.19,29.833 5.094,30.381 5.084,30.936C5.054,35.666 4.995,40.398 5.085,45.128C5.102,45.661 5.197,46.188 5.381,46.689C5.627,47.359 6.02,47.971 6.524,48.476C7.029,48.98 7.641,49.373 8.311,49.619C8.833,49.81 9.381,49.906 9.936,49.916C29.666,50.041 49.401,50.29 69.128,49.915C69.661,49.898 70.188,49.803 70.689,49.619C71.359,49.373 71.971,48.98 72.476,48.476C72.98,47.971 73.373,47.359 73.619,46.689C73.81,46.167 73.906,45.619 73.916,45.064C73.946,40.334 74.005,35.602 73.915,30.872C73.898,30.339 73.803,29.812 73.619,29.311C73.373,28.641 72.98,28.029 72.476,27.524C71.971,27.02 71.359,26.627 70.689,26.381C70.167,26.19 69.619,26.094 69.064,26.084C49.379,25.959 29.692,26.083 10.007,26.083Z" />
-                    </g>
-                    <g transform="matrix(-1.60812e-16,-1,0.833333,-1.3401e-16,33.6667,108)">
-                      <path
-                        d="M76,53.5C76,52.672 75.44,52 74.75,52L65.25,52C64.56,52 64,52.672 64,53.5L64,56.5C64,57.328 64.56,58 65.25,58L74.75,58C75.44,58 76,57.328 76,56.5L76,53.5Z" />
-                    </g>
-                    <path
-                      d="M10.768,27L58,27L58,49L10.768,49C8.689,49 7,47.311 7,45.232L7,30.768C7,28.689 8.688,27 10.768,27Z" />
-                  </svg>
-                </button>
-              </div>
-              <div class="control_center--grid col-12--light brightness">
-                <input type="range" id="brightness" min="20" max="100" step="1" value="100" />
-                <img src="./icon/Sun.svg" alt="" width="25">
-              </div>
-              <div class="control_center--grid col-12--volume sound">
-                <input type="range" id="sound" min="0" max="16" step="1" value="8" />
-                <img src="./icon/volume.svg" alt="" width="25">
-              </div>
-              <div class="control_center--grid col-12--music">
-                <div class="musicPlayer">
-                  <div class="musicPlayer--image">
-                    <img src="./icon/dock/music.png" alt="" />
-                    &nbsp;&nbsp;&nbsp;
-                    <h2>Music</h2>
-                  </div>
-                  <div class="musicPlayer--content">
-                    <span class="material-icons-round"> play_arrow </span>
-                    <span class="material-icons-round"> fast_forward </span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </li>
-        <li class="clock">
-          <span id="date" class="hidden"></span>
-          <span id="clock"></span>
-        </li>
-      </ul>
-    </div>
-
+    <nav class="navbar mac-menubar" aria-label="Barre de menus">
+      <div class="menubar-left">
+        <button class="menubar-button apple-menu-button" data-system-menu="apple" aria-label="Menu Apple" aria-haspopup="menu" aria-expanded="false"><img src="icon/apple-white.png" alt=""></button>
+        <button class="menubar-button current-app" data-system-menu="application" aria-haspopup="menu" aria-expanded="false">Réglages Système</button>
+        <button class="menubar-button" data-system-menu="file" aria-haspopup="menu" aria-expanded="false">Fichier</button>
+        <button class="menubar-button" data-system-menu="edit" aria-haspopup="menu" aria-expanded="false">Édition</button>
+        <button class="menubar-button" data-system-menu="view" aria-haspopup="menu" aria-expanded="false">Présentation</button>
+        <button class="menubar-button" data-system-menu="window" aria-haspopup="menu" aria-expanded="false">Fenêtre</button>
+        <button class="menubar-button" data-system-menu="help" aria-haspopup="menu" aria-expanded="false">Aide</button>
+      </div>
+      <div class="menubar-right">
+        <button class="menubar-button" data-system-menu="battery" aria-label="Batterie" title="Batterie"><img class="sf-icon" src="icon/apple/battery.100.png" alt="" aria-hidden="true"></button>
+        <button class="menubar-button" data-system-menu="wifi" aria-label="Wi-Fi" title="Wi-Fi"><img class="sf-icon" src="icon/apple/wifi.png" alt="" aria-hidden="true"></button>
+        <button class="menubar-button" id="spotlight-toggle" aria-label="Recherche Spotlight" title="Spotlight (⌘ Espace)"><img class="sf-icon" src="icon/apple/magnifyingglass.png" alt="" aria-hidden="true"></button>
+        <button class="menubar-button" data-system-menu="control" aria-label="Centre de contrôle" title="Centre de contrôle"><img class="sf-icon" src="icon/apple/switch.2.png" alt="" aria-hidden="true"></button>
+        <button class="menubar-button menubar-clock" data-system-menu="calendar" aria-label="Date et heure"><span id="date"></span><span id="clock"></span></button>
+      </div>
+      <div hidden aria-hidden="true"><span id="Terminal"></span><span id="Notes"></span><span id="calculator"></span><span id="VScode"></span><span id="map"></span><span id="finder"></span></div>
+    </nav>
+    <div id="system-popover" class="system-popover" hidden></div>
+    <section id="spotlight-panel" class="spotlight-panel" aria-label="Recherche Spotlight" hidden><label><img class="sf-icon" src="icon/apple/magnifyingglass.png" alt="" aria-hidden="true"><input type="search" placeholder="Recherche Spotlight" aria-label="Rechercher une application ou un projet"></label><div id="spotlight-results"></div></section>
+    <div id="screen-dimmer" aria-hidden="true"></div>
     <div id="contextMenu" class="context-menu" style="opacity: 0; transition: 0.2s;">
       <ul>
         <li>
@@ -353,7 +149,7 @@
 
       <!-- dans le dock, par exemple à la fin -->
       <button class="icon open-editor">
-        <img src="icon/Launchpad/pages.png" alt="Éditeur" />
+        <img src="icon/wordicone.png" alt="Word" />
         <hr class="point hidden" id="point-editor" />
       </button>
       <button class="icon open-vscode">
@@ -407,75 +203,8 @@
           <input type="search" name="search" placeholder="Search" accesskey="s" />
         </div>
       </div>
-      <div class="Apps-container">
-        <div class="child-launchpad" data-keywords="Appstore,Store">
-          <img src="./icon/Launchpad/appstore.png" alt="" />
-          <strong>App store</strong>
-        </div>
-        <div class="child-launchpad open-cal-lunching" data-keywords="Calculator">
-          <img src="./icon/Launchpad/calculator.png" alt="" />
-          <strong>Calculator</strong>
-        </div>
-        <div class="child-launchpad" data-keywords="Calendar">
-          <img src="./icon/Launchpad/calendar.png" alt="" />
-          <strong>Calendar</strong>
-        </div>
-        <div class="child-launchpad" data-keywords="Contacts">
-          <img src="./icon/Launchpad/contacts.png" alt="" />
-          <strong>Contacts</strong>
-        </div>
-        <div class="child-launchpad" data-keywords="Dictionary">
-          <img src="./icon/Launchpad/dictionary.png" alt="" />
-          <strong>Dictionary</strong>
-        </div>
-        <div class="child-launchpad" data-keywords="Home,Files,Finder">
-          <img src="./icon/Launchpad/Home.png" alt="" />
-          <strong>home</strong>
-        </div>
-        <div class="child-launchpad" data-keywords="Mail,Email">
-          <img src="./icon/Launchpad/mail.png" alt="" />
-          <strong>Mail</strong>
-        </div>
-        <div class="child-launchpad" data-keywords="Messages,Messenger">
-          <img src="./icon/Launchpad/messages.png" alt="" />
-          <strong>Messages</strong>
-        </div>
-        <div class="child-launchpad" data-keywords="Netnewswire,News">
-          <img src="./icon/Launchpad/netnewswire.png" alt="" />
-          <strong>Netnewswire</strong>
-        </div>
-        <div class="child-launchpad" data-keywords="Numbers,Chart">
-          <img src="./icon/Launchpad/numbers.png" alt="" />
-          <strong>Numbers</strong>
-        </div>
-        <div class="child-launchpad" data-keywords="Pages,Note,Notepad">
-          <img src="./icon/Launchpad/pages.png" alt="" />
-          <strong>Pages</strong>
-        </div>
-        <div class="child-launchpad" data-keywords="Siri, Assistant">
-          <img src="./icon/Launchpad/siri.png" alt="" />
-          <strong>Siri</strong>
-        </div>
-        <div class="child-launchpad" data-keywords="Podcasts">
-          <img src="./icon/Launchpad/podcasts.png" alt="" />
-          <strong>Podcasts</strong>
-        </div>
-        <div class="child-launchpad" data-keywords="Safari browser,Web browser">
-          <img src="./icon/Launchpad/safari.png" alt="" />
-          <strong>Safari</strong>
-        </div>
-        <div class="child-launchpad" data-keywords="activity, monitor">
-          <img src="./icon/Launchpad/activitymonitor.png" alt="" />
-          <strong>Monitor <br />
-            activity</strong>
-        </div>
-        <div class="child-launchpad" data-keywords="zoom,video,call">
-          <img src="./icon/Launchpad/zoom.png" alt="" />
-          <strong>Zoom</strong>
-        </div>
-      </div>
+      <div class="Apps-container"><div class="child-launchpad " data-keywords="Home,Files,Finder"><img src="icon/dock/finder.png" alt=""><strong>Finder</strong></div><div class="child-launchpad " data-keywords="Pages,Word,Documents"><img src="icon/wordicone.png" alt=""><strong>Word</strong></div><div class="child-launchpad " data-keywords="Mail,Email"><img src="icon/dock/mail.png" alt=""><strong>Mail</strong></div><div class="child-launchpad " data-keywords="Safari browser,Web browser"><img src="icon/Launchpad/safari.png" alt=""><strong>Safari</strong></div><div class="child-launchpad " data-keywords="Code,Skills"><img src="icon/dock/vscode.svg" alt=""><strong>Visual Studio Code</strong></div><div class="child-launchpad " data-keywords="Terminal,Commands"><img src="icon/dock/terminal.png" alt=""><strong>Terminal</strong></div><div class="child-launchpad " data-keywords="Notes,Parcours"><img src="icon/dock/notes.png" alt=""><strong>Notes</strong></div><div class="child-launchpad " data-keywords="Settings,Preferences"><img src="icon/dock/preferences.png" alt=""><strong>Réglages Système</strong></div><div class="child-launchpad open-cal-lunching" data-keywords="Calculator"><img src="icon/dock/calculator.png" alt=""><strong>Calculatrice</strong></div><div class="child-launchpad " data-keywords="Maps"><img src="icon/dock/maps.png" alt=""><strong>Plans</strong></div></div>
     </div>
-    <!--LAUNCHPAD end-->
 
     <div class="container__Window">
       <!-- Terminal -->
@@ -490,25 +219,8 @@
             <h2>Terminal</h2>
           </div>
         </div>
-        <div class="terminal_content">
-          <p>Last Login : Yesterday on console</p>
-
-          <!--    Oh My Zsh bash      -->
-          <div class="terminal_line">
-            <p>
-              <span class="color_green">â</span>&nbsp;&nbsp;
-              <span class="color_blue">~</span>&nbsp;
-              <span contenteditable="true" class="cursor"></span>
-            </p>
-          </div>
-
-          <!--    MacOs Default bash                                 -->
-          <!--          <div class="terminal_line">                            -->
-          <!--            <p>MacBook-Pro:~ root$&nbsp;                         -->
-          <!--              <span contenteditable="true" class="cursor"></span>-->
-          <!--            </p>                                                 -->
-          <!--          </div>                                                 -->
-        </div>
+        <div class="terminal-tabs"><span><img class="sf-icon" src="icon/apple/terminal.png" alt="" aria-hidden="true">noa — zsh</span><span>⌘ 1</span></div>
+        <div class="terminal_content shell-host" id="portfolio-terminal" aria-label="Terminal interactif"></div>
       </div>
 
       <!-- Note -->
@@ -575,15 +287,15 @@
               <li class="active">
                 <div class="note-item-title">Mon Parcours</div>
                 <div class="note-item-preview">
-                  <span class="note-time">10:48</span>
-                  <span class="note-preview-text">Developpeur Web - Alternance...</span>
+                  <span class="note-time">Parcours</span>
+                  <span class="note-preview-text">Front-end, mobile, IoT…</span>
                 </div>
               </li>
               <li>
-                <div class="note-item-title">Idées Projets</div>
+                <div class="note-item-title">Mes compétences</div>
                 <div class="note-item-preview">
-                  <span class="note-time">Hier</span>
-                  <span class="note-preview-text">Une app de voyage avec...</span>
+                  <span class="note-time">Stack</span>
+                  <span class="note-preview-text">React, TypeScript, React Native…</span>
                 </div>
               </li>
             </ul>
@@ -593,81 +305,7 @@
               <div class="note-meta">
                 <span class="note-date">Modifié aujourd'hui à 10:48</span>
               </div>
-              <div class="note-body">
-                <h1>Mon Parcours</h1>
-
-                <div class="note-section">
-                  <h2>Expériences Professionnelles</h2>
-
-                  <div class="experience-block">
-                    <h3>Développeur Full Stack & IoT</h3>
-                    <span class="company">Aircarto</span>
-                    <span class="date">2025 - Aujourd'hui</span>
-                    <ul>
-                      <li>Conception et assemblage de capteurs open-source pour la qualité de l’air</li>
-                      <li>Développement d’API pour la gestion et le pilotage de parc de capteurs</li>
-                      <li>Création d’outils performants pour la collecte et la visualisation de données</li>
-                      <li>Développement d'application mobile sous React Native/Expo</li>
-                      <li>Conception micro-électronique et prototypage hardware</li>
-                    </ul>
-                    <div class="skills-tags">
-                      <span>React
-                        Native</span><span>Expo</span><span>Node.js</span><span>Hardware</span><span>IoT</span>
-                    </div>
-                  </div>
-
-                  <div class="experience-block">
-                    <h3>Développeur Web - Alternance</h3>
-                    <span class="company">No ID Lab, Toulon</span>
-                    <span class="date">2025</span>
-                    <ul>
-                      <li>Développement d'une plateforme web innovante</li>
-                      <li>Conception et implémentation de fonctionnalités sur mesure</li>
-                      <li>Intégration d'interfaces utilisateur dynamiques et réactives</li>
-                      <li>Collaboration avec l'équipe design pour l'UX/UI</li>
-                    </ul>
-                    <div class="skills-tags">
-                      <span>HTML5</span><span>CSS3</span><span>JS</span><span>React.js</span>
-                    </div>
-                  </div>
-
-                  <div class="experience-block">
-                    <h3>Technicien d'Exploitation - CDD</h3>
-                    <span class="company">PROFER, Marseille</span>
-                    <span class="date">2024</span>
-                    <ul>
-                      <li>Supervision et maintenance des infrastructures informatiques</li>
-                      <li>Support technique aux utilisateurs</li>
-                      <li>Participation active à la restructuration du SI</li>
-                      <li>Documentation des procédures techniques</li>
-                    </ul>
-                  </div>
-                </div>
-
-                <hr class="note-divider">
-
-                <div class="note-section">
-                  <h2>Formation</h2>
-
-                  <div class="education-block">
-                    <h3>Cycle Bachelor Numérique</h3>
-                    <span class="school">Institut G4, Marseille</span>
-                    <span class="date">2024</span>
-                    <p>Programme de 1ère année : Développement web front/back, CMS, SEO/SEA, Design, Gestion de projet.
-                    </p>
-                  </div>
-
-                  <div class="education-block">
-                    <h3>Baccalauréat</h3>
-                    <span class="school">Lycée Sévigné, Marseille</span>
-                    <span class="date">2024</span>
-                    <p>Série générale et technologique. Mention Très Bien.</p>
-                    <p class="quote">"Cette réussite a confirmé mon choix de poursuivre dans le domaine du numérique."
-                    </p>
-                  </div>
-                </div>
-
-              </div>
+              <div class="note-body"><h1>Mon parcours</h1></div>
             </div>
           </div>
         </div>
@@ -675,611 +313,48 @@
       <!--note app end-->
 
       <!-- Vscode app start-->
-      <div class="window Vscode">
-        <div class="window__taskbar">
-          <div class="window__taskbar--actions">
-            <button class="close-Vscode"></button>
-            <button class="backfull-Vscode"></button>
-            <button class="full-Vscode"></button>
-          </div>
-          <div class="window__taskbar--content">
-            <h2 style="color: white;">Vs Code</h2>
-          </div>
+      <div class="window Vscode" data-app-name="Visual Studio Code">
+        <div class="window__taskbar"><div class="window__taskbar--actions"><button class="close-Vscode" aria-label="Fermer"></button><button class="backfull-Vscode" aria-label="Réduire"></button><button class="full-Vscode" aria-label="Agrandir"></button></div><div class="window__taskbar--content"><h2>portfolio — Visual Studio Code</h2></div></div>
+        <div class="vscode-workbench">
+          <nav class="vscode-activity" aria-label="Activités"></nav>
+          <aside class="vscode-sidebar"><h3>EXPLORATEUR</h3><div class="vscode-explorer"></div></aside>
+          <main class="vscode-main"><div class="vscode-tabs" role="tablist"></div><div class="vscode-breadcrumb"></div><div class="vscode-code-scroll"><pre class="vscode-code" tabindex="0"></pre><div class="vscode-minimap" aria-hidden="true"></div></div><section class="vscode-panel" hidden><header><span>TERMINAL</span><button type="button" id="code-clear-terminal" title="Effacer le terminal">Effacer</button></header><div class="shell-host" id="code-terminal" aria-label="Terminal intégré"></div></section></main>
         </div>
-
-        <div class="content">
-          <div class="code-editor">
-            <!-- Barre d'onglets -->
-            <div class="editor-tabs">
-              <span class="tab active">skills.js</span>
-              <span class="tab">README.md</span>
-              <span class="tab">config.json</span>
-            </div>
-            <!-- Zone de code -->
-            <pre class="code-block"><code>
-          <span class="token comment">// 🚀 STACK & COMPETENCES VOUS</span>
-          
-          <span class="token comment">// --- MOBILE (Cross-platform & Natif) ---</span>
-          <span class="token keyword">const</span> <span class="token variable">mobileStack</span> = {
-            <span class="token property">crossPlatform</span>: <span class="token string">"React Native & Expo"</span>,
-            <span class="token property">nativeIOS</span>:     <span class="token string">"Swift (Xcode)"</span>,
-            <span class="token property">nativeAndroid</span>: <span class="token string">"Java (Android Studio)"</span>,
-            <span class="token property">backend</span>:       <span class="token string">"Firebase (Auth & Realtime DB)"</span>
-          };
-          
-          <span class="token comment">// --- DATA & DEVOPS ---</span>
-          <span class="token keyword">const</span> <span class="token variable">backendOps</span> = {
-            <span class="token property">databases</span>:    <span class="token string">"PostgreSQL & InfluxDB"</span>,
-            <span class="token property">deployment</span>:   <span class="token string">"Gunicorn & Config Serveur"</span>,
-            <span class="token property">python</span>:       <span class="token string">"Flask & Scripting"</span>
-          };
-          
-          <span class="token comment">// --- WEB DEVELOPMENT ---</span>
-          <span class="token keyword">const</span> <span class="token variable">webStack</span> = {
-            <span class="token property">modern</span>:       <span class="token string">"React.js & Vue.js 3"</span>,
-            <span class="token property">classic</span>:      <span class="token string">"HTML5 / CSS3 / Vanilla JS"</span>,
-            <span class="token property">legacy</span>:       <span class="token string">"PHP & MySQL"</span>
-          };
-          
-          <span class="token comment">// "Code is poetry" 💙</span>
-            </code></pre>
-          </div>
-        </div>
+        <footer class="vscode-status"><span>⑂ main</span><span>✓ 0 problème</span><span class="vscode-language">JavaScript</span><span>UTF-8</span><button type="button" id="code-terminal-toggle">Terminal</button></footer>
       </div>
-
       <!-- Vscode app end -->
 
 
 
       <!-- 7. EMAIL – CONTACT -->
       <!-- 7. EMAIL – CONTACT -->
-      <div id="win-email" class="window email">
-        <div class="window__taskbar window-header">
-          <div class="window__taskbar--actions">
-            <button class="close-email"></button>
-            <button class="backfull-email"></button>
-            <button class="full-email"></button>
-          </div>
-          <div class="window__taskbar--content">
-            <h2>Mail — Nouveau message</h2>
-          </div>
-        </div>
-        <div class="window-content">
-          <div class="email-toolbar"><span class="compose-caption">Nouveau message</span><button type="submit" form="contact-form" class="email-send-button"><img src="icon/apple/paperplane.png" alt="" aria-hidden="true"><span>Envoyer</span></button></div>
-          <!-- Email composition area -->
-          <div class="email-composition">
-            <form id="contact-form" action="https://formspree.io/f/mdkgknrz" method="POST">
-              <!-- Email header -->
-              <div class="email-header">
-                <div class="email-header-row">
-                  <label class="email-header-label" for="mail-to">À :</label>
-                  <input id="mail-to" type="text" class="email-header-input" value="noa.giannone@noagiannone.fr" disabled>
-                </div>
-                <div class="email-header-row">
-                  <label class="email-header-label" for="mail-from">De :</label>
-                  <input id="mail-from" type="email" name="email" class="email-header-input" placeholder="Votre adresse email"
-                    required>
-                </div>
-              </div>
-
-              <div class="email-header-row mail-subject"><label class="email-header-label" for="mail-subject">Objet :</label><input id="mail-subject" class="email-header-input" name="subject" placeholder="Parlons de votre projet" required></div>
-              <!-- Message area -->
-              <div class="email-message">
-                <textarea aria-label="Votre message" name="message" placeholder="Bonjour Noa,&#10;&#10;Je vous contacte à propos de…" required></textarea>
-              </div>
-              <div class="mail-bottom"><span>À Noa Giannone</span><output id="mail-status" role="status" aria-live="polite"></output></div>
-            </form>
-          </div>
+      <div id="win-email" class="window email" data-app-name="Mail">
+        <div class="window__taskbar mail-titlebar"><div class="window__taskbar--actions"><button class="close-email" aria-label="Fermer"></button><button class="backfull-email" aria-label="Réduire"></button><button class="full-email" aria-label="Agrandir"></button></div><h2>Mail</h2><div class="mail-toolbar"><button type="button" class="native-tool" title="Afficher ou masquer les boîtes" aria-label="Afficher ou masquer les boîtes" id="mail-sidebar-toggle"><img class="sf-icon" src="icon/apple/sidebar.left.png" alt="" aria-hidden="true"></button><button type="button" class="native-tool" title="Nouveau message" aria-label="Nouveau message" id="mail-compose"><img class="sf-icon" src="icon/apple/square.and.pencil.png" alt="" aria-hidden="true"></button><button type="button" class="native-tool" title="Répondre à Noa" aria-label="Répondre à Noa" id="mail-reply"><img class="sf-icon" src="icon/apple/arrow.uturn.backward.png" alt="" aria-hidden="true"></button></div><label class="native-search"><img class="sf-icon" src="icon/apple/magnifyingglass.png" alt="" aria-hidden="true"><input id="mail-search" type="search" placeholder="Rechercher" aria-label="Rechercher dans Mail"></label></div>
+        <div class="mail-layout"><aside class="mail-sidebar"><p>Favoris</p><button type="button" data-mailbox="inbox" class="selected"><img class="sf-icon" src="icon/apple/tray.png" alt="" aria-hidden="true">Réception <span>1</span></button><button type="button" data-mailbox="draft"><img class="sf-icon" src="icon/apple/doc.text.png" alt="" aria-hidden="true">Brouillon <span id="mail-draft-count">0</span></button><button type="button" data-mailbox="sent"><img class="sf-icon" src="icon/apple/paperplane.png" alt="" aria-hidden="true">Envoyés <span id="mail-sent-count">0</span></button><p class="mail-account-label">Portfolio</p><small>Noa Giannone</small></aside>
+          <section class="mail-list" aria-label="Liste des messages"><header><strong id="mailbox-title">Réception</strong><span id="mailbox-count">1 message</span></header><div id="mail-message-list"></div></section>
+          <main class="mail-reading"><article id="mail-welcome"><header class="mail-message-heading"><img src="images/profile-noa.jpeg" alt="Noa Giannone"><div><strong>Noa Giannone</strong><h3>Faisons connaissance.</h3><span>À : vous</span></div></header><div class="mail-letter"><p>Bonjour et bienvenue sur mon portfolio,</p><p>Je suis Noa, développeur front-end et applications mobiles. J’aime créer des outils utiles, soigner les détails et donner vie à des idées.</p><p>Un projet en tête, une opportunité ou simplement envie d’échanger ? Écrivez-moi, je serai ravi d’en discuter.</p><p>À bientôt,<br><strong>Noa</strong></p><button type="button" class="native-button" id="mail-contact">Écrire à Noa</button><div class="mail-signature">Noa Giannone<span>Développement web & mobile</span><a href="mailto:noa.giannone@noagiannone.fr">noa.giannone@noagiannone.fr</a></div></div></article>
+          <form id="contact-form" action="https://formspree.io/f/mdkgknrz" method="POST" hidden><div class="mail-compose-header"><strong>Nouveau message</strong><button type="submit" class="email-send-button"><img class="sf-icon" src="icon/apple/paperplane.png" alt="" aria-hidden="true">Envoyer</button></div><label class="mail-field"><span>À :</span><input value="noa.giannone@noagiannone.fr" readonly aria-label="Destinataire"></label><label class="mail-field"><span>De :</span><input name="email" type="email" placeholder="Votre adresse e-mail" required></label><label class="mail-field"><span>Objet :</span><input name="subject" placeholder="Parlons de votre projet" required></label><textarea name="message" placeholder="Bonjour Noa,&#10;&#10;" aria-label="Message" required></textarea><footer><span>Brouillon de cette visite</span><output id="mail-status" role="status"></output></footer></form><div id="mail-empty" hidden></div></main>
         </div>
       </div>
 
-
-      <div id="win-safari" class="window safari">
-        <div class="window__taskbar window-header">
-          <div class="window__taskbar--actions">
-            <button class="close-safari"></button>
-            <button class="backfull-safari"></button>
-            <button class="full-safari"></button>
-          </div>
-          <div class="window__taskbar--content">
-            <h2>Safari</h2>
-          </div>
-        </div>
-        <div class="window-content">
-          <!-- Barre de navigation Safari avec tabs epingles -->
-          <div class="safari-navbar">
-            <div class="safari-navbar-controls">
-              <button class="safari-btn safari-back" title="Retour">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
-                  <path fill-rule="evenodd"
-                    d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z" />
-                </svg>
-              </button>
-              <button class="safari-btn safari-forward" title="Suivant">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
-                  <path fill-rule="evenodd"
-                    d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z" />
-                </svg>
-              </button>
-              <button class="safari-btn safari-home" title="Accueil">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
-                  <path
-                    d="M8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4.5a.5.5 0 0 0 .5-.5v-4h2v4a.5.5 0 0 0 .5.5H14a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146zM2.5 14V7.707l5.5-5.5 5.5 5.5V14H10v-4a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5v4H2.5z" />
-                </svg>
-              </button>
-              <button class="safari-btn safari-reload" title="Recharger">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
-                  <path
-                    d="M11.534 7h3.932a.25.25 0 0 1 .192.41l-1.966 2.36a.25.25 0 0 1-.384 0l-1.966-2.36a.25.25 0 0 1 .192-.41zm-11 2h3.932a.25.25 0 0 0 .192-.41L2.692 6.23a.25.25 0 0 0-.384 0L.342 8.59A.25.25 0 0 0 .534 9z" />
-                  <path fill-rule="evenodd"
-                    d="M8 3c-1.552 0-2.94.707-3.857 1.818a.5.5 0 1 1-.771-.636A6.002 6.002 0 0 1 13.917 7H12.9A5.002 5.002 0 0 0 8 3zM3.1 9a5.002 5.002 0 0 0 8.757 2.182.5.5 0 1 1 .771.636A6.002 6.002 0 0 1 2.083 9H3.1z" />
-                </svg>
-              </button>
-            </div>
-
-            <!-- Tabs epingles -->
-            <div class="safari-pinned-tabs">
-              <button class="safari-pinned-tab active" data-page="histoire">
-                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" viewBox="0 0 16 16">
-                  <path
-                    d="M1 2.828c.885-.37 2.154-.769 3.388-.893 1.33-.134 2.458.063 3.112.752v9.746c-.935-.53-2.12-.603-3.213-.493-1.18.12-2.37.461-3.287.811V2.828zm7.5-.141c.654-.689 1.782-.886 3.112-.752 1.234.124 2.503.523 3.388.893v9.923c-.918-.35-2.107-.692-3.287-.81-1.094-.111-2.278-.039-3.213.492V2.687zM8 1.783C7.015.936 5.587.81 4.287.94c-1.514.153-3.042.672-3.994 1.105A.5.5 0 0 0 0 2.5v11a.5.5 0 0 0 .707.455c.882-.4 2.303-.881 3.68-1.02 1.409-.142 2.59.087 3.223.877a.5.5 0 0 0 .78 0c.633-.79 1.814-1.019 3.222-.877 1.378.139 2.8.62 3.681 1.02A.5.5 0 0 0 16 13.5v-11a.5.5 0 0 0-.293-.455c-.952-.433-2.48-.952-3.994-1.105C10.413.809 8.985.936 8 1.783z" />
-                </svg>
-                <span>Mon Histoire</span>
-              </button>
-              <button class="safari-pinned-tab" data-page="cv">
-                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" viewBox="0 0 16 16">
-                  <path
-                    d="M4 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H4zm0 1h8a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1z" />
-                  <path
-                    d="M4.603 14.087a.81.81 0 0 1-.438-.42c-.195-.388-.13-.776.08-1.102.198-.307.526-.568.897-.787a7.68 7.68 0 0 1 1.482-.645a19.697 19.697 0 0 0 1.062-2.227a7.269 7.269 0 0 1-.43-1.295c-.086-.4-.119-.796-.046-1.136.075-.354.274-.672.65-.823.192-.077.4-.12.602-.077a.7.7 0 0 1 .477.365c.088.164.12.356.127.538.007.188-.012.396-.047.614-.084.51-.27 1.134-.52 1.794a10.954 10.954 0 0 0 .98 1.686a5.753 5.753 0 0 1 1.334.05c.364.066.734.195.96.465.12.144.193.32.2.518.007.192-.047.382-.138.563a1.04 1.04 0 0 1-.354.416a.856.856 0 0 1-.51.138c-.331-.014-.654-.196-.933-.417a5.712 5.712 0 0 1-.911-.95a11.651 11.651 0 0 0-1.997.406a11.307 11.307 0 0 1-1.02 1.51c-.292.35-.609.656-.927.787a.793.793 0 0 1-.58.029zm1.379-1.901c-.166.076-.32.156-.459.238-.328.194-.541.383-.647.547-.094.145-.096.25-.04.361.01.022.02.036.026.044a.266.266 0 0 0 .035-.012c.137-.056.355-.235.635-.572a8.18 8.18 0 0 0 .45-.606zm1.64-1.33a12.71 12.71 0 0 1 1.01-.193a11.744 11.744 0 0 1-.51-.858a20.801 20.801 0 0 1-.5 1.05zm2.446.45c.15.163.296.3.435.41.24.19.407.253.498.256a.107.107 0 0 0 .07-.015.307.307 0 0 0 .094-.125.436.436 0 0 0 .059-.2.095.095 0 0 0-.026-.063c-.052-.062-.2-.152-.518-.209a3.876 3.876 0 0 0-.612-.053zM8.078 7.8a6.7 6.7 0 0 0 .2-.828c.031-.188.043-.343.038-.465a.613.613 0 0 0-.032-.198.517.517 0 0 0-.145.04c-.087.035-.158.106-.196.283-.04.192-.03.469.046.822.024.111.054.227.09.346z" />
-                </svg>
-                <span>Mon CV</span>
-              </button>
-            </div>
-
-            <div class="safari-address-bar">
-              <div class="safari-icon">
-                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" viewBox="0 0 16 16">
-                  <path fill-rule="evenodd"
-                    d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0zM2.04 4.326c.325 1.329 2.532 2.54 3.717 3.19.48.263.793.434.743.484-.08.08-.162.158-.242.234-.416.396-.787.749-.758 1.266.035.634.618.824 1.214 1.017.577.188 1.168.38 1.286.983.082.417-.075.988-.22 1.52-.215.782-.406 1.48.22 1.48 1.5-.5 3.798-3.186 4-5 .138-1.243-2-2-3.5-2.5-.478-.16-.755.081-.99.284-.172.15-.322.279-.51.216-.445-.148-2.5-2-1.5-2.5.78-.39.952-.171 1.227.182.078.099.163.208.273.318.609.304.662-.132.723-.633.039-.322.081-.671.277-.867.434-.434 1.265-.791 2.028-1.12.712-.306 1.365-.587 1.579-.88A7 7 0 1 1 2.04 4.327z" />
-                </svg>
-              </div>
-              <input type="text" class="safari-url" value="noagiannone.com/mon-histoire" readonly>
-              <!-- Loading bar -->
-              <div class="safari-loading-bar"></div>
-            </div>
-
-            <div class="safari-actions">
-              <button class="safari-btn safari-share">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
-                  <path
-                    d="M11 2.5a2.5 2.5 0 1 1 .603 1.628l-6.718 3.12a2.499 2.499 0 0 1 0 1.504l6.718 3.12a2.5 2.5 0 1 1-.488.876l-6.718-3.12a2.5 2.5 0 1 1 0-3.256l6.718-3.12A2.5 2.5 0 0 1 11 2.5z" />
-                </svg>
-              </button>
-            </div>
-          </div>
-
-          <!-- Contenu Safari - Pages -->
-          <div class="safari-content">
-
-            <!-- PAGE: Accueil Safari (Start Page) -->
-            <div class="safari-page safari-page-home active">
-              <div class="safari-startpage">
-                <div class="safari-bg-overlay"></div>
-                <div class="startpage-content-wrapper">
-                  <div class="startpage-header">
-                    <h2 class="startpage-title">Favoris</h2>
-                  </div>
-                  <div class="favorites-grid">
-                    <a href="#" class="favorite-item" data-goto="histoire">
-                      <div class="favorite-icon-wrapper">
-                        <div class="favorite-icon story-icon">📖</div>
-                      </div>
-                      <span class="favorite-label">Mon Histoire</span>
-                    </a>
-                    <a href="#" class="favorite-item" data-goto="cv">
-                      <div class="favorite-icon-wrapper">
-                        <div class="favorite-icon cv-icon">📄</div>
-                      </div>
-                      <span class="favorite-label">Mon CV</span>
-                    </a>
-                    <a href="#" class="favorite-item" data-external="https://github.com/Noagiannone03">
-                      <div class="favorite-icon-wrapper">
-                        <div class="favorite-icon github-icon">
-                          <svg viewBox="0 0 24 24" fill="currentColor">
-                            <path
-                              d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z" />
-                          </svg>
-                        </div>
-                      </div>
-                      <span class="favorite-label">GitHub</span>
-                    </a>
-                    <a href="#" class="favorite-item"
-                      data-external="https://www.linkedin.com/in/noa-giannone-098312293/">
-                      <div class="favorite-icon-wrapper">
-                        <div class="favorite-icon linkedin-icon">
-                          <svg viewBox="0 0 24 24" fill="currentColor">
-                            <path
-                              d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
-                          </svg>
-                        </div>
-                      </div>
-                      <span class="favorite-label">LinkedIn</span>
-                    </a>
-                  </div>
-
-                  <!-- Siri Suggestions -->
-                  <div class="startpage-section">
-                    <h2 class="startpage-title">Suggestions Siri</h2>
-                    <div class="suggestions-grid">
-                      <a href="#" class="suggestion-item" data-goto="histoire">
-                        <div class="suggestion-icon">📖</div>
-                        <div class="suggestion-info">
-                          <span class="suggestion-name">Mon Histoire</span>
-                          <span class="suggestion-url">noagiannone.com</span>
-                        </div>
-                      </a>
-                      <a href="#" class="suggestion-item" data-goto="cv">
-                        <div class="suggestion-icon">📄</div>
-                        <div class="suggestion-info">
-                          <span class="suggestion-name">Mon CV</span>
-                          <span class="suggestion-url">CV_Noa_Giannone.pdf</span>
-                        </div>
-                      </a>
-                    </div>
-                  </div>
-
-                  <!-- Reading List / Articles -->
-                  <div class="startpage-section">
-                    <h2 class="startpage-title">Liste de lecture</h2>
-                    <div class="articles-grid">
-                      <a href="#" class="article-card" data-goto="histoire">
-                        <div class="article-thumb thumb-vue"></div>
-                        <div class="article-content">
-                          <span class="article-source">MEDIUM • DEV.TO</span>
-                          <h3 class="article-title">Pourquoi j'ai choisi Vue 3 pour mon portfolio en 2024</h3>
-                          <p class="article-excerpt">Retour sur mon experience de dev et pourquoi la simplicite gagne
-                            toujours...</p>
-                        </div>
-                      </a>
-                      <a href="#" class="article-card" data-goto="histoire">
-                        <div class="article-thumb thumb-xp"></div>
-                        <div class="article-content">
-                          <span class="article-source">HASHNODE</span>
-                          <h3 class="article-title">De Windows XP a React Native : mon parcours de bidouilleur</h3>
-                          <p class="article-excerpt">Comment une vieille machine a change ma vie de developpeur
-                            Marseille...</p>
-                        </div>
-                      </a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- PAGE: Mon Histoire -->
-            <div class="safari-page safari-page-histoire">
-              <div class="histoire-pro">
-                <article class="histoire-article">
-                  <header class="histoire-header">
-                    <div class="header-overlay"></div>
-                    <div class="header-content">
-                      <img src="images/profile-noa.jpeg" alt="Noa Giannone" class="histoire-photo-pro" />
-                      <div class="histoire-title-pro">
-                        <h1>Noa Giannone</h1>
-                        <p class="histoire-subtitle-pro">Developpeur Full Stack • 19 ans • Marseille</p>
-                      </div>
-                    </div>
-                  </header>
-
-                  <div class="histoire-body-pro">
-                    <section class="histoire-section-pro">
-                      <div class="section-badge">Le declic</div>
-                      <h2>Explorer sans limites</h2>
-                      <p>Tout commence y'a quelques années sur le vieux PC familial. À 11 ans, au lieu de jouer, je
-                        m'amusais à fouiller dans les dossiers, à comprendre comment la machine tournait. J'ai commencé
-                        par Scratch, puis j'ai vite voulu faire "comme les grands".</p>
-                      <p>Le vrai déclic ? Le jour où mon cousin m'a montré son blog. C'était un truc tout simple, mais
-                        j'ai halluciné : on pouvait vraiment créer ses propres trucs et les mettre en ligne ? Il m'a
-                        expliqué les bases, et j'ai compris que le code, c'était pas juste des lignes bizarres, c'était
-                        le meilleur moyen de donner vie à n'importe quelle idée.</p>
-                    </section>
-
-                    <section class="histoire-section-pro">
-                      <div class="section-badge">Aujourd'hui</div>
-                      <h2>Du code et des idees</h2>
-                      <p>Depuis, j'ai pas lâché le clavier. J'ai appris, testé, échoué, recommencé. Aujourd'hui, je
-                        m'éclate à créer des apps mobiles (React Native) et des sites web (Vue.js). Mon gros projet du
-                        moment c'est <strong>Vago</strong>, une application sur laquelle je bosse à fond et qui permet
-                        de transformer ses trajets en carburant. Ce que j'aime, c'est partir de rien et finir avec un
-                        produit que les gens utilisent vraiment.</p>
-                    </section>
-
-                    <section class="histoire-section-pro">
-                      <div class="section-badge">Hors ecran</div>
-                      <h2>Prendre de la hauteur</h2>
-                      <p>Bon, je passe pas <em>toute</em> ma vie derrière un écran non plus. Mon truc pour déconnecter,
-                        c'est l'escalade. Quand t'es sur le mur, t'as pas le choix : faut être concentré à 100%, tu
-                        penses plus à rien d'autre. C'est mon reset à moi.</p>
-                      <p>Sinon, je vais souvent courir dans les collines autour de Marseille. Juste pour prendre l'air
-                        et vider la tête. C'est marrant d'ailleurs, c'est souvent quand je cours que je trouve les
-                        solutions aux bugs qui me rendaient fou la veille.</p>
-                      <div class="histoire-images-grid">
-                        <img src="images/escalade-falaise.jpg" alt="Escalade" class="histoire-img-pro" />
-                        <img src="images/trail-running.jpg" alt="Trail" class="histoire-img-pro" />
-                      </div>
-                    </section>
-
-                    <section class="histoire-section-pro">
-                      <div class="section-badge">Exploration</div>
-                      <h2>J'aime voyager</h2>
-                      <p>Cette passion du voyage, je la dois à mes parents. C'est eux qui m'ont donné le virus tout
-                        petit, en m'emmenant au Canada et aux États-Unis. Ils m'ont appris à être curieux. C'est aussi
-                        là que je suis tombé amoureux de l'aviation : voir un avion décoller et percer les nuages,
-                        honnêtement, ça me fascine toujours autant.</p>
-                      <p>Aujourd'hui, c'est avec ma moitié que je partage tout ça. Voyager, c'est notre bulle. On a
-                        passé un week-end incroyable à Milan, et on a adoré Chypre cet été (surtout la nourriture, on
-                        est des gros mangeurs !). Mais notre plus gros coup de cœur, ça reste Vienne en décembre.
-                        L'ambiance, les lumières, tout était magique, presque irréel. C'est pour vivre ces moments-là
-                        que je voyage. Prochaine étape : Budapest !</p>
-                      <div class="histoire-images-grid triple">
-                        <img src="images/newyork.jpg" alt="New York" class="histoire-img-pro" />
-                        <img src="images/vienne.jpg" alt="Vienne" class="histoire-img-pro" />
-                        <img src="images/dubrovnik.jpg" alt="Dubrovnik" class="histoire-img-pro" />
-                      </div>
-                    </section>
-                  </div>
-
-                  <footer class="histoire-footer-pro">
-                    <p>Une idee ? Un projet ? <a href="mailto:contact@noagiannone.com">Discutons-en</a></p>
-                  </footer>
-                </article>
-              </div>
-            </div>
-
-            <!-- PAGE: Mon CV (PDF Viewer Style) -->
-            <div class="safari-page safari-page-cv">
-              <div class="cv-viewer">
-                <div class="cv-viewer-toolbar">
-                  <div class="cv-toolbar-left">
-                    <button class="cv-tool-btn" title="Zoom arriere">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                        viewBox="0 0 16 16">
-                        <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z" />
-                      </svg>
-                    </button>
-                    <span class="cv-zoom-level">100%</span>
-                    <button class="cv-tool-btn" title="Zoom avant">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                        viewBox="0 0 16 16">
-                        <path
-                          d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
-                      </svg>
-                    </button>
-                  </div>
-                  <div class="cv-toolbar-center">
-                    <span class="cv-filename">CV_Noa_Giannone.pdf</span>
-                  </div>
-                  <div class="cv-toolbar-right">
-                    <button class="cv-tool-btn" title="Telecharger">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                        viewBox="0 0 16 16">
-                        <path
-                          d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z" />
-                        <path
-                          d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z" />
-                      </svg>
-                    </button>
-                  </div>
-                </div>
-                <div class="cv-viewer-content">
-                  <div class="cv-document">
-                    <img src="images/CV Noa Giannone sans qrcode-1.png" alt="CV Noa Giannone" />
-                  </div>
-                </div>
-              </div>
-            </div>
-
-          </div>
-        </div>
+      <div id="win-safari" class="window safari" data-app-name="Safari">
+        <div class="window__taskbar safari-native-toolbar"><div class="window__taskbar--actions"><button class="close-safari" aria-label="Fermer"></button><button class="backfull-safari" aria-label="Réduire"></button><button class="full-safari" aria-label="Agrandir"></button></div>
+        <button type="button" class="native-tool" title="Afficher ou masquer la barre latérale" aria-label="Afficher ou masquer la barre latérale" id="safari-sidebar-toggle" aria-expanded="false"><img class="sf-icon" src="icon/apple/sidebar.left.png" alt="" aria-hidden="true"></button><button type="button" class="native-tool safari-back" title="Page précédente" aria-label="Page précédente" id="safari-back"><img class="sf-icon" src="icon/apple/chevron.left.png" alt="" aria-hidden="true"></button><button type="button" class="native-tool" title="Page suivante" aria-label="Page suivante" id="safari-forward"><img class="sf-icon" src="icon/apple/chevron.right.png" alt="" aria-hidden="true"></button><label class="safari-address"><img class="sf-icon" src="icon/apple/lock.shield.png" alt="" aria-hidden="true"><input id="safari-address" aria-label="Adresse ou recherche dans le portfolio" value="noagiannone.fr/mon-histoire"><button type="button" class="native-tool" id="safari-refresh" title="Actualiser" aria-label="Actualiser"><img class="sf-icon" src="icon/apple/arrow.clockwise.png" alt="" aria-hidden="true"></button></label><button type="button" class="native-tool" title="Copier le lien de cette page" aria-label="Copier le lien de cette page" id="safari-share"><img class="sf-icon" src="icon/apple/square.and.arrow.up.png" alt="" aria-hidden="true"></button></div>
+        <div class="safari-native-tabs" role="tablist" aria-label="Onglets Safari"><button role="tab" data-safari-page="home" aria-selected="false"><img src="icon/Launchpad/safari.png" alt="">Page de démarrage</button><button role="tab" data-safari-page="histoire" aria-selected="true"><img src="images/profile-noa.jpeg" alt="">Noa — En quelques mots</button><button role="tab" data-safari-page="cv" aria-selected="false"><img src="icon/apple/doc.text.png" alt="">Curriculum vitæ</button></div>
+        <div class="safari-native-body"><aside class="safari-native-sidebar" hidden><h3>Favoris</h3><button data-safari-page="histoire">Mon histoire</button><button data-safari-page="cv">Mon CV</button><button data-safari-page="home">Page de démarrage</button><hr><h3>Mes réalisations</h3><a href="https://lafetecestnous.com/" target="_blank" rel="noopener noreferrer">La Fête c’est Nous ↗</a><a href="https://www.conciergerielavoisine.fr/" target="_blank" rel="noopener noreferrer">Lavoisine ↗</a><a href="https://www.aircarto.fr/" target="_blank" rel="noopener noreferrer">AirCarto ↗</a></aside>
+        <main class="safari-native-page" id="safari-page-content"></main></div>
       </div>
     </div>
   </div>
 
   <!-- Structure de base de l'onglet -->
-  <div class="window parametres" id="win-parametres">
-    <div class="window__taskbar">
-      <div class="window__taskbar--actions">
-        <button class="close close-parametres"></button>
-        <button class="backfull backfull-parametres"></button>
-        <button class="full full-parametres"></button>
-      </div>
-      <div class="window__taskbar--content" style="color: white;">
-        <h2 style="color: #fff;">Paramètres</h2>
-      </div>
-    </div>
-    <div class="parametres_content">
-      <div class="parametres-container">
-        <!-- Structure à deux colonnes: sidebar + contenu principal -->
-        <div class="parametres-body">
-          <!-- Sidebar avec icônes -->
-          <div class="parametres-sidebar">
-            <ul>
-              <li class="active">
-                <span class="sidebar-icon">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
-                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
-                    <path d="M2 17l10 5 10-5"></path>
-                    <path d="M2 12l10 5 10-5"></path>
-                  </svg>
-                </span>
-                <span>Astuces</span>
-              </li>
-              <li>
-                <span class="sidebar-icon">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
-                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <circle cx="12" cy="12" r="3"></circle>
-                    <path
-                      d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z">
-                    </path>
-                  </svg>
-                </span>
-                <span>Général</span>
-              </li>
-              <li>
-                <span class="sidebar-icon">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
-                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <circle cx="12" cy="12" r="10"></circle>
-                    <path d="M8 14s1.5 2 4 2 4-2 4-2"></path>
-                    <line x1="9" y1="9" x2="9.01" y2="9"></line>
-                    <line x1="15" y1="9" x2="15.01" y2="9"></line>
-                  </svg>
-                </span>
-                <span>Apparence</span>
-              </li>
-              <li>
-                <span class="sidebar-icon">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
-                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
-                    <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
-                  </svg>
-                </span>
-                <span>Confidentialité</span>
-              </li>
-              <li>
-                <span class="sidebar-icon">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
-                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
-                    <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
-                  </svg>
-                </span>
-                <span>Notifications</span>
-              </li>
-              <li>
-                <span class="sidebar-icon">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
-                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M3 18v-6a9 9 0 0 1 18 0v6"></path>
-                    <path
-                      d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z">
-                    </path>
-                  </svg>
-                </span>
-                <span>Son</span>
-              </li>
-              <li>
-                <span class="sidebar-icon">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
-                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <circle cx="12" cy="12" r="10"></circle>
-                    <line x1="12" y1="16" x2="12" y2="12"></line>
-                    <line x1="12" y1="8" x2="12.01" y2="8"></line>
-                  </svg>
-                </span>
-                <span>À propos</span>
-              </li>
-            </ul>
-          </div>
-
-          <!-- Contenu principal (avec scroll corrigé) -->
-          <div class="parametres-main">
-            <!-- En-tête avec icône et titre -->
-            <div class="parametres-header">
-              <div class="header-icon">
-                <img src="./images/profile-noa.jpeg" style="border-radius: 180px;" alt="Portfolio Icon" />
-              </div>
-              <div class="header-text">
-                <h1>Hello ! Moi, c'est Noa.</h1>
-                <p class="subtitle">Développeur Web & Mobile</p>
-              </div>
-            </div>
-
-            <!-- Section concept -->
-            <div class="parametres-section">
-              <h2>À propos de ce portfolio</h2>
-              <div class="concept-content">
-                <p>Je vois le développement comme une forme d'artisanat. Mon objectif n'est pas seulement de
-                  produire du code, mais de façonner des outils qui ont une âme et une véritable utilité. J'aime
-                  construire des projets qui créent du lien et qui apportent quelque chose de positif, simplement.
-                </p>
-                <p>Ici, pas de CV tout gris ! J'ai voulu rendre la visite plus fun en créant cette interface
-                  interactive. Balade-toi dans mes dossiers, ouvre mes applications et découvre mon univers à ton
-                  rythme. Fais comme chez toi et bonne visite ! ✌️</p>
-              </div>
-            </div>
-
-            <!-- Section onglets à découvrir -->
-            <div class="parametres-section">
-              <h2>Les onglets à découvrir</h2>
-
-              <!-- Notes -->
-              <div class="app-section">
-                <div class="app-icon">
-                  <img src="./icon/dock/notes.png" alt="Notes Icon" />
-                </div>
-                <div class="app-description">
-                  <h3>Notes</h3>
-                  <p>Consultez mon parcours professionnel et académique. Découvrez les étapes clés de ma formation
-                    et de mon évolution dans le monde du développement web.</p>
-                </div>
-              </div>
-
-              <!-- VS Code -->
-              <div class="app-section reverse">
-                <div class="app-description">
-                  <h3>VS Code</h3>
-                  <p>Explorez mes compétences techniques en développement, du front-end au back-end. Découvrez les
-                    langages, frameworks et outils que je maîtrise pour créer des solutions web innovantes.</p>
-                </div>
-                <div class="app-icon">
-                  <img src="./icon/dock/vscode.svg" alt="VS Code Icon" />
-                </div>
-              </div>
-
-              <!-- Safari -->
-              <div class="app-section">
-                <div class="app-icon">
-                  <img src="./icon/Launchpad/safari.png" alt="Safari Icon" />
-                </div>
-                <div class="app-description">
-                  <h3>Safari</h3>
-                  <p>Faites connaissance avec ma personnalité, mes passions et mes centres d'intérêt. Découvrez ce
-                    qui m'anime au quotidien et ce qui façonne ma vision du développement web.</p>
-                </div>
-              </div>
-
-              <!-- Finder -->
-              <div class="app-section reverse">
-                <div class="app-description">
-                  <h3>Finder</h3>
-                  <p>Parcourez mes projets personnels et professionnels. Chaque dossier contient un projet sur
-                    lequel j'ai travaillé, avec des détails sur les technologies utilisées et les défis relevés.</p>
-                </div>
-                <div class="app-icon">
-                  <img src="./icon/dock/finder.png" alt="Finder Icon" />
-                </div>
-              </div>
-
-              <!-- Mail -->
-              <div class="app-section" style="margin-bottom: 20vh;">
-                <div class="app-icon">
-                  <img src="./icon/dock/mail.png" alt="Mail Icon" />
-                </div>
-                <div class="app-description">
-                  <h3>Mail</h3>
-                  <p>Envie d'en savoir plus ou de discuter d'un projet ? N'hésitez pas à me contacter via cette
-                    application. Je serai ravi d'échanger avec vous et de répondre à vos questions.</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+  <div class="window parametres" id="win-parametres" data-app-name="Réglages Système">
+    <div class="window__taskbar"><div class="window__taskbar--actions"><button class="close-parametres" aria-label="Fermer"></button><button class="backfull-parametres" aria-label="Réduire"></button><button class="full-parametres" aria-label="Agrandir"></button></div><div class="window__taskbar--content"><h2>Réglages Système</h2></div></div>
+    <div class="settings-layout">
+      <aside class="settings-sidebar"><label class="native-search"><img class="sf-icon" src="icon/apple/magnifyingglass.png" alt="" aria-hidden="true"><input type="search" id="settings-search" placeholder="Rechercher" aria-label="Rechercher un réglage"></label>
+      <button class="settings-account" type="button" data-settings="welcome"><img src="images/profile-noa.jpeg" alt="Noa Giannone"><span>Noa Giannone<small>Développeur front-end & mobile</small></span></button>
+      <nav class="settings-navigation" aria-label="Réglages"></nav></aside>
+      <main class="settings-main" id="settings-main"></main>
     </div>
   </div>
   <!--debut code finder-->
@@ -1287,310 +362,24 @@
 
 
 
-  <div class="window finder">
-    <div class="window__taskbar">
-      <div class="window__taskbar--actions">
-        <button class="close-finder"></button>
-        <button class="backfull-finder"></button>
-        <button class="full-finder"></button>
-      </div>
-      <div class="window__taskbar--content">
-        <h2>Finder</h2>
-      </div>
-    </div>
-    <div class="content">
-      <div class="finder-container">
-        <div class="finder-body">
-          <!-- Sidebar -->
-          <nav class="finder-sidebar" aria-label="Emplacements">
-            <p class="sidebar-heading">Favoris</p>
-            <ul><li><button type="button" data-location="Mes projets" class="active"><img src="icon/apple/folder.png" alt="" aria-hidden="true">Mes projets</button></li><li><button type="button" data-location="Récents" class=""><img src="icon/apple/clock.png" alt="" aria-hidden="true">Récents</button></li><li><button type="button" data-location="Documents" class=""><img src="icon/apple/doc.png" alt="" aria-hidden="true">Documents</button></li><li><button type="button" data-location="Bureau" class=""><img src="icon/apple/desktopcomputer.png" alt="" aria-hidden="true">Bureau</button></li><li><button type="button" data-location="Téléchargements" class=""><img src="icon/apple/arrow.down.circle.png" alt="" aria-hidden="true">Téléchargements</button></li></ul>
-            <div class="finder-owner"><img src="images/profile-noa.jpeg" alt=""><div>Noa Giannone<small>Portfolio personnel</small></div></div>
-          </nav>
-          <div class="finder-main">
-            <div class="finder-toolbar">
-              <strong class="breadcrumb">Mes projets</strong>
-              <div class="finder-actions"><div class="view-switch"><button type="button" title="Vue par icônes" aria-label="Vue par icônes" data-view="grid" aria-pressed="true"><img src="icon/apple/square.grid.2x2.png" alt="" aria-hidden="true"></button><button type="button" title="Vue par liste" aria-label="Vue par liste" data-view="list" aria-pressed="false"><img src="icon/apple/list.bullet.png" alt="" aria-hidden="true"></button></div>
-              <label class="finder-search"><img src="icon/apple/magnifyingglass.png" alt="" aria-hidden="true"><input type="search" placeholder="Rechercher" aria-label="Rechercher un fichier"></label></div>
-            </div>
-            <!-- Grille de fichiers (inchangée) -->
-            <div class="file-grid">
-              <div class="file-card" data-title="Vago.docx" data-content="
-              <div class='editor-document vago-doc'>
-                <div class='editor-header'>
-                  <img src='https://img.icons8.com/fluency/96/000000/money-bag.png' class='editor-logo'/>
-                  <h3>Vago - Microtâches pour financer ton plein d'essence</h3>
-                </div>
-                <div class='editor-section'>
-                  <div class='vago-banner'>
-                    <div class='banner-text'>Gagne ton plein d'essence en quelques clics</div>
-                    <img src='https://img.icons8.com/fluency/96/000000/gas-station.png' class='banner-icon'/>
-                  </div>
-                  <h4>Le concept</h4>
-                  <p>L'idée de Vago est née d'une préoccupation très concrète que j'ai rencontrée comme étudiant : comment financer mes déplacements quotidiens en voiture pour me rendre en cours. Le coût de l'essence représente une charge financière significative qui peut compromettre la poursuite des études pour certains.</p>
-                </div>
-                <div class='editor-section'>
-                  <h4>En chiffres</h4>
-                  <div class='stats-container'>
-                    <div class='stat-box'>
-                      <div class='stat-value'>40-60€</div>
-                      <div class='stat-label'>Coût mensuel moyen du carburant pour un étudiant</div>
-                    </div>
-                    <div class='stat-box'>
-                      <div class='stat-value'>15-20h</div>
-                      <div class='stat-label'>Temps de travail nécessaire au SMIC pour le financer</div>
-                    </div>
-                    <div class='stat-box'>
-                      <div class='stat-value'>5-8h</div>
-                      <div class='stat-label'>Temps de microtâches sur Vago pour le même montant</div>
-                    </div>
-                  </div>
-                </div>
-                <div class='editor-section'>
-                  <h4>Motivation et vision</h4>
-                  <p>En observant l'essor des applications de microtâches rémunérées, j'ai eu cette intuition : pourquoi ne pas créer une plateforme spécifiquement conçue pour aider les étudiants à gagner l'équivalent d'un plein d'essence par mois, de manière flexible et adaptée à leur emploi du temps chargé ?</p>
-                  <div class='task-examples'>
-                    <div class='task-card'>
-                      <img src='https://img.icons8.com/fluency/48/000000/survey.png' class='task-icon'/>
-                      <div class='task-details'>
-                        <div class='task-name'>Sondages rapides</div>
-                        <div class='task-reward'>0,50€ - 2€</div>
-                      </div>
-                    </div>
-                    <div class='task-card'>
-                      <img src='https://img.icons8.com/fluency/48/000000/test-partial-passed.png' class='task-icon'/>
-                      <div class='task-details'>
-                        <div class='task-name'>Tests d'applications</div>
-                        <div class='task-reward'>3€ - 8€</div>
-                      </div>
-                    </div>
-                    <div class='task-card'>
-                      <img src='https://img.icons8.com/fluency/48/000000/audio-file.png' class='task-icon'/>
-                      <div class='task-details'>
-                        <div class='task-name'>Transcriptions audio</div>
-                        <div class='task-reward'>5€ - 15€</div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class='editor-section'>
-                  <h4>Impact social</h4>
-                  <p>Ce qui me motive profondément dans ce projet, c'est sa dimension d'impact social immédiat. Chaque euro gagné sur Vago représente un obstacle de moins dans le parcours éducatif d'un étudiant. La mobilité est un facteur d'émancipation et d'égalité des chances que je souhaite préserver.</p>
-                  <p>Au-delà de l'aspect financier, Vago incarne ma conviction que les étudiants devraient pouvoir se concentrer sur leurs études sans anxiété économique. La plateforme est conçue pour s'intégrer naturellement dans leur quotidien, en proposant des tâches qui peuvent être réalisées entre deux cours ou pendant les temps morts.</p>
-                </div>
-              </div>
-            ">
-                <img src="icon/apple/document.png" alt="Finance">
-                <span>Vago.docx</span>
-              </div>
-
-              <div class="file-card" data-title="Whisp.docx" data-content="
-              <div class='editor-document whisp-doc'>
-                <div class='editor-header'>
-                  <img src='https://img.icons8.com/fluency/96/000000/chat--v1.png' class='editor-logo'/>
-                  <h3>Whisp - Chat de proximité pour étudiants</h3>
-                </div>
-                <div class='editor-section'>
-                  <h4>La genèse du projet</h4>
-                  <p>J'ai créé Whisp pour répondre à un problème que j'ai personnellement vécu dans mon parcours d'étudiant : la difficulté de créer des liens sociaux authentiques sur un grand campus universitaire. L'anonymat et l'isolement sont des réalités que trop d'étudiants vivent aujourd'hui, alors même qu'ils sont entourés de milliers de pairs.</p>
-                  <div class='feature-box'>
-                    <div class='feature'>
-                      <img src='https://img.icons8.com/ios/50/000000/map-marker.png' class='feature-icon'/>
-                      <span>Géolocalisation précise</span>
-                    </div>
-                    <div class='feature'>
-                      <img src='https://img.icons8.com/ios/50/000000/communication.png' class='feature-icon'/>
-                      <span>Discussions instantanées</span>
-                    </div>
-                    <div class='feature'>
-                      <img src='https://img.icons8.com/ios/50/000000/security-shield-green.png' class='feature-icon'/>
-                      <span>Sécurité renforcée</span>
-                    </div>
-                  </div>
-                </div>
-                <!-- ... content ... -->
-                 <div class='editor-section'>
-                  <h4>Vision et valeurs</h4>
-                  <p>Mon objectif était de briser cette barrière invisible en utilisant la technologie pour faciliter les connexions humaines réelles. Whisp permet aux étudiants de discuter en temps réel avec d'autres personnes physiquement proches d'eux - que ce soit à la bibliothèque, à la cafétéria ou dans les espaces communs.</p>
-                  <div class='whisp-mockup'>
-                    <img src='https://img.icons8.com/ios/100/000000/iphone.png' class='mockup-img'/>
-                    <div class='mockup-content'>
-                      <div class='chat-bubble'>Salut ! Tu es aussi en cours d'éco ?</div>
-                      <div class='chat-bubble'>Oui, je galère un peu avec les concepts...</div>
-                      <div class='chat-bubble'>On pourrait réviser ensemble ?</div>
-                    </div>
-                  </div>
-                  <p>Ce qui me tient particulièrement à cœur dans ce projet, c'est sa capacité à transformer des moments ordinaires en opportunités de rencontres significatives. Un simple échange sur un cours difficile peut déboucher sur une amitié durable ou un groupe d'étude productif.</p>
-                </div>
-                <div class='editor-section'>
-                  <h4>Impact attendu</h4>
-                  <p>La valeur fondamentale de Whisp est l'authenticité des interactions. Dans un monde saturé de réseaux sociaux où les relations sont souvent superficielles, j'ai voulu créer un outil qui favorise les échanges réels et spontanés, ancrés dans un contexte partagé.</p>
-                </div>
-              </div>
-            ">
-                <img src="icon/apple/document.png" alt="Chat">
-                <span>Whisp.docx</span>
-              </div>
-
-              <div class="file-card" data-title="ViteMonGrandOral.docx" data-content="
-              <div class='editor-document grand-oral-doc'>
-                <div class='editor-header'>
-                  <img src='https://img.icons8.com/fluency/96/000000/idea.png' class='editor-logo'/>
-                  <h3>ViteMonGrandOral - Générateur de sujets et problématiques</h3>
-                </div>
-                <div class='editor-section'>
-                  <h4>Origine du projet</h4>
-                  <p>La création de ViteMonGrandOral est née directement de ma propre frustration lors de la préparation du Grand Oral au lycée. Je me souviens encore de ces longues heures passées à essayer de formuler une problématique pertinente, alors que j'avais seulement quelques idées de thématiques vagues.</p>
-                  <div class='scenario-box'>
-                    <div class='scenario-icon'>
-                      <img src='https://img.icons8.com/fluency/48/question-mark.png' style='width:24px;'/>
-                    </div>
-                    <div class='scenario-text'>
-                      <h5>Le problème</h5>
-                      <p>Les lycéens ont souvent des idées générales mais peinent à formuler des problématiques précises et stimulantes pour leur Grand Oral.</p>
-                    </div>
-                  </div>
-                  <div class='scenario-box solution'>
-                    <div class='scenario-icon'>
-                      <img src='https://img.icons8.com/fluency/48/light-it-up.png' style='width:24px;'/>
-                    </div>
-                    <div class='scenario-text'>
-                      <h5>La solution</h5>
-                      <p>Un outil IA qui transforme des mots-clés en sujets structurés avec problématique, introduction et pistes de réflexion.</p>
-                    </div>
-                  </div>
-                </div>
-                <div class='editor-section'>
-                  <h4>Fonctionnement</h4>
-                  <p>Ce moment critique dans le parcours lycéen m'a fait prendre conscience d'un besoin non satisfait : un outil capable de transformer des idées embryonnaires en sujets structurés et problématiques stimulantes. J'ai alors décidé d'exploiter le potentiel de l'intelligence artificielle pour démocratiser l'accès à cette compétence qui n'est pas innée chez tous les élèves.</p>
-                  <div class='process-flow'>
-                    <div class='process-step'>
-                      <div class='process-number'>1</div>
-                      <div class='process-desc'>Saisie des mots-clés</div>
-                    </div>
-                    <div class='process-arrow'>→</div>
-                    <div class='process-step'>
-                      <div class='process-number'>2</div>
-                      <div class='process-desc'>Analyse IA</div>
-                    </div>
-                    <div class='process-arrow'>→</div>
-                    <div class='process-step'>
-                      <div class='process-number'>3</div>
-                      <div class='process-desc'>Génération de problématiques</div>
-                    </div>
-                  </div>
-                </div>
-                <div class='editor-section'>
-                  <h4>Valeurs et impact social</h4>
-                  <p>Ce qui m'a particulièrement motivé, c'est de pouvoir réduire l'anxiété liée à cette épreuve en donnant aux lycéens un point de départ solide. ViteMonGrandOral n'est pas qu'un simple générateur - c'est un outil d'accompagnement qui permet aux élèves de gagner en confiance et d'approfondir leur réflexion.</p>
-                  <p>Je suis convaincu que l'accès à l'éducation passe aussi par des outils qui nivellent les inégalités dans la préparation aux examens. Ce projet incarne cette valeur d'équité qui me tient à cœur, en offrant à chacun la possibilité de développer un sujet de qualité, indépendamment de son aisance initiale avec l'exercice.</p>
-                </div>
-              </div>
-            ">
-                <img src="icon/apple/document.png" alt="Étude">
-                <span>ViteMonGrandOral.docx</span>
-              </div>
-
-
-              <div class="file-card" data-title="Portfolio.docx" data-content="
-              <div class='editor-document portfolio-doc'>
-                <div class='editor-header'>
-                  <img src='https://img.icons8.com/fluency/96/000000/briefcase.png' class='editor-logo'/>
-                  <h3>Mon Portfolio</h3>
-                </div>
-                 <div class='portfolio-banner'>
-                  <div class='portfolio-title'>Innovations & Solutions</div>
-                  <div class='portfolio-subtitle'>Mes projets au service des étudiants</div>
-                </div>
-                <div class='editor-section'>
-                  <h4>Vision d'ensemble</h4>
-                  <p>Ce portfolio regroupe l'ensemble de mes projets innovants qui reflètent ma passion pour résoudre des problèmes concrets à travers des solutions technologiques accessibles. Chaque projet est né d'une expérience personnelle et vise à améliorer le quotidien des étudiants.</p>
-                </div>
-                <div class='portfolio-grid'>
-                  <div class='portfolio-item'>
-                    <img src='https://img.icons8.com/fluency/48/000000/chat--v1.png' class='portfolio-icon'/>
-                    <div class='portfolio-item-title'>Whisp</div>
-                    <div class='portfolio-item-desc'>Chat de proximité entre étudiants</div>
-                  </div>
-                  <div class='portfolio-item'>
-                    <img src='https://img.icons8.com/fluency/48/000000/idea.png' class='portfolio-icon'/>
-                    <div class='portfolio-item-title'>ViteMonGrandOral</div>
-                    <div class='portfolio-item-desc'>Générateur de sujets et problématiques</div>
-                  </div>
-                  <div class='portfolio-item'>
-                    <img src='https://img.icons8.com/fluency/48/000000/money-bag.png' class='portfolio-icon'/>
-                    <div class='portfolio-item-title'>Vago</div>
-                    <div class='portfolio-item-desc'>Microtâches pour financer tes déplacements</div>
-                  </div>
-                </div>
-                <div class='editor-section'>
-                  <h4>Compétences développées</h4>
-                  <div class='skills-container'>
-                    <div class='skill-tag'>Conception UX/UI</div>
-                    <div class='skill-tag'>Développement mobile</div>
-                    <div class='skill-tag'>Intelligence artificielle</div>
-                    <div class='skill-tag'>Entrepreneuriat</div>
-                    <div class='skill-tag'>Gestion de projet</div>
-                    <div class='skill-tag'>Analyse de données</div>
-                  </div>
-                </div>
-                <div class='editor-section'>
-                  <h4>Mon approche</h4>
-                  <p>À travers ces réalisations, j'ai développé une approche centrée sur l'utilisateur et une vision entrepreneuriale orientée vers l'impact social positif. Mon objectif est de continuer à créer des outils qui font une différence tangible dans la vie des utilisateurs.</p>
-                </div>
-              </div>
-            ">
-                <img src="icon/apple/document.png" alt="Portfolio">
-                <span>Portfolio.docx</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-<div class="finder-footer"><span>Macintosh HD</span><span>›</span><span>Noa Giannone</span><span>›</span><strong>Mes projets</strong><output id="finder-count"></output></div>
-
-      </div>
-    </div>
+  <div class="window finder" data-app-name="Finder">
+    <div class="window__taskbar finder-titlebar"><div class="window__taskbar--actions"><button class="close-finder" aria-label="Fermer"></button><button class="backfull-finder" aria-label="Réduire"></button><button class="full-finder" aria-label="Agrandir"></button></div><div class="finder-title-tools"><button type="button" class="native-tool" title="Afficher ou masquer la barre latérale" aria-label="Afficher ou masquer la barre latérale" id="finder-sidebar-toggle" aria-expanded="true"><img class="sf-icon" src="icon/apple/sidebar.left.png" alt="" aria-hidden="true"></button><h2>Mes projets</h2><div class="finder-view-control"><button type="button" class="native-tool" title="Vue par icônes" aria-label="Vue par icônes" data-view="grid" aria-pressed="true"><img class="sf-icon" src="icon/apple/square.grid.2x2.png" alt="" aria-hidden="true"></button><button type="button" class="native-tool" title="Vue par liste" aria-label="Vue par liste" data-view="list" aria-pressed="false"><img class="sf-icon" src="icon/apple/list.bullet.png" alt="" aria-hidden="true"></button></div><button type="button" class="native-tool" title="Afficher ou masquer l’aperçu" aria-label="Afficher ou masquer l’aperçu" id="finder-preview-toggle" aria-expanded="true"><img class="sf-icon" src="icon/apple/info.circle.png" alt="" aria-hidden="true"></button><label class="native-search"><img class="sf-icon" src="icon/apple/magnifyingglass.png" alt="" aria-hidden="true"><input type="search" id="finder-search" placeholder="Rechercher" aria-label="Rechercher un projet"></label></div></div>
+    <div class="finder-layout"><aside class="finder-navigation"><p>Favoris</p><button type="button" class="selected" aria-current="page"><img class="sf-icon" src="icon/apple/folder.png" alt="" aria-hidden="true">Mes projets</button><div class="finder-location"><p>Emplacement</p><img src="icon/dock/finder.png" alt=""><span>Portfolio de Noa<small>4 projets à découvrir</small></span></div></aside>
+      <main class="finder-files"><div class="finder-list-heading" hidden><span>Nom</span><span>Type</span></div><div class="file-grid" role="list" aria-label="Projets"></div><p class="finder-empty" hidden>Aucun projet trouvé.</p></main>
+      <aside class="finder-preview" aria-label="Aperçu du projet"></aside>
+    </div><footer class="finder-footer"><span><img class="sf-icon" src="icon/apple/folder.png" alt="" aria-hidden="true">Noa Giannone</span><span>›</span><strong>Mes projets</strong><output id="finder-count">4 éléments</output></footer>
   </div>
   </div>
   </div>
-
   <!-- Editor Window -->
-  <div id="win-editor" class="window editor">
-    <div class="window__taskbar">
-      <div class="window__taskbar--actions">
-        <button class="close-editor"></button>
-        <button class="backfull-editor"></button>
-        <button class="full-editor"></button>
-      </div>
-      <div class="window__taskbar--content">
-        <h2 id="editor-title">Sans titre</h2>
-      </div>
-    </div>
-    <div class="editor-content">
-      <div class="pages-toolbar">
-        <div class="pages-toolgroup"><button type="button" title="Ouvrir un document" aria-label="Ouvrir un document" id="pages-open"><img src="icon/apple/folder.png" alt="" aria-hidden="true"></button><button type="button" title="Télécharger le document" aria-label="Télécharger le document" id="pages-save"><img src="icon/apple/square.and.arrow.down.png" alt="" aria-hidden="true"></button></div>
-        <span class="pages-document-caption">Traitement de texte</span>
-        <button type="button" id="pages-format" aria-expanded="true"><img src="icon/apple/paintbrush.png" alt="" aria-hidden="true"><span>Format</span></button>
-      </div>
-      <div class="pages-workspace">
-        <div class="pages-canvas"><div class="editor-ruler" aria-hidden="true"><span>0</span><span>2</span><span>4</span><span>6</span><span>8</span><span>10</span><span>12</span><span>14</span><span>16</span></div>
-          <div class="editor-area" contenteditable="true" role="textbox" aria-multiline="true" aria-label="Contenu du document" spellcheck="true"><div class="editor-document"><div class="editor-header"><h3>Bienvenue dans mon portfolio.</h3></div><p>Des idées, des projets et l’envie de créer des choses utiles.</p><p>Ouvrez un document dans le Finder pour découvrir mes réalisations, ou écrivez ici.</p></div></div>
-        </div>
-        <aside class="pages-inspector" aria-label="Mise en forme">
-          <h3>Texte</h3>
-          <label class="inspector-label" for="pages-style">Style de paragraphe</label><select id="pages-style"><option value="p">Corps</option><option value="h3">Titre</option><option value="h4">Sous-titre</option></select>
-          <div class="inspector-section"><h4>Police</h4><label class="sr-only" for="pages-font">Police</label><select id="pages-font"><option value="Helvetica">Helvetica Neue</option><option value="Georgia">Georgia</option><option value="Arial">Arial</option></select>
-          <div class="format-buttons"><button type="button" title="Gras" aria-label="Gras" data-command="bold"><img src="icon/apple/bold.png" alt="" aria-hidden="true"></button><button type="button" title="Italique" aria-label="Italique" data-command="italic"><img src="icon/apple/italic.png" alt="" aria-hidden="true"></button><button type="button" title="Souligné" aria-label="Souligné" data-command="underline"><img src="icon/apple/underline.png" alt="" aria-hidden="true"></button></div></div>
-          <div class="inspector-section"><h4>Alignement</h4><div class="format-buttons"><button type="button" title="Aligner à gauche" aria-label="Aligner à gauche" data-command="justifyLeft"><img src="icon/apple/text.alignleft.png" alt="" aria-hidden="true"></button><button type="button" title="Centrer" aria-label="Centrer" data-command="justifyCenter"><img src="icon/apple/text.aligncenter.png" alt="" aria-hidden="true"></button><button type="button" title="Aligner à droite" aria-label="Aligner à droite" data-command="justifyRight"><img src="icon/apple/text.alignright.png" alt="" aria-hidden="true"></button><button type="button" title="Justifier" aria-label="Justifier" data-command="justifyFull"><img src="icon/apple/text.justify.png" alt="" aria-hidden="true"></button></div></div>
-          <div class="inspector-section"><h4>Document</h4><div class="document-detail"><span>Format</span><strong>A4</strong></div><div class="document-detail"><span>Orientation</span><strong>Portrait</strong></div><p class="inspector-help">Sélectionnez du texte pour modifier sa mise en forme.</p></div>
-        </aside>
-      </div>
-      <div class="editor-status-bar"><span>Pages</span><output class="status-center" aria-live="polite">0 mot</output><span>Document modifiable</span></div>
+  <div id="win-editor" class="window editor word-window" data-app-name="Word">
+    <div class="window__taskbar"><div class="window__taskbar--actions"><button class="close-editor" aria-label="Fermer"></button><button class="backfull-editor" aria-label="Réduire"></button><button class="full-editor" aria-label="Agrandir"></button></div><div class="word-quick-actions"><button type="button" class="native-tool" title="Télécharger le document" aria-label="Télécharger le document" id="word-save"><img class="sf-icon" src="icon/apple/square.and.arrow.down.png" alt="" aria-hidden="true"></button><button type="button" class="native-tool" title="Annuler" aria-label="Annuler" data-command="undo"><img class="sf-icon" src="icon/apple/arrow.uturn.backward.png" alt="" aria-hidden="true"></button><button type="button" class="native-tool" title="Rétablir" aria-label="Rétablir" data-command="redo"><img class="sf-icon" src="icon/apple/arrow.uturn.forward.png" alt="" aria-hidden="true"></button></div><div class="window__taskbar--content"><h2 id="editor-title">Bienvenue.docx</h2></div></div>
+    <div class="word-content"><div class="word-tabs" role="tablist" aria-label="Ruban Word"><button role="tab" aria-selected="true" data-ribbon="home">Accueil</button><button role="tab" aria-selected="false" data-ribbon="insert">Insertion</button><button role="tab" aria-selected="false" data-ribbon="layout">Mise en page</button><button role="tab" aria-selected="false" data-ribbon="view">Affichage</button><button class="word-open" id="word-open" type="button">Ouvrir un projet</button></div>
+      <div class="word-ribbon" id="word-ribbon"></div>
+      <div class="word-workspace"><aside class="word-navigation"><h3>Navigation</h3><p>Titres</p><nav id="word-outline" aria-label="Plan du document"></nav></aside><div class="word-canvas"><div class="word-ruler" aria-hidden="true">1　　2　　3　　4　　5　　6　　7　　8　　9　　10　　11　　12　　13　　14</div><article class="editor-area" contenteditable="true" role="textbox" aria-multiline="true" aria-label="Document Word" spellcheck="true"></article></div></div>
+      <footer class="word-status"><span>Word</span><output id="word-count">0 mot</output><span>Français</span><label>Zoom <input type="range" id="word-zoom" min="60" max="140" value="100" step="10"><output id="word-zoom-value">100 %</output></label></footer>
     </div>
   </div>
-
-
   <div class="window maps">
     <div class="window__taskbar">
       <div class="window__taskbar--actions">
@@ -1670,17 +459,13 @@
   </section>
   <!-- Widgets panel -->
   </div>
-  <div class="spotlight_serach">
-    <svg width="24" height="24">
-      <path
-        d="M10,18c1.846,0,3.543-0.635,4.897-1.688l4.396,4.396l1.414-1.414l-4.396-4.396C17.365,13.543,18,11.846,18,10 c0-4.411-3.589-8-8-8s-8,3.589-8,8S5.589,18,10,18z M10,4c3.309,0,6,2.691,6,6s-2.691,6-6,6s-6-2.691-6-6S6.691,4,10,4z" />
-    </svg>
-    <input type="search" placeholder="Spotlight Search" />
-  </div>
-
+  <script src="./javascript/portfolio-data.js"></script>
   <script src="./javascript/script.js"></script>
   <script src="./javascript/app.js"></script>
   <script src="./javascript/apple-apps.js"></script>
+  <script src="./javascript/portfolio-terminal.js"></script>
+  <script src="./javascript/desktop-system.js"></script>
+  <script src="./javascript/portfolio-safari.js"></script>
 
 
   </div> <!-- Fermeture de main-content -->
@@ -1903,6 +688,7 @@
       }, 7000);
     });
   </script>
+<script src="javascript/macos-polish.js?v=3"></script>
 </body>
 
 </html>

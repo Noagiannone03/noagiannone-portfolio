@@ -11,3 +11,7 @@ Visual references consulted for this redesign:
 - Pages toolbar and inspector: https://support.apple.com/en-gb/guide/pages/tan0870f78aa/mac
 
 Apple assets remain the property of Apple. This directory records their source; it does not grant additional rights.
+
+## Dossiers et symboles supplémentaires
+
+Les dossiers natifs (`DeveloperFolderIcon`, `DocumentsFolderIcon`, `SitesFolderIcon`, `GroupFolder`, `folder-native`) proviennent des ressources d’icônes du macOS local, converties en PNG. Les symboles de barre d’outils sont rendus par `NSImage(systemSymbolName:)` via AppKit, puis exportés en PNG transparent ; ils ne sont pas redessinés manuellement. Apple conserve les droits sur ses ressources.

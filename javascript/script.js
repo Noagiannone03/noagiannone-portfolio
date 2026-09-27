@@ -1,5 +1,6 @@
 
 document.addEventListener('DOMContentLoaded', function () {
+  document.querySelectorAll('.window').forEach(win => document.body.appendChild(win));
   // Vérification globale pour éviter les erreurs si des éléments sont manquants
   function safeQuerySelector(selector, context = document) {
     return context.querySelector(selector);
@@ -51,6 +52,7 @@ document.addEventListener('DOMContentLoaded', function () {
         method: 'POST', body: new FormData(emailApp.form), headers: { Accept: 'application/json' }
       });
       if (!response.ok) throw new Error('Delivery failed');
+      document.dispatchEvent(new CustomEvent('portfolio:mail-sent', {detail: Object.fromEntries(new FormData(emailApp.form))}));
       emailApp.form.reset();
       status.textContent = 'Votre message a bien été envoyé.';
     } catch {
@@ -80,30 +82,6 @@ document.addEventListener('DOMContentLoaded', function () {
     batteryIsChargingLogo: document.querySelector(".is-charging"),
     powerSource: document.querySelector(".power-source"),
   };
-
-  /********** Apple Menu Interactivity **********/
-  const appleLogo = document.querySelector(".navbar .leftLi.logo");
-  if (appleLogo) {
-    appleLogo.addEventListener("click", (e) => {
-      e.stopPropagation();
-      appleLogo.classList.toggle("active");
-    });
-  }
-
-  // Close menus when clicking outside
-  document.addEventListener("click", (e) => {
-    // Apple Menu
-    if (appleLogo && !appleLogo.contains(e.target)) {
-      appleLogo.classList.remove("active");
-    }
-
-    // Spotlight (existing logic maintained below)
-    if (elements.spotlight_search && elements.spotlight_search.style.display === "flex") {
-      if (!elements.spotlight_search.contains(e.target) && !elements.open_spotlight.contains(e.target)) {
-        elements.spotlight_search.style.display = "none";
-      }
-    }
-  });
 
   // Calculator App
   const calculatorApp = {
@@ -208,16 +186,6 @@ document.addEventListener('DOMContentLoaded', function () {
     elements.body.style.backdropFilter = `brightness(${brightnessVal + '%'})`;
   }
   */
-
-  // Spotlight
-  function handleopen_spotlight() {
-    if (elements.spotlight_search.style.display === "none") {
-      elements.spotlight_search.style.display = "flex";
-      elements.spotlight_search.querySelector("input").focus(); // Focus input automatically
-    } else {
-      elements.spotlight_search.style.display = "none";
-    }
-  }
 
   // Notes app function start
   function handleAdding() {
@@ -435,8 +403,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
   function close_window(close, point, appName) {
     close.style.display = "none";
-    point.style.display = "none";
-    appName.style.display = "none";
+    if (point) point.style.display = "none";
+    if (appName && !appName.classList.contains("icon")) appName.style.display = "none";
+    document.dispatchEvent(new CustomEvent("portfolio:windowchange"));
   }
 
   // Ajoute ces variables au début de ton code pour suivre les décalages
@@ -447,6 +416,7 @@ document.addEventListener('DOMContentLoaded', function () {
   function open_window(open, point, appName) {
     // Amener cette fenêtre au premier plan
     open.style.zIndex = ++zTop;
+    document.dispatchEvent(new CustomEvent("portfolio:active", { detail: open }));
     if (minimizedWindows.has(open)) {
       restoreWindow(open, open._dockIcon);
       return;
@@ -454,8 +424,7 @@ document.addEventListener('DOMContentLoaded', function () {
     elements.navbar.style.display = "flex";
     open.style.display = open.dataset.display || "block";
     launchpad.container.style.display = "flex";
-    launchpad.window.style.display = "none";
-    launchpad.point.style.display = "none";
+    if (launchpad.window.classList.contains("is-open")) closeLaunchpad(false);
 
     // Afficher l'icône et le point dans le dock
     if (appName) appName.style.display = "block";
@@ -504,23 +473,36 @@ document.addEventListener('DOMContentLoaded', function () {
   // Keep the backdrop outside containers that can clip or transform it.
   document.body.appendChild(launchpad.window);
   let launchpadReturnFocus;
-  function closeLaunchpad() {
-    launchpad.window.style.display = "none";
-    elements.navbar.style.display = "flex";
-    launchpad.point.style.display = "none";
-    launchpad.container.style.display = "flex";
-    launchpadReturnFocus?.focus();
+  let launchpadCloseTimer;
+  function closeLaunchpad(restoreFocus = true) {
+    clearTimeout(launchpadCloseTimer);
+    launchpad.window.classList.remove('is-open');
+    launchpad.window.classList.add('is-closing');
+    launchpad.window.inert = true;
+    launchpad.point.style.display = 'none';
+    elements.navbar.style.display = 'flex';
+    document.body.classList.remove('launchpad-open');
+    launchpadCloseTimer = setTimeout(() => {
+      launchpad.window.style.display = 'none';
+      launchpad.window.classList.remove('is-closing');
+      if (restoreFocus) launchpadReturnFocus?.focus();
+    }, (matchMedia('(prefers-reduced-motion: reduce)').matches || document.body.classList.contains('reduce-motion')) ? 0 : 260);
   }
   function handleOpenLaunching() {
-    if (getComputedStyle(launchpad.window).display !== "none") {
-      closeLaunchpad();
-      return;
-    }
+    if (launchpad.window.classList.contains('is-open')) { closeLaunchpad(); return; }
+    clearTimeout(launchpadCloseTimer);
     launchpadReturnFocus = document.activeElement;
-    launchpad.window.style.display = "block";
-    elements.navbar.style.display = "none";
-    launchpad.point.style.display = "block";
-    launchpad.searchbox.querySelector('input').focus();
+    launchpad.window.inert = false;
+    launchpad.window.classList.remove('is-closing');
+    launchpad.window.style.display = 'block';
+    void launchpad.window.offsetWidth;
+    launchpad.window.classList.add('is-open');
+    document.body.classList.add('launchpad-open');
+    launchpad.point.style.display = 'block';
+    const input = launchpad.searchbox.querySelector('input');
+    input.value = '';
+    handleLaunchpadSearch({ target: input });
+    input.focus();
   }
   launchpad.window.addEventListener('click', event => {
     if (!event.target.closest('.child-launchpad, .searchContainer')) closeLaunchpad();
@@ -534,10 +516,10 @@ document.addEventListener('DOMContentLoaded', function () {
       app.style.display = (app.dataset.keywords + ' ' + app.textContent).toLocaleLowerCase().includes(query) ? 'flex' : 'none';
     }
   }
-  const launchTargets = { Home: '.open-finder', Mail: '.open-email', Pages: '.open-editor', 'Safari browser': '.open-safari' };
+  const launchTargets = { Home: '.open-finder', Mail: '.open-email', Pages: '.open-editor', 'Safari browser': '.open-safari', Code: '.open-vscode', Terminal: '.open-terminal', Notes: '.open-note', Settings: '.open-parametres', Maps: '.open-map' };
   Object.entries(launchTargets).forEach(([keyword, selector]) => {
     const tile = Array.from(launchpad.app_container.children).find(app => app.dataset.keywords.split(',').includes(keyword));
-    if (tile) tile.addEventListener('click', () => { closeLaunchpad(); document.querySelector(selector)?.click(); });
+    if (tile) tile.addEventListener('click', () => { closeLaunchpad(false); document.querySelector(selector)?.click(); });
   });
   Array.from(launchpad.app_container.children).forEach(tile => {
     tile.tabIndex = 0;
@@ -554,8 +536,7 @@ document.addEventListener('DOMContentLoaded', function () {
   }
   // Calculator app end
 
-  handleopen_spotlight();
-  handleOpenLaunching();
+
   notesApp.adding.addEventListener("click", handleAdding);
   calculatorApp.backfull.addEventListener("click", () =>
     minimizeWindow(calculatorApp.window, calculatorApp.opening)
@@ -631,12 +612,8 @@ document.addEventListener('DOMContentLoaded', function () {
     )
   );
   calculatorApp.opening_l.addEventListener("click", handleOpenCal_lunchpad);
-  elements.open_spotlight.addEventListener("click", handleopen_spotlight);
-  launchpad.searchbox.addEventListener("input", handleLaunchpadSearch);
-  elements.clockWrapper.addEventListener("click", () => {
-    elements.widgetsPanel.classList.toggle("open");
-  });
 
+  launchpad.searchbox.addEventListener("input", handleLaunchpadSearch);
   // Calculator code
   // select all the buttons
   const calculatorButtons = document.querySelectorAll(".input button");
@@ -761,12 +738,13 @@ document.addEventListener('DOMContentLoaded', function () {
   // Custom dragging for all windows on desktop and mobile
   const wins = document.querySelectorAll('.window');
   wins.forEach(win => {
+    win.addEventListener('pointerdown', () => { win.style.zIndex = ++zTop; document.dispatchEvent(new CustomEvent('portfolio:active', { detail: win })); });
     const hdr = win.querySelector('.window-header, .window__taskbar');
     let drag = false, ox = 0, oy = 0;
 
     const start = e => {
       // Prevent drag if we're clicking a button
-      if (e.target.closest('button')) return;
+      if (e.target.closest('button, input, select, textarea, label, a')) return;
 
       e.preventDefault();
       drag = true;
@@ -803,8 +781,8 @@ document.addEventListener('DOMContentLoaded', function () {
     btns.forEach(b => {
       b.addEventListener('mousedown', e => e.stopPropagation());
       b.addEventListener('touchstart', e => e.stopPropagation(), { passive: false });
-      b.addEventListener('click', e => { e.stopPropagation(); /* closeWin(win.id); */ });
-      b.addEventListener('touchend', e => { e.stopPropagation(); /* closeWin(win.id); */ });
+
+
     });
   });
 
@@ -939,141 +917,6 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   }
 
-  let terminal_line_html = $(".terminal_line").html();
-  let path = "~";
-  let dirName;
-  let dirs = ["Desktop", "Downloads", "Music", "Documents"];
-
-  function init_terminal_line() {
-    $(".cursor").keydown(function (e) {
-      // trap the return key being pressed
-      if (e.keyCode === 13) {
-        e.preventDefault();
-        let command = $(this).html();
-        if (!command) return;
-        let command_output = "zsh: command not found: " + command + "<br>";
-
-        if (command.startsWith("cd ")) {
-          path = command.substring(3);
-          command_output = "";
-        } else if (command === "ls") {
-          command_output = dirs.join("\t");
-        } else if (command === "pwd") {
-          command_output = path + "/";
-        } else if (command.startsWith("mkdir ")) {
-          dirName = command.substring(6);
-          dirs.push(dirName);
-          command_output = "";
-        } else if (command === "rmdir") {
-          dirs.pop();
-          command_output = "";
-        } else if (command === "ps -aux") {
-          command_output = "CPU = 56% <br> MEMORY = 25% <br> DISK = 34%";
-        } else if (command.startsWith("cat ")) {
-          command_output =
-            "Lorem ipsum dolor sit amet consectetur adipisicing elit.<br> Fugiat nihil totam expedita sint necessitatibus quos ducimus.";
-        } else if (command.startsWith("du -hs ")) {
-          command_output = Math.floor(Math.random() * 100) + "GB";
-        }
-
-        $(this).removeAttr("contenteditable");
-        $(this).removeClass("cursor");
-        terminalApp.content
-          .append(command_output)
-          .append(terminal_line_html.replace("~", path));
-        placeCaretAtEnd(document.querySelector(".cursor"));
-        init_terminal_line();
-      }
-    });
-  }
-
-  init_terminal_line();
-  terminalApp.content.addEventListener("click", function () {
-    placeCaretAtEnd(document.querySelector(".cursor"));
-  });
-
-  function placeCaretAtEnd(el) {
-    el.focus();
-    var range = document.createRange();
-    range.selectNodeContents(el);
-    range.collapse(false);
-    var sel = window.getSelection();
-    sel.removeAllRanges();
-    sel.addRange(range);
-  }
-
-  // Right click to desktop
-  document.onclick = hideMenu;
-  document.oncontextmenu = rightClick;
-
-  function hideMenu() {
-    document.getElementById("contextMenu").style.opacity = "0";
-  }
-
-  function rightClick(e) {
-    e.preventDefault();
-
-    if (document.getElementById("contextMenu").style.opacity == "1") hideMenu();
-    else {
-      var menu = document.getElementById("contextMenu");
-
-      menu.style.opacity = "1";
-      menu.style.left = e.pageX + "px";
-      menu.style.top = e.pageY + "px";
-    }
-  }
-
-  // Loading
-  const load = document.getElementById("loading");
-
-
-  /********** Start Battery **********/
-  const calculateBattery = () => {
-    let number = Math.floor(Math.random() * 100); // If there is any error, it will be the random default battery level
-    let batteryIsCharging = false; // Charging status
-
-    navigator
-      .getBattery()
-      .then(function (battery) {
-        number = Math.round(battery.level * 100);
-
-        batteryIsCharging = battery.charging;
-        battery.addEventListener("chargingchange", function () {
-          batteryIsCharging = battery.charging;
-        });
-      })
-      .finally(() => {
-        elements.batteryText.textContent = `${number}%`;
-        elements.batteryProgress.style.width = `${number}%`;
-        elements.batteryPopupText.textContent = `${number}%`;
-
-        if (number <= 20) {
-          elements.batteryProgress.classList.add("battery__low");
-        } else if ((number > 90 && batteryIsCharging) || batteryIsCharging) {
-          elements.batteryProgress.classList.add("battery__high");
-          elements.batteryIsChargingLogo.classList.add("is-charging-visibel");
-          elements.powerSource.textContent = "Power Adapter";
-        }
-      });
-  };
-
-  elements.batteryButton.addEventListener("click", (e) => {
-    e.stopPropagation();
-    elements.batteryPopup.classList.toggle("opened");
-    elements.batteryButton.classList.toggle("selected");
-  });
-
-  // Close battery popup when clicking outside
-  document.addEventListener("click", (e) => {
-    if (!elements.batteryButton.contains(e.target) && !elements.batteryPopup.contains(e.target)) {
-      elements.batteryPopup.classList.remove("opened");
-      elements.batteryButton.classList.remove("selected");
-    }
-  });
-  /********** End Battery **********/
-
-
-
   // Editor App
   const editorApp = {
     app_name: document.querySelector(".icon.open-editor"),
@@ -1103,22 +946,6 @@ document.addEventListener('DOMContentLoaded', function () {
   );
 
 
-  document.querySelectorAll('.file-card').forEach(card => {
-    card.addEventListener('click', () => {
-      // Récupère données du card
-      const title = card.dataset.title;
-      const content = card.dataset.content;
-      // Change titre et texte de l’éditeur
-      editorApp.title.textContent = title;
-      editorApp.area.innerHTML = content;
-      // Ouvre l’éditeur
-      open_window(editorApp.window, editorApp.point, editorApp.app_name);
-    });
-  });
-
-
-
-
   // Safari App
   const safariApp = {
     app_name: document.querySelector(".icon.open-safari"),
@@ -1132,7 +959,7 @@ document.addEventListener('DOMContentLoaded', function () {
     home: document.querySelector(".safari-home"),
     reload: document.querySelector(".safari-reload"),
     addressBar: document.querySelector(".safari-url"),
-    loadingBar: document.querySelector(".safari-loading-bar"),
+
     content: document.querySelector(".safari-content"),
     pinnedTabs: document.querySelectorAll(".safari-pinned-tab"),
     pages: document.querySelectorAll(".safari-page"),
@@ -1156,134 +983,6 @@ document.addEventListener('DOMContentLoaded', function () {
   safariApp.full.addEventListener("click", () =>
     handleFullScreen(safariApp.window)
   );
-
-  // Safari Page Switching
-  function switchSafariPage(pageName, addToHistory = true) {
-    if (pageName === safariApp.currentPage) return;
-
-    // Add to history if needed
-    if (addToHistory) {
-      safariApp.history.push(pageName);
-    }
-
-    // Update tabs (if applicable)
-    safariApp.pinnedTabs.forEach(tab => {
-      if(tab.dataset.page === pageName) {
-        tab.classList.add("active");
-      } else {
-        tab.classList.remove("active");
-      }
-    });
-
-    // Show loading animation
-    if (safariApp.loadingBar) {
-      safariApp.loadingBar.classList.add("loading");
-    }
-
-    // Update URL bar
-    const urls = {
-      home: "",
-      histoire: "noagiannone.com/mon-histoire",
-      cv: "noagiannone.com/mon-cv"
-    };
-    if (safariApp.addressBar) {
-      safariApp.addressBar.value = urls[pageName] || "";
-    }
-
-    // Fade out current page
-    const currentPageEl = document.querySelector(".safari-page.active");
-    if (currentPageEl) {
-      currentPageEl.style.opacity = "0";
-    }
-
-    // Switch pages after animation
-    setTimeout(() => {
-      document.querySelectorAll(".safari-page").forEach(page => {
-        page.classList.remove("active");
-        page.style.opacity = "";
-      });
-
-      const newPage = document.querySelector(`.safari-page-${pageName}`);
-      if (newPage) {
-        newPage.style.display = "flex"; // Ensure flex display for height fix
-        // Force reflow
-        void newPage.offsetWidth; 
-        newPage.classList.add("active");
-        newPage.style.opacity = "1";
-      }
-
-      if (safariApp.loadingBar) {
-        safariApp.loadingBar.classList.remove("loading");
-      }
-      safariApp.currentPage = pageName;
-    }, 300);
-  }
-
-  // Pinned tabs click handlers
-  safariApp.pinnedTabs.forEach(tab => {
-    tab.addEventListener("click", () => {
-      const pageName = tab.dataset.page;
-      switchSafariPage(pageName);
-    });
-  });
-
-  // Unified Safari Content Click Handler (Favorites, Suggestions, Articles)
-  const safariContent = document.querySelector(".safari-content");
-  if (safariContent) {
-    safariContent.addEventListener("click", (e) => {
-      const clickable = e.target.closest("[data-goto], [data-external]");
-      if (!clickable) return;
-      
-      e.preventDefault();
-      const gotoPage = clickable.dataset.goto;
-      const externalLink = clickable.dataset.external;
-      
-      if (gotoPage) {
-        switchSafariPage(gotoPage);
-      } else if (externalLink) {
-        window.open(externalLink, "_blank");
-      }
-    });
-  }
-
-  // Navigation buttons
-  safariApp.back.addEventListener("click", () => {
-    // Go back in history
-    if (safariApp.history.length > 1) {
-      safariApp.history.pop(); // Remove current page
-      const prevPage = safariApp.history[safariApp.history.length - 1];
-      switchSafariPage(prevPage, false); // Don't add to history
-    }
-  });
-
-  safariApp.home.addEventListener("click", () => {
-    switchSafariPage("home");
-  });
-
-  safariApp.forward.addEventListener("click", () => {
-    safariApp.content.style.opacity = "0.5";
-    setTimeout(() => {
-      safariApp.content.style.opacity = "1";
-    }, 300);
-  });
-
-  safariApp.reload.addEventListener("click", () => {
-    safariApp.reload.classList.add("rotating");
-    if (safariApp.loadingBar) {
-      safariApp.loadingBar.classList.add("loading");
-    }
-    safariApp.content.style.opacity = "0.5";
-
-    setTimeout(() => {
-      safariApp.content.style.opacity = "1";
-      safariApp.reload.classList.remove("rotating");
-      if (safariApp.loadingBar) {
-        safariApp.loadingBar.classList.remove("loading");
-      }
-    }, 800);
-  });
-
-
 
   // Paramètres App
   const parametresApp = {
@@ -1318,48 +1017,6 @@ document.addEventListener('DOMContentLoaded', function () {
     handleFullScreen(parametresApp.window)
   );
 
-  // Gestion de la sidebar
-  parametresApp.sidebar_items.forEach(item => {
-    item.addEventListener("click", () => {
-      // Retirer la classe active de tous les éléments
-      parametresApp.sidebar_items.forEach(i => i.classList.remove("active"));
-      // Ajouter la classe active à l'élément cliqué
-      item.classList.add("active");
-
-      // Ici vous pourriez ajouter un code pour charger différentes sections
-      // basées sur l'élément de la sidebar qui a été cliqué
-    });
-  });
-
-  // Animation d'entrée pour les sections d'applications
-  const appSections = document.querySelectorAll('.app-section');
-  const observerOptions = {
-    threshold: 0.2,
-    rootMargin: '0px 0px -50px 0px'
-  };
-
-  const appearOnScroll = new IntersectionObserver((entries, observer) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.style.opacity = 1;
-        entry.target.style.transform = 'translateY(0)';
-        observer.unobserve(entry.target);
-      }
-    });
-  }, observerOptions);
-
-  // Initialiser les sections avec l'effet de fondu
-  window.addEventListener('DOMContentLoaded', () => {
-    appSections.forEach(section => {
-      section.style.opacity = 0;
-      section.style.transform = 'translateY(20px)';
-      section.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
-      appearOnScroll.observe(section);
-    });
-  });
-
-  // Call the functions
-  calculateBattery();
   digi();
   setInterval(digi, 1000);
 
