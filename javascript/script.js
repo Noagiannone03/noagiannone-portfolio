@@ -220,132 +220,224 @@ document.addEventListener('DOMContentLoaded', function () {
   );
   // Notes app function end
 
-  function minimizeWindow(win, dockIcon) {
-    if (win.classList.contains('is-fullscreen')) return;
+  // ---- macOS window animations -------------------------------------------------
 
-    const winRect = win.getBoundingClientRect();
-    win.dataset.minLeft = win.style.left;
-    win.dataset.minTop = win.style.top;
-    win._dockIcon = dockIcon;
+  const prefersReducedMotion = () =>
+    document.body.classList.contains('reduce-motion') || matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    // Insert thumbnail in dock (invisible first, to measure position)
-    const thumb = createMinimizedThumbnail(win);
-    thumb.style.opacity = '0';
-    const separator = document.querySelector('.dock .column');
+  const GENIE_STRIPS = 36;
+  const GENIE_MINIMIZE_MS = 560;
+  const GENIE_RESTORE_MS = 480;
+  const smoothstep = u => u * u * (3 - 2 * u);
+  const clamp01 = v => Math.min(1, Math.max(0, v));
+  const easeInOut = t => t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
 
-    // Logic to insert AFTER the separator (between separator and Trash)
-    if (separator) {
-      if (separator.nextSibling) {
-        separator.parentNode.insertBefore(thumb, separator.nextSibling);
-      } else {
-        separator.parentNode.appendChild(thumb);
+  // Genie effect: the window is sliced into thin horizontal strips (clones), and every
+  // strip is scaled and clipped to its slice of a funnel that bends toward the Dock
+  // icon. First the bottom of the window pinches (bend), then the content pours down
+  // through the funnel into the icon (slide); both phases overlap like on macOS.
+  function genie(win, winRect, targetRect, direction) {
+    return new Promise(resolve => {
+      const w = winRect.width, h = winRect.height;
+      const x0 = winRect.left, y0 = winRect.top;
+      const cx = targetRect.left + targetRect.width / 2;
+      const tw = targetRect.width * 0.92;
+      const ty = targetRect.top, tb = targetRect.bottom;
+      const funnelDepth = Math.max(1, ty - y0);
+      const travel = tb - y0;
+
+      const layer = document.createElement('div');
+      layer.className = 'genie-layer';
+      layer.style.cssText = `left:${x0}px;top:${y0}px;width:${w}px;height:${h}px;`;
+
+      // Inner scroll positions are lost by cloneNode: record them once, replay per strip
+      const scrolled = [];
+      win.querySelectorAll('*').forEach((el, i) => {
+        if (el.scrollTop || el.scrollLeft) scrolled.push([i, el.scrollTop, el.scrollLeft]);
+      });
+      const display = win.dataset.display || 'block';
+      const strips = [];
+      const stripHeight = h / GENIE_STRIPS;
+      for (let i = 0; i < GENIE_STRIPS; i++) {
+        const clone = win.cloneNode(true);
+        clone.classList.remove('genie-hidden');
+        clone.classList.add('genie-strip');
+        clone.removeAttribute('id');
+        clone.querySelectorAll('iframe, video').forEach(el => el.replaceWith(document.createElement('div')));
+        clone.style.cssText = `display:${display};left:0;top:0;width:${w}px;height:${h}px;min-width:0;max-width:none;`;
+        clone.setAttribute('aria-hidden', 'true');
+        clone.inert = true;
+        layer.appendChild(clone);
+        strips.push({ el: clone, r0: i * stripHeight, r1: (i + 1) * stripHeight });
       }
-    } else {
-      // If no separator, just append (fallback)
-      document.querySelector('.dock').appendChild(thumb);
-    }
+      document.body.appendChild(layer);
+      if (scrolled.length) {
+        strips.forEach(({ el }) => {
+          const all = el.querySelectorAll('*');
+          scrolled.forEach(([i, top, left]) => { if (all[i]) { all[i].scrollTop = top; all[i].scrollLeft = left; } });
+        });
+      }
 
-    win._dockThumb = thumb;
+      // Funnel edges at a given screen y, for a given amount of bending
+      const edges = (y, bend) => {
+        const s = bend * smoothstep(clamp01((y - y0) / funnelDepth));
+        return [x0 + (cx - tw / 2 - x0) * s, x0 + w + (cx + tw / 2 - x0 - w) * s];
+      };
 
-    // Animate window towards the thumbnail
-    const thumbRect = thumb.getBoundingClientRect();
-    const targetX = (thumbRect.left + thumbRect.width / 2) - (winRect.left + winRect.width / 2);
-    const targetY = (thumbRect.top + thumbRect.height / 2) - (winRect.top + winRect.height / 2);
+      const render = t => {
+        const bend = easeInOut(clamp01(t / 0.45));
+        const slide = easeInOut(clamp01((t - 0.18) / 0.82));
+        const shift = slide * travel;
+        for (const strip of strips) {
+          const yTop = y0 + strip.r0 + shift;
+          const visibleBottom = Math.min(strip.r1, tb - y0 - shift);
+          if (visibleBottom <= strip.r0) { strip.el.style.visibility = 'hidden'; continue; }
+          const yBottom = y0 + visibleBottom + shift;
+          const [lt, rt] = edges(yTop, bend);
+          const [lb, rb] = edges(yBottom, bend);
+          strip.el.style.visibility = 'visible';
+          strip.el.style.transform = rectToQuad(w, strip.r0, visibleBottom,
+            [lt - x0, yTop - y0], [rt - x0, yTop - y0], [rb - x0, yBottom - y0], [lb - x0, yBottom - y0]);
+          // Overlap the next strip by a pixel so anti-aliased seams don't show
+          strip.el.style.clipPath = `inset(${strip.r0}px 0 ${Math.max(0, h - visibleBottom - 1)}px 0)`;
+        }
+      };
 
-    win.style.transition = 'transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.35s ease';
-    win.style.transform = `translate(${targetX}px, ${targetY}px) scale(0.01)`;
-    win.style.opacity = '0';
-    win.style.pointerEvents = 'none';
-
-    setTimeout(() => {
-      win.style.display = 'none';
-      win.style.transition = '';
-      win.style.transform = '';
-      win.style.opacity = '';
-      win.style.pointerEvents = '';
-      minimizedWindows.add(win);
-
-      // Reveal thumbnail
-      thumb.style.transition = 'opacity 0.2s ease';
-      thumb.style.opacity = '1';
-      setTimeout(() => { thumb.style.transition = ''; }, 220);
-    }, 420);
+      const duration = direction === 'in' ? GENIE_MINIMIZE_MS : GENIE_RESTORE_MS;
+      const start = performance.now();
+      render(direction === 'in' ? 0 : 1);
+      const frame = now => {
+        const p = clamp01((now - start) / duration);
+        render(direction === 'in' ? p : 1 - p);
+        if (p < 1) return requestAnimationFrame(frame);
+        layer.remove();
+        resolve();
+      };
+      requestAnimationFrame(frame);
+    });
   }
 
-  function createMinimizedThumbnail(win) {
-    const titleEl = win.querySelector('.window__taskbar--content h2');
-    const title = titleEl ? titleEl.textContent : 'Window';
+  // Projective transform (homography) mapping the rows [r0, r1] of a box of width w onto
+  // an arbitrary quad, so each strip lands exactly on its trapezoid of the funnel.
+  function rectToQuad(w, r0, r1, [x0, y0], [x1, y1], [x2, y2], [x3, y3]) {
+    const sh = Math.max(0.0001, r1 - r0);
+    const dx1 = x1 - x2, dx2 = x3 - x2, dx3 = x0 - x1 + x2 - x3;
+    const dy1 = y1 - y2, dy2 = y3 - y2, dy3 = y0 - y1 + y2 - y3;
+    const det = dx1 * dy2 - dx2 * dy1;
+    const g = det ? (dx3 * dy2 - dx2 * dy3) / det : 0;
+    const k = det ? (dx1 * dy3 - dx3 * dy1) / det : 0;
+    const a = x1 - x0 + g * x1, b = x3 - x0 + k * x3, c = x0;
+    const d = y1 - y0 + g * y1, e = y3 - y0 + k * y3, f = y0;
+    return `matrix3d(${a / w},${d / w},0,${g / w},${b / sh},${e / sh},0,${k / sh},0,0,1,0,` +
+      `${c - b * r0 / sh},${f - e * r0 / sh},0,${1 - k * r0 / sh})`;
+  }
 
+  function dockAppIconSrc(dockIcon) {
+    const img = dockIcon && (dockIcon.tagName === 'IMG' ? dockIcon : dockIcon.querySelector('img'));
+    return img ? img.getAttribute('src') : 'icon/dock/finder.png';
+  }
+
+  function minimizeWindow(win, dockIcon) {
+    if (win.classList.contains('is-fullscreen') || minimizedWindows.has(win) || win._genieRunning) return;
+    win._genieRunning = true;
+    win._dockIcon = dockIcon;
+    const winRect = win.getBoundingClientRect();
+
+    // The Dock makes room for the minimized window while it pours in
+    const thumb = createMinimizedThumbnail(win, dockIcon);
+    // Newest minimized window goes at the right end, just before the Trash
+    const trash = document.querySelector('.dock .Trash')?.closest('.icon');
+    if (trash) trash.before(thumb); else document.querySelector('.dock').appendChild(thumb);
+    win._dockThumb = thumb;
+    const targetRect = thumb.getBoundingClientRect();
+    growThumbnail(thumb);
+
+    minimizedWindows.add(win);
+    document.dispatchEvent(new CustomEvent('portfolio:windowchange'));
+
+    const finish = () => {
+      win.style.display = 'none';
+      setGenieHidden(win, false);
+      win._genieRunning = false;
+    };
+    if (prefersReducedMotion()) return finish();
+    setGenieHidden(win, true);
+    genie(win, winRect, targetRect, 'in').then(finish);
+  }
+
+  // Hides the real window while its genie strips are drawn. Opacity (unlike visibility)
+  // cannot be overridden or delayed by descendants, and inert blocks stray clicks.
+  function setGenieHidden(win, hidden) {
+    win.classList.toggle('genie-hidden', hidden);
+    win.inert = hidden;
+  }
+
+  function growThumbnail(thumb) {
+    if (prefersReducedMotion()) return;
+    thumb.animate([{ width: '0px', opacity: 0 }, { width: getComputedStyle(thumb).width, opacity: 1 }],
+      { duration: 280, easing: 'cubic-bezier(0.25, 0.1, 0.25, 1)' });
+  }
+
+  function createMinimizedThumbnail(win, dockIcon) {
+    const titleEl = win.querySelector('.window__taskbar--content h2, .window__taskbar h2');
     const thumb = document.createElement('button');
+    thumb.type = 'button';
     thumb.className = 'icon dock-minimized';
-    thumb.setAttribute('data-min-title', title);
+    thumb.dataset.label = (titleEl && titleEl.textContent.trim()) || dockIcon?.dataset.label || 'Fenêtre';
 
-    const preview = document.createElement('div');
-    preview.className = 'dock-minimized__preview';
-
-    const dots = document.createElement('div');
-    dots.className = 'dock-minimized__dots';
-    dots.innerHTML =
-      '<span class="dock-minimized__dot dock-minimized__dot--r"></span>' +
-      '<span class="dock-minimized__dot dock-minimized__dot--y"></span>' +
-      '<span class="dock-minimized__dot dock-minimized__dot--g"></span>';
-
-    const body = document.createElement('div');
-    body.className = 'dock-minimized__body';
-
-    preview.appendChild(dots);
-    preview.appendChild(body);
-    thumb.appendChild(preview);
+    const img = document.createElement('img');
+    img.src = dockAppIconSrc(dockIcon);
+    img.alt = '';
+    thumb.appendChild(img);
 
     thumb.addEventListener('click', () => {
-      restoreWindow(win, win._dockIcon);
       win.style.zIndex = ++zTop;
+      restoreWindow(win, win._dockIcon);
     });
-
     return thumb;
   }
 
   function restoreWindow(win, dockIcon) {
+    if (win._genieRunning || !minimizedWindows.has(win)) return;
     minimizedWindows.delete(win);
-
-    // Animate from thumbnail position (or dock icon as fallback)
     const startEl = win._dockThumb || dockIcon;
-    const startRect = startEl.getBoundingClientRect();
+    const targetRect = startEl.getBoundingClientRect();
+    const thumb = win._dockThumb;
+    win._dockThumb = null;
 
-    if (win._dockThumb) {
-      win._dockThumb.remove();
-      win._dockThumb = null;
+    // Hide before it is laid out again, so not a single frame of it shows before the genie
+    const animate = !prefersReducedMotion();
+    if (animate) setGenieHidden(win, true);
+    win.style.display = win.dataset.display || 'block';
+    document.dispatchEvent(new CustomEvent('portfolio:windowchange'));
+    const removeThumb = () => {
+      if (!thumb) return;
+      if (prefersReducedMotion()) return thumb.remove();
+      thumb.animate([{ width: getComputedStyle(thumb).width, opacity: 1 }, { width: '0px', opacity: 0 }],
+        { duration: 260, easing: 'cubic-bezier(0.25, 0.1, 0.25, 1)' }).finished.then(() => thumb.remove());
+    };
+    if (!animate) {
+      document.dispatchEvent(new CustomEvent('portfolio:active', { detail: win }));
+      return removeThumb();
     }
 
-    const prevLeft = parseFloat(win.dataset.minLeft) || 0;
-    const prevTop = parseFloat(win.dataset.minTop) || 0;
+    win._genieRunning = true;
+    const winRect = win.getBoundingClientRect();
+    genie(win, winRect, targetRect, 'out').then(() => {
+      setGenieHidden(win, false);
+      win._genieRunning = false;
+      document.dispatchEvent(new CustomEvent('portfolio:active', { detail: win }));
+      removeThumb();
+    });
+  }
 
-    win.style.display = win.dataset.display || 'block';
-    win.style.left = win.dataset.minLeft;
-    win.style.top = win.dataset.minTop;
-
-    const winWidth = win.offsetWidth;
-    const winHeight = win.offsetHeight;
-
-    // Start from thumbnail (scale 0)
-    const startX = (startRect.left + startRect.width / 2) - (prevLeft + winWidth / 2);
-    const startY = (startRect.top + startRect.height / 2) - (prevTop + winHeight / 2);
-
-    win.style.transition = 'none';
-    win.style.transform = `translate(${startX}px, ${startY}px) scale(0.01)`;
-    win.style.opacity = '0';
-
-    void win.offsetWidth; // Force reflow
-
-    win.style.transition = 'transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.2s ease';
-    win.style.transform = 'translate(0, 0) scale(1)';
-    win.style.opacity = '1';
-
-    setTimeout(() => {
-      win.style.transition = '';
-      win.style.transform = '';
-      win.style.opacity = '';
-    }, 450);
+  // Opening: the window zooms in slightly while fading in, as an app launches on macOS
+  function animateWindowOpen(win) {
+    if (prefersReducedMotion()) return;
+    win.animate([
+      { opacity: 0, transform: 'scale(0.92)' },
+      { opacity: 1, transform: 'scale(1)' }
+    ], { duration: 260, easing: 'cubic-bezier(0.2, 0.9, 0.3, 1)' });
   }
 
   function handleFullScreen(win) {
@@ -389,23 +481,56 @@ document.addEventListener('DOMContentLoaded', function () {
       void win.offsetWidth; // Force reflow
 
       // Animate to fullscreen
+      // Edge to edge, directly below the menu bar
+      const barHeight = menubarHeight();
       win.style.transition = fsTransition;
       win.style.left = '0';
-      win.style.top = '0';
+      win.style.top = barHeight + 'px';
       win.style.minWidth = '100%';
       win.style.maxWidth = '100%';
-      win.style.height = '100%';
+      win.style.height = `calc(100% - ${barHeight}px)`;
       win.classList.add('is-fullscreen');
 
       setTimeout(() => { win.style.transition = ''; }, 380);
     }
   }
 
+  function menubarHeight() {
+    return elements.navbar ? elements.navbar.offsetHeight : 0;
+  }
+
+  // Usable desktop area between the menu bar and the Dock (ignores the Dock's
+  // auto-hide transform so it stays stable while a window is fullscreen).
+  function desktopBounds() {
+    const dock = document.querySelector('.dock');
+    const gap = 10;
+    const top = menubarHeight() + gap;
+    const bottom = (dock && getComputedStyle(dock).display !== 'none' ? dock.offsetTop : window.innerHeight) - gap;
+    return { top, bottom };
+  }
+
+  // Closing: a quick fade with a slight shrink, then the window is hidden
   function close_window(close, point, appName) {
-    close.style.display = "none";
+    const hide = () => {
+      close.style.display = "none";
+      document.dispatchEvent(new CustomEvent("portfolio:windowchange"));
+    };
+    if (prefersReducedMotion() || getComputedStyle(close).display === "none") {
+      hide();
+    } else {
+      close.style.pointerEvents = "none";
+      close._closeAnimation = close.animate([
+        { opacity: 1, transform: 'scale(1)' },
+        { opacity: 0, transform: 'scale(0.94)' }
+      ], { duration: 180, easing: 'cubic-bezier(0.4, 0, 1, 1)' });
+      close._closeAnimation.finished.then(() => {
+        close._closeAnimation = null;
+        close.style.pointerEvents = "";
+        hide();
+      }, () => {});
+    }
     if (point) point.style.display = "none";
     if (appName && !appName.classList.contains("icon")) appName.style.display = "none";
-    document.dispatchEvent(new CustomEvent("portfolio:windowchange"));
   }
 
   // Ajoute ces variables au début de ton code pour suivre les décalages
@@ -422,7 +547,16 @@ document.addEventListener('DOMContentLoaded', function () {
       return;
     }
     elements.navbar.style.display = "flex";
+    // Reopened while its close animation is still running: cancel it and keep the window
+    const wasClosing = Boolean(open._closeAnimation);
+    if (wasClosing) {
+      open._closeAnimation.cancel();
+      open._closeAnimation = null;
+      open.style.pointerEvents = "";
+    }
+    const wasHidden = getComputedStyle(open).display === "none";
     open.style.display = open.dataset.display || "block";
+    if (wasHidden || wasClosing) animateWindowOpen(open);
     launchpad.container.style.display = "flex";
     if (launchpad.window.classList.contains("is-open")) closeLaunchpad(false);
 
@@ -430,15 +564,20 @@ document.addEventListener('DOMContentLoaded', function () {
     if (appName) appName.style.display = "block";
     if (point) point.style.display = "block";
 
-    // Positionner la fenêtre au centre de l'écran avec un décalage
+    if (open.classList.contains('is-fullscreen')) return;
+
+    // Positionner la fenêtre entre la barre de menus et le Dock, sans le chevaucher
+    const bounds = desktopBounds();
+    const availableHeight = bounds.bottom - bounds.top;
+    if (open.offsetHeight > availableHeight) open.style.height = availableHeight + 'px';
+
     const windowWidth = open.offsetWidth;
     const windowHeight = open.offsetHeight;
     const screenWidth = window.innerWidth;
-    const screenHeight = window.innerHeight;
 
-    // Calcule la position de base (centre)
+    // Calcule la position de base (centre de la zone utile)
     let baseLeft = (screenWidth - windowWidth) / 2;
-    let baseTop = (screenHeight - windowHeight) / 3;
+    let baseTop = bounds.top + (availableHeight - windowHeight) / 3;
 
     // Ajoute un décalage pour cette fenêtre
     const isMobile = window.innerWidth < 768;
@@ -454,7 +593,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // S'assurer que la fenêtre reste dans les limites de l'écran
     baseLeft = Math.max(10, Math.min(baseLeft, screenWidth - windowWidth - 10));
-    baseTop = Math.max(30, Math.min(baseTop, screenHeight - windowHeight - 90)); // Laisse un peu d'espace en bas
+    baseTop = Math.max(bounds.top, Math.min(baseTop, bounds.bottom - windowHeight));
 
     // Applique la position
     open.style.left = baseLeft + 'px';
@@ -734,6 +873,168 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 
   updateDisplay(); // Initial display
+
+  // Dock auto-hide while a window is fullscreen, like macOS:
+  // touching the bottom edge reveals it after a short delay, leaving it slides it away.
+  const dock = document.querySelector('.dock');
+  const DOCK_SHOW_DELAY = 300;
+  const DOCK_HIDE_DELAY = 150;
+  const DOCK_EDGE = 8;
+  let dockShowTimer, dockHideTimer;
+
+  function showDock() {
+    clearTimeout(dockHideTimer);
+    dockHideTimer = null;
+    if (dockShowTimer || dock.classList.contains('is-revealed')) return;
+    dockShowTimer = setTimeout(() => {
+      dockShowTimer = null;
+      dock.classList.add('is-revealed');
+    }, DOCK_SHOW_DELAY);
+  }
+
+  function hideDock() {
+    clearTimeout(dockShowTimer);
+    dockShowTimer = null;
+    if (dockHideTimer || !dock.classList.contains('is-revealed')) return;
+    dockHideTimer = setTimeout(() => {
+      dockHideTimer = null;
+      dock.classList.remove('is-revealed');
+    }, DOCK_HIDE_DELAY);
+  }
+
+  function syncFullscreenDock() {
+    const active = [...document.querySelectorAll('.window.is-fullscreen')]
+      .some(w => getComputedStyle(w).display !== 'none');
+    if (active === document.body.classList.contains('has-fullscreen')) return;
+    document.body.classList.toggle('has-fullscreen', active);
+    clearTimeout(dockShowTimer);
+    clearTimeout(dockHideTimer);
+    dockShowTimer = dockHideTimer = null;
+    dock.classList.remove('is-revealed');
+  }
+
+  const fullscreenObserver = new MutationObserver(syncFullscreenDock);
+  document.querySelectorAll('.window').forEach(win =>
+    fullscreenObserver.observe(win, { attributes: true, attributeFilter: ['class', 'style'] })
+  );
+
+  // Invisible reveal strip along the bottom edge, stacked above fullscreen windows
+  // so it still catches the pointer over iframes or elements that swallow events.
+  const dockHotzone = document.createElement('div');
+  dockHotzone.className = 'dock-hotzone';
+  dockHotzone.setAttribute('aria-hidden', 'true');
+  document.body.appendChild(dockHotzone);
+  dockHotzone.addEventListener('pointerenter', e => {
+    if (e.pointerType !== 'touch') showDock();
+  });
+
+  document.addEventListener('pointermove', e => {
+    if (!document.body.classList.contains('has-fullscreen') || e.pointerType === 'touch') return;
+    if (e.clientY >= window.innerHeight - DOCK_EDGE) return showDock();
+    // Keep it while the pointer is over the Dock, including magnified icons above it
+    const rect = dock.getBoundingClientRect();
+    const overDock = dock.classList.contains('is-revealed') &&
+      e.clientX >= rect.left - 10 && e.clientX <= rect.right + 10 && e.clientY >= rect.top - 70;
+    if (overDock) {
+      clearTimeout(dockHideTimer);
+      dockHideTimer = null;
+    } else {
+      hideDock();
+    }
+  });
+
+  // In a browser window the screen edge sits below the page (the real Dock lives there),
+  // so a pointer thrown downwards leaves the page before touching the strip: treat
+  // leaving through the bottom edge as reaching it.
+  document.addEventListener('mouseout', e => {
+    if (e.relatedTarget || !document.body.classList.contains('has-fullscreen')) return;
+    const toBottom = window.innerHeight - e.clientY;
+    const nearestEdge = Math.min(e.clientY, e.clientX, window.innerWidth - e.clientX);
+    if (toBottom <= nearestEdge) showDock();
+    else hideDock();
+  });
+  // Touch screens have no hover: tap near the bottom edge to reveal, elsewhere to dismiss
+  document.addEventListener('pointerdown', e => {
+    if (!document.body.classList.contains('has-fullscreen') || e.pointerType !== 'touch') return;
+    if (e.clientY >= window.innerHeight - 24) dock.classList.add('is-revealed');
+    else if (!dock.contains(e.target)) dock.classList.remove('is-revealed');
+  });
+
+  // Dock magnification, like macOS: every icon sizes itself from its distance to the
+  // cursor along a cosine falloff, smoothed by a spring so neighbours swell and settle.
+  const DOCK_MAGNIFICATION = 1.85; // largest size, relative to the resting size
+  const DOCK_RANGE = 3.2;          // falloff radius, in resting icon widths
+  const DOCK_SPRING = { stiffness: 1500, damping: 120 }; // per unit mass, critically-damped feel
+  const dockLabels = {
+    'open-finder': 'Finder', 'open-lunchpad': 'Launchpad', 'open-editor': 'Word',
+    'open-vscode': 'Visual Studio Code', 'open-email': 'Mail', 'open-safari': 'Safari',
+    'open-map': 'Plans', 'open-cal': 'Calculatrice', 'open-note': 'Notes',
+    'open-terminal': 'Terminal', 'open-parametres': 'Réglages Système'
+  };
+  dock.querySelectorAll('.icon').forEach(icon => {
+    const cls = [...icon.classList].find(c => dockLabels[c]);
+    icon.dataset.label = cls ? dockLabels[cls] : 'Corbeille';
+  });
+
+  const dockSizes = new Map();
+  let dockPointerX = null, dockFrame = 0, dockLastTime = 0;
+
+  function dockFrameStep(time) {
+    const dt = Math.min((time - dockLastTime) / 1000 || 1 / 60, 1 / 30);
+    dockLastTime = time;
+    const base = parseFloat(getComputedStyle(dock).getPropertyValue('--dock-icon'));
+    const max = base * DOCK_MAGNIFICATION;
+    const range = base * DOCK_RANGE;
+    let moving = false;
+
+    dock.querySelectorAll('.icon').forEach(icon => {
+      if (!icon.offsetParent) return;
+      const state = dockSizes.get(icon) || { size: base, velocity: 0 };
+      const rect = icon.getBoundingClientRect();
+      const distance = dockPointerX === null ? Infinity : Math.abs(dockPointerX - (rect.left + rect.width / 2));
+      const target = distance < range ? base + (max - base) * (1 + Math.cos(Math.PI * distance / range)) / 2 : base;
+
+      // Semi-implicit Euler in small sub-steps keeps the stiff spring stable
+      for (let t = 0; t < dt; t += 0.004) {
+        const step = Math.min(0.004, dt - t);
+        state.velocity += (DOCK_SPRING.stiffness * (target - state.size) - DOCK_SPRING.damping * state.velocity) * step;
+        state.size += state.velocity * step;
+      }
+
+      if (Math.abs(target - state.size) < 0.05 && Math.abs(state.velocity) < 0.05) {
+        state.size = target;
+        state.velocity = 0;
+      } else {
+        moving = true;
+      }
+      dockSizes.set(icon, state);
+      icon.style.width = state.size === base && dockPointerX === null ? '' : state.size + 'px';
+    });
+
+    if (moving) {
+      dockFrame = requestAnimationFrame(dockFrameStep);
+    } else {
+      dockFrame = 0;
+      if (dockPointerX === null) dockSizes.clear();
+    }
+  }
+
+  function runDockMagnification() {
+    if (dockFrame) return;
+    dockLastTime = performance.now();
+    dockFrame = requestAnimationFrame(dockFrameStep);
+  }
+
+  dock.addEventListener('pointermove', e => {
+    if (e.pointerType !== 'mouse' || document.body.classList.contains('reduce-motion') ||
+        matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    dockPointerX = e.clientX;
+    runDockMagnification();
+  });
+  dock.addEventListener('pointerleave', () => {
+    dockPointerX = null;
+    runDockMagnification();
+  });
 
   // Custom dragging for all windows on desktop and mobile
   const wins = document.querySelectorAll('.window');
