@@ -1,0 +1,209 @@
+/* Adapt the desktop to its available space, without scaling down the content.
+   Loaded after the app themes so these layout rules share one set of breakpoints. */
+:root {
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+  --safe-left: env(safe-area-inset-left, 0px);
+  --safe-right: env(safe-area-inset-right, 0px);
+}
+body { height: 100dvh; }
+.dock { box-sizing: border-box; max-width: calc(100% - 24px - var(--safe-left) - var(--safe-right)); }
+.dock .icon:focus-visible { outline: 2px solid #8cc5ff; outline-offset: 2px; border-radius: 10px; }
+.dock .icon img.hidden { display: block; }
+
+/* Faithful preview rendered from the original PDF, with a link to the file.
+   The document colours never inherit the dark UI. */
+.cv-pdf-viewer { display: flex; flex-direction: column; min-height: 100%; background: #323234; }
+.cv-pdf-viewer .cv-browser-toolbar { flex-shrink: 0; flex-wrap: wrap; gap: 4px 16px; padding: 8px 16px; font-size: 13px; }
+.cv-pdf-actions { display: flex; flex-wrap: wrap; gap: 4px 16px; }
+.cv-pdf-actions a { min-height: 36px; font-size: 13px; }
+.cv-pdf-preview { display: block; width: min(100%, 900px); margin: 0 auto; background: white; }
+.cv-pdf-preview img { display: block; width: 100%; height: auto; }
+
+/* Remove complete buttons, not just their images (which left empty slots). */
+@media (max-width: 900px) {
+  .dock { --dock-icon: 48px; bottom: max(12px, var(--safe-bottom)); height: 64px; padding: 4px 8px 9px; }
+  .dock :is(.open-map, .open-cal, .open-terminal, .dock-trash, .column, .dock-minimized) { display: none !important; }
+  .dock .icon { width: var(--dock-icon) !important; }
+  .dock .icon::after { display: none; }
+}
+@media (max-width: 600px) {
+  .dock :is(.open-editor, .open-parametres) { display: none !important; }
+}
+
+.word-mobile-tools, .safari-tab-short { display: none; }
+
+/* Compact windows have a stable frame and independently scrolling content.
+   The same mode applies to a phone rotated to landscape. */
+@media (max-width: 760px), (max-height: 500px) and (pointer: coarse) {
+  :root { --menu-height: calc(44px + var(--safe-top)); --dock-space: calc(84px + var(--safe-bottom)); }
+  .navbar.mac-menubar {
+    box-sizing: border-box; height: var(--menu-height); padding: var(--safe-top) max(6px, var(--safe-right)) 0 max(6px, var(--safe-left));
+  }
+  .menubar-left, .menubar-right { min-width: 0; }
+  .menubar-left { flex: 1; }
+  .menubar-button { min-height: 44px; }
+  .menubar-button.current-app { min-width: 0; max-width: 150px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 12px; }
+  .menubar-left > :is([data-system-menu=file], [data-system-menu=edit], [data-system-menu=view], [data-system-menu=window], [data-system-menu=help]),
+  .menubar-right > :is([data-system-menu=battery], [data-system-menu=wifi]), .menubar-clock #date { display: none; }
+  .menubar-clock { white-space: nowrap; }
+  .system-popover { top: var(--menu-height) !important; max-width: calc(100vw - 16px); max-height: calc(100dvh - var(--menu-height) - 12px); overflow: auto; box-sizing: border-box; }
+  .system-popover .menu-item { min-height: 44px; }
+  .spotlight-panel { top: calc(var(--menu-height) + 12px); width: calc(100% - 24px); box-sizing: border-box; }
+  #spotlight-results { max-height: calc(100dvh - var(--menu-height) - 100px); }
+  #spotlight-results > button { min-height: 44px; }
+
+  body .window {
+    box-sizing: border-box; position: fixed !important;
+    left: calc(var(--safe-left) + 8px) !important; top: calc(var(--menu-height) + 8px) !important;
+    width: calc(100% - var(--safe-left) - var(--safe-right) - 16px) !important;
+    min-width: 0 !important; max-width: none !important;
+    height: calc(100dvh - var(--menu-height) - var(--dock-space) - 8px) !important;
+    min-height: 0 !important; max-height: none !important; margin: 0 !important;
+  }
+  .window .resize-handle { display: none; }
+  .window > .window__taskbar { touch-action: auto; cursor: default; padding-inline: 8px; }
+  .window .window__taskbar--content { position: static; transform: none; flex: 1; min-width: 0; overflow: hidden; text-align: center; }
+  .window .window__taskbar--content h2 { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  /* Keep the familiar lights, with separate 36px touch targets. Fullscreen is
+     redundant here: the window already fills the available area. */
+  .window .window__taskbar--actions { position: static; transform: none; flex: 0 0 80px; width: 80px; min-width: 80px; height: 44px; gap: 4px !important; }
+  .window .window__taskbar--actions button,
+  .window .window__taskbar--actions button:hover,
+  .window .window__taskbar--actions button:focus {
+    width: 36px !important; min-width: 36px !important; max-width: 36px !important; height: 44px !important;
+    border: 0 !important; box-shadow: none !important; border-radius: 6px !important;
+  }
+  .window .window__taskbar--actions button:nth-child(1) { border: 0 !important; background: radial-gradient(circle, #ff5f57 0 6px, transparent 6.5px) !important; }
+  .window .window__taskbar--actions button:nth-child(2) { border: 0 !important; background: radial-gradient(circle, #febc2e 0 6px, transparent 6.5px) !important; }
+  .window .window__taskbar--actions button:nth-child(3) { display: none !important; }
+  .window .window__taskbar--actions button::before { display: none !important; }
+  .window :is(input:not([type=range]):not([type=checkbox]):not([type=color]), textarea, select),
+  .spotlight-panel input, .launchpad .searchbox input { font-size: 16px !important; }
+  .native-tool { min-width: 36px; min-height: 36px; }
+
+  .dock, body.has-fullscreen .dock {
+    --dock-icon: 48px; height: 64px; bottom: calc(10px + var(--safe-bottom)); padding: 4px 8px 9px;
+    transform: translateX(-50%); pointer-events: auto; z-index: 100010;
+  }
+  .dock .icon { width: var(--dock-icon) !important; }
+  .dock :is(.open-map, .open-cal, .open-terminal, .dock-trash, .column, .dock-minimized) { display: none !important; }
+  body.has-fullscreen .dock-hotzone { display: none; }
+  .dock .icon::after { display: none; }
+  body > .launchpad { padding: calc(var(--safe-top) + 16px) max(12px, var(--safe-right)) var(--dock-space) max(12px, var(--safe-left)); }
+  .launchpad .Apps-container { width: 100%; margin-top: 16px; }
+  .launchpad .child-launchpad { min-width: 0; }
+  .launchpad .child-launchpad strong { text-align: center; line-height: 1.35; }
+
+  /* Settings: replace the narrow permanent sidebar with a horizontal section nav. */
+  .settings-layout { flex-direction: column; min-height: 0; }
+  .settings-sidebar { flex: 0 0 auto; width: auto; padding: 6px; border-right: 0; }
+  .settings-sidebar > :is(.settings-account, .native-search) { display: none; }
+  .settings-navigation { display: flex; gap: 4px; overflow-x: auto; }
+  .parametres .settings-navigation > button { width: auto; flex: 0 0 auto; min-height: 44px; font-size: 13px; padding: 6px 10px; gap: 6px; white-space: nowrap; }
+  .settings-main { min-width: 0; min-height: 0; flex: 1; padding: 20px 16px; }
+  .settings-introduction { padding: 16px; }
+  .settings-introduction :is(p, h3), .settings-description { font-size: 14px; line-height: 1.7; }
+  .setting-app-row > span { font-size: 14px; }
+  .setting-app-row small { font-size: 12px; line-height: 1.45; }
+  .setting-row { font-size: 13px; min-height: 48px; overflow-wrap: anywhere; }
+  .settings-footnote { font-size: 12px; }
+
+  /* Finder: projects get the full width. One tap opens their document. */
+  .finder-navigation, .finder-preview, .finder-title-tools > .native-tool { display: none !important; }
+  .finder-title-tools { margin-left: 0; gap: 4px; }
+  .finder-title-tools h2 { font-size: 13px; }
+  .finder-title-tools .native-search { flex: 1; max-width: 160px; width: 80px; height: 36px; }
+  .finder-view-control .native-tool { min-width: 32px; }
+  .finder .file-grid { grid-template-columns: repeat(auto-fill, minmax(125px, 1fr)); gap: 12px 8px; padding: 16px 10px; }
+  .finder .file-card > span { font-size: 13px; }
+  .finder .file-card > small { font-size: 11px; }
+  .finder-footer { padding-inline: 10px; }
+
+  /* Word: keep readable paper and an optional editing ribbon. */
+  .word-window > .window__taskbar { height: 48px; min-height: 48px; }
+  .word-content { height: calc(100% - 48px); }
+  .word-quick-actions { margin-left: 0; }
+  .word-mobile-tools { display: inline-flex; flex-shrink: 0; padding: 0 8px; font-size: 13px; }
+  .word-content { min-height: 0; }
+  .word-navigation, .word-ruler { display: none; }
+  .word-tabs { min-height: 44px; padding-inline: 4px; overflow-x: auto; flex-shrink: 0; }
+  .word-tabs > button { height: 44px; flex-shrink: 0; font-size: 12px; }
+  .word-ribbon { display: none; }
+  .word-window.show-mobile-ribbon .word-ribbon { display: flex; max-height: 110px; }
+  .word-canvas { padding: 12px 8px 24px; }
+  .word-window .editor-area { --page-margin: 20px; font-size: 15px; padding-top: 28px; overflow-wrap: anywhere; }
+  .word-window .editor-area .document-lead { font-size: 19px; }
+  .word-window .editor-area h1 { font-size: 32px; }
+  .word-window .editor-area .project-facts { grid-template-columns: 1fr; font-size: 13px; }
+  .project-gallery-pair { grid-template-columns: 1fr; }
+  .project-figure figcaption, .document-byline, .document-endnote { font-size: 12px; }
+  .word-status { font-size: 11px; }
+
+  /* Mail: full-width composing, with a clearly labelled send action. */
+  .email .mail-titlebar > h2 { position: static; transform: none; flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; margin: 0 6px; font-size: 13px; }
+  .mail-titlebar > .native-search, #mail-reply, #mail-compose { display: none; }
+  .email .mail-toolbar { margin: 0 0 0 auto; flex-shrink: 0; gap: 4px; }
+  .email .email-send-button { height: 44px; font-size: 12px !important; padding: 0 8px; }
+  .mail-layout { flex-direction: column; min-height: 0; }
+  .mail-reading { min-height: 0; }
+  #contact-form { min-height: 380px; padding: 0 16px; }
+  .mail-field { min-height: 48px; font-size: 13px; }
+  .mail-field > span { width: 44px; }
+  #contact-form > footer { font-size: 12px; }
+  .mail-letter { font-size: 15px; }
+
+  /* Notes: keep the two useful sections as tabs above a full-width reader. */
+  .window.note .window__taskbar { min-height: 48px; height: 48px; box-sizing: border-box; }
+  .note .window__taskbar--right { display: none; }
+  .note .content { min-height: 0; flex-direction: column; }
+  .note .content__sidebar { display: none; }
+  .note .content__list { width: 100%; flex: 0 0 auto; }
+  .notes-list-header, .note-item-preview { display: none; }
+  .notes-items-list { display: flex; gap: 6px; padding: 6px 8px; }
+  .notes-items-list > li { flex: 1; margin: 0; padding: 12px 8px; text-align: center; }
+  .note-item-title { font-size: 13px; margin: 0; }
+  .Parent__content--typing { min-height: 0; min-width: 0; }
+  .note-editor { padding: 24px 20px; overflow-wrap: anywhere; }
+  .note-body { font-size: 15px; line-height: 1.7; }
+  .note-body h1 { font-size: 28px; }
+  .note-body :is(p, li) { font-size: 15px; }
+
+  .safari-native-toolbar > #safari-sidebar-toggle, .safari-native-toolbar > #safari-share { display: none; }
+  .safari-native-sidebar { display: none !important; }
+  .safari > .safari-native-toolbar { gap: 2px !important; padding-inline: 6px !important; }
+  .safari-native-toolbar > .native-tool { width: 32px; min-width: 32px; height: 40px; }
+  .safari-native-toolbar > .window__taskbar--actions { margin-right: 0; }
+  .safari-address > .sf-icon { display: none; }
+  .safari-address input { width: 100%; }
+  .safari .safari-native-tabs { height: 44px; padding: 3px 4px 0; }
+  .safari-tab-long { display: none; }
+  .safari-tab-short { display: inline; }
+  .safari .safari-native-tabs > button { min-height: 40px; font-size: 12px; gap: 4px; }
+  .safari-native-body { height: calc(100% - 96px); }
+  .cv-pdf-viewer .cv-browser-toolbar { padding: 8px 12px; }
+  .cv-pdf-actions a { min-height: 44px; }
+  .safari-start { padding: 28px 20px; }
+
+  /* Code stays code-sized; horizontal scrolling is confined to the editor. */
+  .vscode-sidebar { display: none; }
+  .vscode-code { font-size: 13px; }
+  .vscode-tabs { height: 44px; min-height: 44px; }
+  .vscode-tabs button { font-size: 12px; }
+  .vscode-breadcrumb { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .vscode-activity { width: 40px; }
+  .vscode-activity button { width: 39px; min-height: 44px; }
+  .vscode-status { gap: 10px; }
+  .terminal .terminal_content { font-size: 13px; }
+}
+@media (max-width: 360px) {
+  .finder-title-tools h2 { display: none; }
+  .menubar-button.current-app { max-width: 110px; }
+  .safari-native-tabs img { display: none; }
+}
+
+@media (min-width: 761px) and (max-width: 1000px) {
+  .note .content__sidebar { display: none; }
+  .note .content__list { width: 180px; flex-shrink: 0; }
+  .note-editor { padding: 28px; }
+}

@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
     preview.innerHTML = `<img class="preview-folder" src="icon/apple/${project.folder}.png" alt=""><h3>${project.name}</h3><span class="preview-kind">Dossier de projet</span><section><h4>Informations</h4><dl><div><dt>Catégorie</dt><dd>${project.category}</dd></div><div><dt>Auteur</dt><dd>Noa Giannone</dd></div><div><dt>Contenu</dt><dd>Présentation du projet</dd></div></dl></section><p>${project.summary}</p><button type="button" class="native-button" id="finder-open">Ouvrir dans Word</button><small class="preview-hint">Double-cliquez sur un dossier pour l’ouvrir.</small>`;
     preview.querySelector('#finder-open').addEventListener('click', () => P.openDocument(project.id));
   }
-  grid.addEventListener('click', event => { const card = event.target.closest('[data-project]'); if (card) selectProject(projects.find(p => p.id === card.dataset.project)); });
+  grid.addEventListener('click', event => { const card = event.target.closest('[data-project]'); if (card) { selectProject(projects.find(p => p.id === card.dataset.project)); if (matchMedia('(max-width: 760px), (pointer: coarse)').matches) P.openDocument(card.dataset.project); } });
   grid.addEventListener('dblclick', event => { const card = event.target.closest('[data-project]'); if (card) P.openDocument(card.dataset.project); });
   grid.addEventListener('keydown', event => {
     if (event.key === 'Enter') { event.preventDefault(); P.openDocument(event.target.closest('[data-project]')?.dataset.project || selected.id); }
@@ -130,6 +130,22 @@ document.addEventListener('DOMContentLoaded', () => {
       const input=document.createElement('input'); input.type='file'; input.accept='image/*'; input.addEventListener('change', () => { const file=input.files[0]; if (!file || !file.type.startsWith('image/')) return; const reader=new FileReader(); reader.onload=()=>command('insertImage', reader.result); reader.readAsDataURL(file); }); input.click();
     }
   });
+  // Editing tools are optional on phones, leaving the document room to breathe.
+  const ribbonToggle = document.createElement('button');
+  ribbonToggle.type = 'button';
+  ribbonToggle.className = 'word-mobile-tools native-tool';
+  ribbonToggle.textContent = 'Outils';
+  ribbonToggle.setAttribute('aria-controls', 'word-ribbon');
+  ribbonToggle.setAttribute('aria-expanded', 'false');
+  document.querySelector('.word-window > .window__taskbar').append(ribbonToggle);
+  ribbonToggle.addEventListener('click', () => {
+    const open = document.querySelector('.word-window').classList.toggle('show-mobile-ribbon');
+    ribbonToggle.setAttribute('aria-expanded', String(open));
+  });
+  document.querySelectorAll('[data-ribbon]').forEach(tab => tab.addEventListener('click', () => {
+    document.querySelector('.word-window').classList.add('show-mobile-ribbon');
+    ribbonToggle.setAttribute('aria-expanded', 'true');
+  }));
   renderRibbon('home');
   document.getElementById('word-open').addEventListener('click', () => P.open('finder'));
   document.getElementById('word-save').addEventListener('click', () => {

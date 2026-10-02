@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 
   <!-- ios support -->
   <link rel="apple-touch-icon" href="./icon/manifest/192x192.png" />
@@ -70,6 +70,7 @@
 <link rel="stylesheet" href="Css/macos-dark.css?v=3">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Courier+Prime&family=Poppins:wght@300;400;500;600&family=Staatliches&display=swap">
 <link rel="stylesheet" href="Css/safari-blog.css">
+<link rel="stylesheet" href="Css/responsive.css">
   <!-- CSS pour l'écran de chargement macOS : dans le head pour qu'il soit stylé dès la première image -->
   <style>
     /* Écran de chargement macOS authentique */
@@ -318,7 +319,7 @@
 
     <!--Dock start-->
 
-    <div class="dock">
+    <div class="dock" role="navigation" aria-label="Applications">
 
       <!-- Email App Icon -->
       <button class="icon open-finder">
@@ -368,7 +369,7 @@
         <img src="./icon/dock/preferences.png" alt="Preferences Logo" />
       </button>
       <hr class="column" />
-      <button class="icon">
+      <button class="icon dock-trash">
         <img src="./icon/dock/bin.png" alt="Trash Bin Logo" class="hidden Trash" />
       </button>
     </div>
@@ -523,7 +524,7 @@
       <div id="win-safari" class="window safari" data-app-name="Safari">
         <div class="window__taskbar safari-native-toolbar"><div class="window__taskbar--actions"><button class="close-safari" aria-label="Fermer"></button><button class="backfull-safari" aria-label="Réduire"></button><button class="full-safari" aria-label="Agrandir"></button></div>
         <button type="button" class="native-tool" title="Afficher ou masquer la barre latérale" aria-label="Afficher ou masquer la barre latérale" id="safari-sidebar-toggle" aria-expanded="false"><img class="sf-icon" src="icon/apple/sidebar.left.png" alt="" aria-hidden="true"></button><button type="button" class="native-tool safari-back" title="Page précédente" aria-label="Page précédente" id="safari-back"><img class="sf-icon" src="icon/apple/chevron.left.png" alt="" aria-hidden="true"></button><button type="button" class="native-tool" title="Page suivante" aria-label="Page suivante" id="safari-forward"><img class="sf-icon" src="icon/apple/chevron.right.png" alt="" aria-hidden="true"></button><label class="safari-address"><img class="sf-icon" src="icon/apple/lock.shield.png" alt="" aria-hidden="true"><input id="safari-address" aria-label="Adresse ou recherche dans le portfolio" value="noagiannone.fr/mon-histoire"><button type="button" class="native-tool" id="safari-refresh" title="Actualiser" aria-label="Actualiser"><img class="sf-icon" src="icon/apple/arrow.clockwise.png" alt="" aria-hidden="true"></button></label><button type="button" class="native-tool" title="Copier le lien de cette page" aria-label="Copier le lien de cette page" id="safari-share"><img class="sf-icon" src="icon/apple/square.and.arrow.up.png" alt="" aria-hidden="true"></button></div>
-        <div class="safari-native-tabs" role="tablist" aria-label="Onglets Safari"><button role="tab" data-safari-page="home" aria-selected="false"><img src="icon/Launchpad/safari.png" alt="">Page de démarrage</button><button role="tab" data-safari-page="histoire" aria-selected="true"><img src="images/profile-noa.jpeg" alt="">Noa — En quelques mots</button><button role="tab" data-safari-page="cv" aria-selected="false"><img src="icon/apple/doc.text.png" alt="">Curriculum vitæ</button></div>
+        <div class="safari-native-tabs" role="tablist" aria-label="Onglets Safari"><button role="tab" data-safari-page="home" aria-selected="false"><img src="icon/Launchpad/safari.png" alt=""><span class="safari-tab-long">Page de démarrage</span><span class="safari-tab-short">Accueil</span></button><button role="tab" data-safari-page="histoire" aria-selected="true"><img src="images/profile-noa.jpeg" alt=""><span class="safari-tab-long">Noa — En quelques mots</span><span class="safari-tab-short">Mon histoire</span></button><button role="tab" data-safari-page="cv" aria-selected="false"><img src="icon/apple/doc.text.png" alt=""><span class="safari-tab-long">Curriculum vitæ</span><span class="safari-tab-short">Mon CV</span></button></div>
         <div class="safari-native-body"><aside class="safari-native-sidebar" hidden><h3>Favoris</h3><button data-safari-page="histoire">Mon histoire</button><button data-safari-page="cv">Mon CV</button><button data-safari-page="home">Page de démarrage</button><hr><h3>Mes réalisations</h3><a href="https://lafetecestnous.com/" target="_blank" rel="noopener noreferrer">La Fête c’est Nous ↗</a><a href="https://www.conciergerielavoisine.fr/" target="_blank" rel="noopener noreferrer">Lavoisine ↗</a><a href="https://fornap.fr/" target="_blank" rel="noopener noreferrer">FORNAP ↗</a></aside>
         <main class="safari-native-page" id="safari-page-content"></main></div>
       </div>

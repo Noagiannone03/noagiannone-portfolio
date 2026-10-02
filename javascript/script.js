@@ -63,6 +63,8 @@ document.addEventListener('DOMContentLoaded', function () {
   // global z-index tracker
   let zTop = 20;
   const minimizedWindows = new Set();
+  // Keep in sync with the compact-window media query in responsive.css.
+  const compactDesktop = matchMedia('(max-width: 760px), (max-height: 500px) and (pointer: coarse)');
   /********** ELEMENTS **********/
   const elements = {
     body: document.querySelector("body"),
@@ -338,7 +340,14 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   function minimizeWindow(win, dockIcon) {
-    if (win.classList.contains('is-fullscreen') || minimizedWindows.has(win) || win._genieRunning) return;
+    if ((win.classList.contains('is-fullscreen') && !compactDesktop.matches) || minimizedWindows.has(win) || win._genieRunning) return;
+    if (compactDesktop.matches || innerWidth <= 900) {
+      win._dockIcon = dockIcon;
+      minimizedWindows.add(win);
+      win.style.display = 'none';
+      document.dispatchEvent(new CustomEvent('portfolio:windowchange'));
+      return;
+    }
     win._genieRunning = true;
     win._dockIcon = dockIcon;
     const winRect = win.getBoundingClientRect();
@@ -385,6 +394,7 @@ document.addEventListener('DOMContentLoaded', function () {
     thumb.className = 'icon dock-minimized';
     thumb.dataset.label = (titleEl && titleEl.textContent.trim()) || dockIcon?.dataset.label || 'Fenêtre';
 
+    thumb.setAttribute('aria-label', 'Restaurer ' + thumb.dataset.label);
     const img = document.createElement('img');
     img.src = dockAppIconSrc(dockIcon);
     img.alt = '';
@@ -401,12 +411,12 @@ document.addEventListener('DOMContentLoaded', function () {
     if (win._genieRunning || !minimizedWindows.has(win)) return;
     minimizedWindows.delete(win);
     const startEl = win._dockThumb || dockIcon;
-    const targetRect = startEl.getBoundingClientRect();
+    const targetRect = startEl?.getBoundingClientRect();
     const thumb = win._dockThumb;
     win._dockThumb = null;
 
     // Hide before it is laid out again, so not a single frame of it shows before the genie
-    const animate = !prefersReducedMotion();
+    const animate = !prefersReducedMotion() && !compactDesktop.matches && targetRect?.width > 0;
     if (animate) setGenieHidden(win, true);
     win.style.display = win.dataset.display || 'block';
     document.dispatchEvent(new CustomEvent('portfolio:windowchange'));
@@ -441,6 +451,7 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   function handleFullScreen(win) {
+    if (compactDesktop.matches && !win.classList.contains('is-fullscreen')) return;
     const fsTransition = 'left 0.35s ease, top 0.35s ease, min-width 0.35s ease, max-width 0.35s ease, height 0.35s ease, border-radius 0.3s ease';
 
     if (win.classList.contains('is-fullscreen')) {
@@ -564,7 +575,7 @@ document.addEventListener('DOMContentLoaded', function () {
     if (appName) appName.style.display = "block";
     if (point) point.style.display = "block";
 
-    if (open.classList.contains('is-fullscreen')) return;
+    if (compactDesktop.matches || open.classList.contains('is-fullscreen')) return;
 
     // Positionner la fenêtre entre la barre de menus et le Dock, sans le chevaucher
     const bounds = desktopBounds();
@@ -974,6 +985,7 @@ document.addEventListener('DOMContentLoaded', function () {
   dock.querySelectorAll('.icon').forEach(icon => {
     const cls = [...icon.classList].find(c => dockLabels[c]);
     icon.dataset.label = cls ? dockLabels[cls] : 'Corbeille';
+    icon.setAttribute('aria-label', icon.dataset.label);
   });
 
   const dockSizes = new Map();
@@ -983,7 +995,9 @@ document.addEventListener('DOMContentLoaded', function () {
     const dt = Math.min((time - dockLastTime) / 1000 || 1 / 60, 1 / 30);
     dockLastTime = time;
     const base = parseFloat(getComputedStyle(dock).getPropertyValue('--dock-icon'));
-    const max = base * DOCK_MAGNIFICATION;
+    const restingWidth = [...dock.children].reduce((total, child) => total + (child.offsetParent ? (child.classList.contains('icon') ? base : child.offsetWidth + 8) : 0), 18);
+    const headroom = Math.max(0, innerWidth - 32 - restingWidth);
+    const max = base + Math.min(base * (DOCK_MAGNIFICATION - 1), headroom / DOCK_RANGE);
     const range = base * DOCK_RANGE;
     let moving = false;
 
@@ -1026,7 +1040,7 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   dock.addEventListener('pointermove', e => {
-    if (e.pointerType !== 'mouse' || document.body.classList.contains('reduce-motion') ||
+    if (innerWidth <= 1000 || e.pointerType !== 'mouse' || document.body.classList.contains('reduce-motion') ||
         matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     dockPointerX = e.clientX;
     runDockMagnification();
@@ -1034,6 +1048,29 @@ document.addEventListener('DOMContentLoaded', function () {
   dock.addEventListener('pointerleave', () => {
     dockPointerX = null;
     runDockMagnification();
+  });
+
+  // A desktop fullscreen layer must not cover subsequently opened mobile apps.
+  compactDesktop.addEventListener('change', event => {
+    if (event.matches) document.querySelectorAll('.window.is-fullscreen').forEach(handleFullScreen);
+  });
+
+  let layoutFrame;
+  window.addEventListener('resize', () => {
+    cancelAnimationFrame(layoutFrame);
+    layoutFrame = requestAnimationFrame(() => {
+      dockPointerX = null;
+      runDockMagnification();
+      if (compactDesktop.matches) return;
+      const bounds = desktopBounds();
+      document.querySelectorAll('.window').forEach(win => {
+        if (getComputedStyle(win).display === 'none' || win.classList.contains('is-fullscreen')) return;
+        const rect = win.getBoundingClientRect();
+        if (rect.height > bounds.bottom - bounds.top) win.style.height = (bounds.bottom - bounds.top) + 'px';
+        win.style.left = Math.max(8, Math.min(rect.left, innerWidth - win.offsetWidth - 8)) + 'px';
+        win.style.top = Math.max(bounds.top, Math.min(rect.top, bounds.bottom - win.offsetHeight)) + 'px';
+      });
+    });
   });
 
   // Custom dragging for all windows on desktop and mobile
@@ -1044,6 +1081,7 @@ document.addEventListener('DOMContentLoaded', function () {
     let drag = false, ox = 0, oy = 0;
 
     const start = e => {
+      if (compactDesktop.matches) return;
       // Prevent drag if we're clicking a button
       if (e.target.closest('button, input, select, textarea, label, a')) return;
 
